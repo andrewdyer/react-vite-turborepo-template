@@ -1,12 +1,12 @@
-import js from '@eslint/js';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import tseslint from 'typescript-eslint';
-import importPlugin from 'eslint-plugin-import';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
-import turbo from 'eslint-plugin-turbo';
+const js = require('@eslint/js');
+const eslintConfigPrettier = require('eslint-config-prettier');
+const tseslint = require('typescript-eslint');
+const importPlugin = require('eslint-plugin-import');
+const jsxA11y = require('eslint-plugin-jsx-a11y');
+const turbo = require('eslint-plugin-turbo');
 
 /** @type {import("eslint").Linter.Config[]} */
-export default [
+module.exports = [
   js.configs.recommended,
   eslintConfigPrettier,
   ...tseslint.configs.recommended,

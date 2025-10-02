@@ -1,11 +1,11 @@
-import base from './base.js';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import globals from 'globals';
+const base = require('./base.js');
+const react = require('eslint-plugin-react');
+const reactHooks = require('eslint-plugin-react-hooks');
+const reactRefresh = require('eslint-plugin-react-refresh');
+const globals = require('globals');
 
 /** @type {import("eslint").Linter.Config[]} */
-export default [
+module.exports = [
   ...base,
   {
     files: ['**/*.{ts,tsx}'],
