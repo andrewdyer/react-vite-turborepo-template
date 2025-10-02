@@ -1,0 +1,14 @@
+{
+  "name": "react-vite-turborepo-template",
+  "private": true,
+  "packageManager": "pnpm@10.17.1",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "preview": "turbo preview"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.8"
+  }
+}
