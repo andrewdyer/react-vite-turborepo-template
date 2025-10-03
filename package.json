@@ -5,14 +5,25 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
-    "format": "prettier --write .",
+    "format": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,md}'",
     "lint": "turbo lint",
     "preview": "turbo preview",
     "test": "turbo run test",
-    "test:coverage": "turbo run test -- --coverage"
+    "test:coverage": "turbo run test -- --coverage",
+    "prepare": "husky install"
   },
   "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^16.2.3",
     "prettier": "^3.6.2",
     "turbo": "^2.5.8"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,md}": [
+      "prettier --write"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
   }
 }
