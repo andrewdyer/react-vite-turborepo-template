@@ -12,6 +12,11 @@ node_modules
 coverage
 dist
 dist-ssr
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+playwright/.auth/
 *.local
 
 # Editor directories and files
