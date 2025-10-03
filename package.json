@@ -10,6 +10,7 @@
     "preview": "turbo preview",
     "test": "turbo run test",
     "test:coverage": "turbo run test -- --coverage",
+    "e2e": "turbo run e2e",
     "prepare": "husky install"
   },
   "devDependencies": {
