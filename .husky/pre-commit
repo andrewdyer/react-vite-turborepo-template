@@ -2,4 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 echo "🎯 Running lint-staged..."
-pnpm lint-staged
+pnpm --filter web exec lint-staged
+pnpm --filter web-e2e exec lint-staged
