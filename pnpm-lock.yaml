@@ -168,6 +168,9 @@ importers:
       eslint:
         specifier: ^9.36.0
         version: 9.36.0
+      lint-staged:
+        specifier: ^16.2.3
+        version: 16.2.3
       react:
         specifier: ^19.1.1
         version: 19.2.0
