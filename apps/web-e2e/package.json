@@ -18,7 +18,11 @@
     "typescript": "~5.9.3"
   },
   "lint-staged": {
-  "src/**/*.{ts,tsx,js,jsx}": ["eslint --fix"],
-  "src/**/*.{json,css,md}": ["prettier --write --ignore-unknown"]
-}
+    "src/**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix"
+    ],
+    "src/**/*.{json,css,md}": [
+      "prettier --write --ignore-unknown"
+    ]
+  }
 }
