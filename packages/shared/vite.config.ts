@@ -10,6 +10,7 @@ export default defineConfig({
       insertTypesEntry: true,
       outDir: 'dist/types',
       entryRoot: 'src',
+      tsconfigPath: './tsconfig.lib.json',
     }),
   ],
   build: {
@@ -32,6 +33,9 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: 'src/setupTests.ts',
     include: ['src/**/*.{test,spec}.{js,ts,jsx,tsx}'],
+    typecheck: {
+      tsconfig: './tsconfig.test.json',
+    },
     coverage: {
       all: true,
       provider: 'v8',
