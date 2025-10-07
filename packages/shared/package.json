@@ -19,22 +19,32 @@
   ],
   "scripts": {
     "build": "vite build",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "vitest --run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^24.6.0",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react-swc": "^4.1.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
     "eslint": "^9.36.0",
+    "jsdom": "^27.0.0",
     "lint-staged": "^16.2.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "typescript": "~5.9.3",
     "vite": "^7.1.7",
-    "vite-plugin-dts": "^4.5.4"
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "react": "^19.0.0",
