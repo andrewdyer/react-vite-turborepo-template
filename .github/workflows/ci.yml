@@ -45,7 +45,7 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: pnpm --filter '*-e2e' exec playwright install --with-deps
 
       - name: Run E2E tests
         run: pnpm turbo run e2e
