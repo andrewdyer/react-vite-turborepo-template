@@ -14,7 +14,6 @@ Thank you for your interest in contributing! We welcome improvements and suggest
 8. [Coding Standards](#coding-standards)
 9. [Issue Reporting](#issue-reporting)
 10. [Commit Guidelines](#commit-guidelines)
-11. [Submitting Changes](#submitting-changes)
 
 ## Code of Conduct
 
@@ -113,9 +112,7 @@ Before creating an issue, please complete these steps, including:
 
 ## Commit Guidelines
 
-Use clear, descriptive commit messages following the [Conventional Commits](https://www.conventionalcommits.org/) format. Add emojis to quickly convey the type of change if desired, following [Git Commit Emoji](https://dev.andrewdyer.rocks/git-commit-emoji) conventions.
-
-## Submitting Changes
+When contributing changes, it's important to follow clear commit practices that help maintain project history and make collaboration easier. Use descriptive commit messages following the [Conventional Commits](https://www.conventionalcommits.org/) format, and feel free to add emojis to quickly convey the type of change using [Git Commit Emoji](https://dev.andrewdyer.rocks/git-commit-emoji) conventions.
 
 Once you've made your changes, follow these steps to submit them for review:
 
