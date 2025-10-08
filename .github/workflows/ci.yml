@@ -39,7 +39,7 @@ jobs:
         run: pnpm turbo run test
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: pnpm exec playwright install --with-deps
 
       - name: Run E2E tests
         run: pnpm turbo run e2e
