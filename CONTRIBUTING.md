@@ -13,7 +13,8 @@ Thank you for your interest in contributing! We welcome improvements and suggest
 7. [Commit Guidelines](#commit-guidelines)
 8. [Testing](#testing)
 9. [Building](#building)
-10. [Submitting Changes](#submitting-changes)
+10. [Issue Reporting](#issue-reporting)
+11. [Submitting Changes](#submitting-changes)
 
 ## Code of Conduct
 
@@ -97,6 +98,22 @@ Use the following commands as needed to build and preview the project:
 
 - Build all projects in the monorepo with `pnpm build`.
 - Preview the production build locally with `pnpm preview`.
+
+## Issue Reporting
+
+We welcome bug reports, feature requests, and questions about the project. To ensure we can help you effectively, please use the appropriate issue template when creating a new issue, including:
+
+- **🐛 Bug Report**: Report issues or unexpected behavior
+- **✨ Feature Request**: Suggest new features or improvements
+- **❓ Question**: Ask for help or clarification
+
+Before creating an issue, please complete these steps, including:
+
+- **Search existing issues** to avoid duplicates
+- **Check the documentation** and README for answers to common questions
+- **Use GitHub Discussions** for general questions and community support
+
+> 💡 **Tip:** When you create a new issue, GitHub will automatically show you the available templates. Choose the one that best fits your situation for a guided experience.
 
 ## Submitting Changes
 
