@@ -34,5 +34,6 @@ export default defineConfig({
     command: 'pnpm --filter web preview',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000,
   },
 });
