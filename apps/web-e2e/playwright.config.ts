@@ -31,7 +31,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'pnpm --filter web dev',
+    command: 'pnpm --filter web preview',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
   },
