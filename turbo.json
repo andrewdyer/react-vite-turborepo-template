@@ -20,8 +20,8 @@
       "outputs": ["coverage/**"]
     },
     "e2e": {
-      "dependsOn": ["^e2e"],
-      "outputs": ["playwright-report/**"]
+      "dependsOn": ["^preview"],
+      "outputs": []
     }
   }
 }
