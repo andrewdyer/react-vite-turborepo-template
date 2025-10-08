@@ -38,6 +38,12 @@ jobs:
       - name: Run unit tests
         run: pnpm turbo run test
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
+
       - name: Install Playwright browsers
         run: pnpm dlx playwright install --with-deps
 
