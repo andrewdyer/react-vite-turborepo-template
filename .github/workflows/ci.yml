@@ -9,8 +9,8 @@ on:
 jobs:
   build-and-test:
     name: Build, Unit Tests & E2E
-    timeout-minutes: 60
     runs-on: ubuntu-latest
+    timeout-minutes: 60
 
     steps:
       - name: Checkout code
@@ -23,7 +23,7 @@ jobs:
         with:
           version: latest
 
-      - name: Setup Node.js environment
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -37,6 +37,12 @@ jobs:
 
       - name: Run unit tests
         run: pnpm turbo run test
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps
