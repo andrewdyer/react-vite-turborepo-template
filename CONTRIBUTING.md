@@ -9,11 +9,11 @@ Thank you for your interest in contributing! We welcome improvements and suggest
 3. [Development Setup](#development-setup)
 4. [Turborepo Tasks](#turborepo-tasks)
 5. [Upgrading Dependencies](#upgrading-dependencies)
-6. [Coding Standards](#coding-standards)
-7. [Commit Guidelines](#commit-guidelines)
-8. [Testing](#testing)
-9. [Building](#building)
-10. [Issue Reporting](#issue-reporting)
+6. [Testing](#testing)
+7. [Building](#building)
+8. [Coding Standards](#coding-standards)
+9. [Issue Reporting](#issue-reporting)
+10. [Commit Guidelines](#commit-guidelines)
 11. [Submitting Changes](#submitting-changes)
 
 ## Code of Conduct
@@ -63,17 +63,6 @@ Keeping dependencies up-to-date is crucial for maintaining the security and perf
 
 > 💡 **Tip:** If you only need to update or test a specific workspace, use the `--filter <workspace>` flag with any command.
 
-## Coding Standards
-
-To maintain code quality and consistency, please follow these guidelines:
-
-- Format code using Prettier with `pnpm format`.
-- Lint code using ESLint with `pnpm lint`.
-
-## Commit Guidelines
-
-Use clear, descriptive commit messages following the [Conventional Commits](https://www.conventionalcommits.org/) format. Add emojis to quickly convey the type of change if desired, following [Git Commit Emoji](https://dev.andrewdyer.rocks/git-commit-emoji) conventions.
-
 ## Testing
 
 Please write tests for any new features or modifications to the project. Follow these steps to ensure your tests are effective and consistent:
@@ -99,6 +88,13 @@ Use the following commands as needed to build and preview the project:
 - Build all projects in the monorepo with `pnpm build`.
 - Preview the production build locally with `pnpm preview`.
 
+## Coding Standards
+
+To maintain code quality and consistency, please follow these guidelines:
+
+- Format code using Prettier with `pnpm format`.
+- Lint code using ESLint with `pnpm lint`.
+
 ## Issue Reporting
 
 We welcome bug reports, feature requests, and questions about the project. To ensure we can help you effectively, please use the appropriate issue template when creating a new issue, including:
@@ -114,6 +110,10 @@ Before creating an issue, please complete these steps, including:
 - **Use GitHub Discussions** for general questions and community support
 
 > 💡 **Tip:** When you create a new issue, GitHub will automatically show you the available templates. Choose the one that best fits your situation for a guided experience.
+
+## Commit Guidelines
+
+Use clear, descriptive commit messages following the [Conventional Commits](https://www.conventionalcommits.org/) format. Add emojis to quickly convey the type of change if desired, following [Git Commit Emoji](https://dev.andrewdyer.rocks/git-commit-emoji) conventions.
 
 ## Submitting Changes
 
