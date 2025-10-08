@@ -12,6 +12,14 @@ Licensed under the [MIT license](https://opensource.org/licenses/MIT) and is fre
 
 This template provides a scalable, modular foundation for **medium to large frontend projects**. It’s built to support multiple applications and shared packages within a unified monorepo, promoting consistent tooling, efficient builds, and smooth collaboration across teams. Its modular architecture also makes it well-suited for micro frontend development, where multiple independently deployable apps can coexist in a single codebase. It provides a solid starting point to help you hit the ground running and save valuable time when starting a new project.
 
+## 📋 Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+- **[Node.js](https://nodejs.org/)**: Version 22.20 or higher is required (as specified in [.nvmrc](.nvmrc)).
+- **[pnpm](https://pnpm.io/)**: Dependency management tool for Node.js.
+- **[Docker](https://www.docker.com/)** (optional): For containerizing the application.
+
 ## 🧩 Workspace
 
 The monorepo follows a clear structure with dedicated apps for frontend applications and packages for shared libraries and configurations.
