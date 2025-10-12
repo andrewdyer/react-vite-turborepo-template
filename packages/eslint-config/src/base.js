@@ -36,7 +36,7 @@ module.exports = [
             },
             {
               pattern: '@/**',
-              group: 'internal', 
+              group: 'internal',
               position: 'after',
             },
           ],
