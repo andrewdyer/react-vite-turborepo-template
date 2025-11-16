@@ -19,6 +19,6 @@
   "devDependencies": {
     "husky": "^8.0.3",
     "prettier": "^3.6.2",
-    "turbo": "^2.5.8"
+    "turbo": "^2.6.1"
   }
 }
