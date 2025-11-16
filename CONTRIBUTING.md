@@ -54,13 +54,16 @@ To add or extend shared tasks:
 
 Keeping dependencies up-to-date is crucial for maintaining the security and performance of the project. Follow these steps to upgrade dependencies:
 
-1. Check for outdated dependencies with `pnpm outdated`.
-2. Update dependencies using `pnpm update` or add a specific version with `pnpm add <package-name>@latest`.
+1. Check for outdated dependencies:
+   - Run `pnpm outdated` to see outdated dependencies in the current workspace.
+   - Run `pnpm -r outdated` to check outdated dependencies across all workspaces.
+2. Update dependencies:
+   - Update all dependencies in every workspace with `pnpm -r update`.
+   - Update a specific package in all workspaces with `pnpm -r add <package-name>@latest`.
+   - Update dependencies in a single workspace using `pnpm --filter <workspace> update` or `pnpm --filter <workspace> add <package-name>@latest`.
 3. Rebuild all packages with `pnpm build` and run tests with `pnpm test` to ensure compatibility.
 4. Update the lockfile with `pnpm install` if needed.
 5. Commit your changes with a clear message and open a pull request for review.
-
-> 💡 **Tip:** If you only need to update or test a specific workspace, use the `--filter <workspace>` flag with any command.
 
 ## Testing
 
