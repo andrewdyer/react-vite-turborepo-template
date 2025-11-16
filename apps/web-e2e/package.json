@@ -9,12 +9,12 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@playwright/test": "^1.55.1",
+    "@playwright/test": "^1.56.1",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^24.6.0",
-    "eslint": "^9.36.0",
-    "lint-staged": "^16.2.3",
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "lint-staged": "^16.2.6",
     "typescript": "~5.9.3"
   },
   "lint-staged": {
