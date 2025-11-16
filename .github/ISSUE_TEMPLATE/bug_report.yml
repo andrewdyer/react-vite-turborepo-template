@@ -48,12 +48,16 @@ body:
     validations:
       required: true
 
-  - type: input
+  - type: textarea
     id: environment
     attributes:
       label: "Environment details"
       description: "Include relevant environment information."
-      placeholder: "OS, runtime version, browser (if applicable), and any other relevant environment details."
+      placeholder: |
+        OS: 
+        Runtime version: 
+        Browser (if applicable): 
+        Other relevant environment details:
     validations:
       required: true
 
