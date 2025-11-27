@@ -28,6 +28,10 @@ module.exports = [
             ['parent', 'sibling', 'index'],
           ],
           'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
           pathGroups: [
             {
               pattern: '@repo/**',
@@ -41,6 +45,15 @@ module.exports = [
             },
           ],
           pathGroupsExcludedImportTypes: ['builtin'],
+        },
+      ],
+      'sort-imports': [
+        'warn',
+        {
+          ignoreDeclarationSort: true,
+          ignoreMemberSort: false,
+          ignoreCase: true,
+          allowSeparatedGroups: true,
         },
       ],
     },

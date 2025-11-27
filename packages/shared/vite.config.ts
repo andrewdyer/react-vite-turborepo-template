@@ -1,8 +1,8 @@
 /// <reference types="vitest" />
 import path from 'path';
 
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
