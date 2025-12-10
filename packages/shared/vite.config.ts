@@ -29,7 +29,6 @@ export default defineConfig({
       external: ['react', 'react-dom'],
     },
   },
-  resolve: {},
   test: {
     globals: true,
     environment: 'jsdom',
