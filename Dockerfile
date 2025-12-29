@@ -65,7 +65,7 @@ FROM nginx:alpine AS runtime
 COPY --from=build /app/apps/web/dist /usr/share/nginx/html
 
 # Copy the custom Nginx server configuration for SPA routing
-COPY --from=build /app/apps/web/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80 for HTTP traffic
 EXPOSE 80
