@@ -48,14 +48,14 @@ A modern React application built with Vite and TypeScript, providing a fast deve
 
 - [SWC (Speedy Web Compiler)](https://swc.rs/) for faster builds and development.
 - [Vitest](https://vitest.dev/) for unit and component testing, along with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for testing React components, [Vitest UI](https://vitest.dev/guide/ui.html), and [V8 coverage reports](https://vitest.dev/guide/coverage.html).
-- [lint-staged](https://github.com/lint-staged/lint-staged) for pre-commit checks to maintain code quality.
+- Pre-commit checks with [lint-staged](https://github.com/lint-staged/lint-staged) to maintain code quality.
 
 ### 🎭 [apps/web-e2e](./apps/web-e2e/README.md)
 
 A comprehensive end-to-end testing suite built with Playwright and TypeScript, ensuring reliable cross-browser testing for the web application. Key features include:
 
 - [Playwright](https://playwright.dev/) for cross-browser end-to-end testing with automated CI/CD support.
-- [lint-staged](https://github.com/lint-staged/lint-staged) for pre-commit checks to maintain code quality.
+- Pre-commit checks with [lint-staged](https://github.com/lint-staged/lint-staged) to maintain code quality.
 - Direct integration with the main web app for seamless testing workflows.
 
 ### 📦 [packages/shared](./packages/shared/README.md)
@@ -63,9 +63,9 @@ A comprehensive end-to-end testing suite built with Playwright and TypeScript, e
 A shared React component library built with Vite and TypeScript, providing reusable components and utilities across the monorepo. Key features include:
 
 - [SWC (Speedy Web Compiler)](https://swc.rs/) for faster builds and development.
-- [vite-plugin-dts](https://github.com/qmhc/vite-plugin-dts) for automatic TypeScript declaration generation.
+- TypeScript declaration generation with [vite-plugin-dts](https://github.com/qmhc/vite-plugin-dts).
 - [Vitest](https://vitest.dev/) for unit testing, along with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for testing React components, [Vitest UI](https://vitest.dev/guide/ui.html), [jsdom](https://github.com/jsdom/jsdom) environment, and [coverage reports](https://vitest.dev/guide/coverage.html).
-- [lint-staged](https://github.com/lint-staged/lint-staged) for pre-commit checks to maintain code quality.
+- Pre-commit checks with [lint-staged](https://github.com/lint-staged/lint-staged) to maintain code quality.
 
 ## 🧰 Tooling
 
