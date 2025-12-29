@@ -49,7 +49,6 @@ A modern React application built with Vite and TypeScript, providing a fast deve
 - [SWC (Speedy Web Compiler)](https://swc.rs/) for faster builds and development.
 - [Vitest](https://vitest.dev/) for unit and component testing, along with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for testing React components, [Vitest UI](https://vitest.dev/guide/ui.html), and [V8 coverage reports](https://vitest.dev/guide/coverage.html).
 - [lint-staged](https://github.com/lint-staged/lint-staged) for pre-commit checks to maintain code quality.
-- [Docker](https://www.docker.com/) support for containerizing the application.
 
 ### 🎭 [apps/web-e2e](./apps/web-e2e/README.md)
 
@@ -75,6 +74,7 @@ Essential development tools configured at the root for consistency and automatio
 - [Turborepo](https://turbo.build/repo) for managing builds, caching, and running tasks in parallel across the monorepo.
 - [Husky](https://typicode.github.io/husky) for Git hooks to enforce pre-commit checks and automate quality controls.
 - [Prettier](https://prettier.io/) for maintaining consistent code formatting across the entire codebase.
+- [Docker](https://www.docker.com/) and [Buildx Bake](https://docs.docker.com/build/bake/) for containerizing apps via a shared root Dockerfile and Nginx config.
 - [GitHub Actions](https://github.com/features/actions) CI (Continuous Integration) workflow that runs on pushes to main and pull requests, executing builds, unit tests, and end-to-end tests with Playwright across all workspaces.
 
 Together, these tools create a fast, reliable, and maintainable developer experience across every workspace.
