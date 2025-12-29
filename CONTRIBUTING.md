@@ -97,6 +97,8 @@ This repository includes a single, parameterized Dockerfile capable of building 
 
 To build an app, run `docker build --build-arg APP_NAME=<workspace> -t <workspace>:local .` from the repository root, where `<workspace>` matches the name of a folder under `apps/`.
 
+Alternatively, you can use `docker buildx bake` to run builds from a declarative plan defined in `docker-bake.hcl`. This is useful for defining per-workspace build targets with shared defaults such as build arguments, tags, and caching. For example, running `docker buildx bake <workspace>` will build the image for the specified app.
+
 Once built, start the container with `docker run --name <workspace>-app -p 8080:80 -d <workspace>:local`, which maps port 8080 on your machine to port 80 inside the container.
 
 > 💡 **Tip:** The Dockerfile uses `turbo prune` to minimize the build context before installing and building dependencies, resulting in faster builds and smaller images.
