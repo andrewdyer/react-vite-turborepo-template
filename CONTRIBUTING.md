@@ -4,16 +4,17 @@ Thank you for your interest in contributing! We welcome improvements and suggest
 
 ## Table of Contents
 
-1. [Code of Conduct](#code-of-conduct)
-2. [Repository Overview](#repository-overview)
-3. [Development Setup](#development-setup)
-4. [Turborepo Tasks](#turborepo-tasks)
-5. [Upgrading Dependencies](#upgrading-dependencies)
-6. [Testing](#testing)
-7. [Building](#building)
-8. [Coding Standards](#coding-standards)
-9. [Issue Reporting](#issue-reporting)
-10. [Commit Guidelines](#commit-guidelines)
+- [Code of Conduct](#code-of-conduct)
+- [Repository Overview](#repository-overview)
+- [Development Setup](#development-setup)
+- [Turborepo Tasks](#turborepo-tasks)
+- [Upgrading Dependencies](#upgrading-dependencies)
+- [Testing](#testing)
+- [Building](#building)
+- [Docker](#docker)
+- [Coding Standards](#coding-standards)
+- [Issue Reporting](#issue-reporting)
+- [Commit Guidelines](#commit-guidelines)
 
 ## Code of Conduct
 
@@ -89,6 +90,16 @@ Use the following commands as needed to build and preview the project:
 
 - Build all projects in the monorepo with `pnpm build`.
 - Preview the production build locally with `pnpm preview`.
+
+## Docker
+
+This repository includes a single, parameterized Dockerfile capable of building any web application located under `apps/*`. It is intended for HTTP-based applications that can be served from a container runtime.
+
+To build an app, run `docker build --build-arg APP_NAME=<workspace> -t <workspace>:local .` from the repository root, where `<workspace>` matches the name of a folder under `apps/`.
+
+Once built, start the container with `docker run --name <workspace>-app -p 8080:80 -d <workspace>:local`, which maps port 8080 on your machine to port 80 inside the container.
+
+> 💡 **Tip:** The Dockerfile uses `turbo prune` to minimize the build context before installing and building dependencies, resulting in faster builds and smaller images.
 
 ## Coding Standards
 
