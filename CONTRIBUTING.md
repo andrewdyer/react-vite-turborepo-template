@@ -76,7 +76,7 @@ When the base template is updated (dependency changes, linting updates, or confi
 3. Review what changed with `git diff` to verify only intended template updates were introduced.
 4. Commit all template changes together as a single atomic commit, following the [Commit Guidelines](#commit-guidelines) below.
 5. Run `pnpm install` to apply the updated files, then `pnpm build` and `pnpm test` to confirm the project still builds and passes.
-6. Merge into `main` with `git merge chore/sync-template-vX.Y.Z --no-ff` and push.
+6. Submit the sync branch using the standard pull request workflow in [Commit Guidelines](#commit-guidelines).
 
 > 💡 **Tip:** Record the synced version in `CHANGELOG.md` (e.g. `### Synced from react-vite-turborepo-template@vX.Y.Z`) so there's a dated history of which template version the project was aligned with at each sync.
 
