@@ -69,7 +69,7 @@ ARG APP_NAME
 COPY --from=build /app/apps/${APP_NAME}/dist /usr/share/nginx/html
 
 # Copy the custom Nginx server configuration for SPA routing
-COPY /nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80 for HTTP traffic
 EXPOSE 80
