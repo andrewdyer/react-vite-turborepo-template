@@ -20,9 +20,6 @@ RUN npm install -g turbo
 # =============================
 FROM base AS prune
 
-# Set the working directory
-WORKDIR /app
-
 # Name of the app to prune
 ARG APP_NAME
 
@@ -38,9 +35,6 @@ RUN turbo prune --scope=${APP_NAME} --docker
 # Installs deps and builds the selected app for production
 # =============================
 FROM base AS build
-
-# Set the working directory
-WORKDIR /app
 
 # Copy pruned package.json files
 COPY --from=prune /app/out/json/ ./
