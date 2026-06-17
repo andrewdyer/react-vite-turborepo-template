@@ -72,13 +72,11 @@ Keeping dependencies up-to-date is crucial for maintaining the security and perf
 When the base template is updated (dependency changes, linting updates, or config improvements), sync those changes into projects generated from it. Follow these steps:
 
 1. Create a sync branch: `git checkout -b chore/sync-template-vX.Y.Z`, replacing `vX.Y.Z` with the template tag you're syncing from.
-2. Apply the updated template files to the project, using whichever method best fits the scope of the change:
-   - `git cherry-pick` for porting specific commits from the template.
-   - `git apply`/`git diff` for applying a patch.
-   - A manual file copy for small, isolated changes.
-3. Commit all template changes together as a single atomic commit, following the [Commit Guidelines](#commit-guidelines) below.
-4. Run `pnpm install` to apply the updated files, then `pnpm build` and `pnpm test` to confirm the project still builds and passes.
-5. Merge into `main` with `git merge chore/sync-template-vX.Y.Z --no-ff` and push.
+2. Copy the updated files from [react-vite-turborepo-template](https://github.com/andrewdyer/react-vite-turborepo-template) into your project, then resolve any project-specific differences manually.
+3. Review what changed with `git diff` to verify only intended template updates were introduced.
+4. Commit all template changes together as a single atomic commit, following the [Commit Guidelines](#commit-guidelines) below.
+5. Run `pnpm install` to apply the updated files, then `pnpm build` and `pnpm test` to confirm the project still builds and passes.
+6. Merge into `main` with `git merge chore/sync-template-vX.Y.Z --no-ff` and push.
 
 > 💡 **Tip:** Record the synced version in `CHANGELOG.md` (e.g. `### Synced from react-vite-turborepo-template@vX.Y.Z`) so there's a dated history of which template version the project was aligned with at each sync.
 
