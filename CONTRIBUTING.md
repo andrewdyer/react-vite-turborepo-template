@@ -9,6 +9,7 @@ Thank you for your interest in contributing! We welcome improvements and suggest
 - [Development Setup](#development-setup)
 - [Turborepo Tasks](#turborepo-tasks)
 - [Upgrading Dependencies](#upgrading-dependencies)
+- [Template Syncing](#template-syncing)
 - [Testing](#testing)
 - [Building](#building)
 - [Docker](#docker)
@@ -47,9 +48,9 @@ Turborepo tasks are defined in `turbo.json` at the root of the repository. Each 
 To add or extend shared tasks:
 
 - Define the task configuration in `turbo.json`.
-- Add or update the corresponding script in each relevant workspace’s `package.json`.
+- Add or update the corresponding script in each relevant workspace's `package.json`.
 
-> 💡 **Tip:** Turborepo’s dependency graph ensures that changes in one workspace only trigger necessary rebuilds and tests in dependent workspaces, streamlining both local development and CI pipelines.
+> 💡 **Tip:** Turborepo's dependency graph ensures that changes in one workspace only trigger necessary rebuilds and tests in dependent workspaces, streamlining both local development and CI pipelines.
 
 ## Upgrading Dependencies
 
@@ -65,6 +66,19 @@ Keeping dependencies up-to-date is crucial for maintaining the security and perf
 3. Rebuild all packages with `pnpm build` and run tests with `pnpm test` to ensure compatibility.
 4. Update the lockfile with `pnpm install` if needed.
 5. Commit your changes with a clear message and open a pull request for review.
+
+## Template Syncing
+
+When the base template is updated (dependency changes, linting updates, or config improvements), sync those changes into projects generated from it. Follow these steps:
+
+1. Create a sync branch: `git checkout -b chore/sync-template-vX.Y.Z`, replacing `vX.Y.Z` with the template tag you're syncing from.
+2. Apply the updated template files to the project, using whichever method best fits the scope of the change:
+   - `git cherry-pick` for porting specific commits from the template.
+   - `git apply`/`git diff` for applying a patch.
+   - A manual file copy for small, isolated changes.
+3. Commit all template changes together as a single atomic commit, following the [Commit Guidelines](#commit-guidelines) below.
+4. Run `pnpm install` to apply the updated files, then `pnpm build` and `pnpm test` to confirm the project still builds and passes.
+5. Merge into `main` with `git merge chore/sync-template-vX.Y.Z --no-ff` and push.
 
 ## Testing
 
