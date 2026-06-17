@@ -42,11 +42,12 @@ COPY --from=prune /app/out/json/ ./
 # Copy pruned pnpm lockfile
 COPY --from=prune /app/out/pnpm-lock.yaml ./
 
+# Install dependencies before copying full source, so this layer stays
+# cached on rebuilds where only app code changes, not package.json/lockfile
+RUN pnpm install --frozen-lockfile
+
 # Copy pruned full source code
 COPY --from=prune /app/out/full/ ./
-
-# Install only the necessary dependencies
-RUN pnpm install --frozen-lockfile
 
 # Name of the app to build
 ARG APP_NAME
