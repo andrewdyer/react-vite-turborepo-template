@@ -27,7 +27,7 @@ ARG APP_NAME
 COPY . .
 
 # Prune the repo for the selected app
-RUN turbo prune --scope=${APP_NAME} --docker
+RUN turbo prune ${APP_NAME} --docker
 
 
 # =============================
