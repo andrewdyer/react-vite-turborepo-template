@@ -74,7 +74,7 @@ Essential development tools configured at the root for consistency and automatio
 - [Turborepo](https://turbo.build/repo) for managing builds, caching, and running tasks in parallel across the monorepo.
 - [Husky](https://typicode.github.io/husky) for Git hooks to enforce pre-commit checks and automate quality controls.
 - [Prettier](https://prettier.io/) for maintaining consistent code formatting across the entire codebase.
-- [Docker](https://www.docker.com/) and [Buildx Bake](https://docs.docker.com/build/bake/) for containerizing apps via a shared root Dockerfile and Nginx config.
+- [Docker](https://www.docker.com/) for containerising apps via a shared root Dockerfile and Nginx config.
 - [GitHub Actions](https://github.com/features/actions) CI (Continuous Integration) workflow that runs on pushes to main and pull requests, executing builds, unit tests, and end-to-end tests with Playwright across all workspaces.
 
 Together, these tools create a fast, reliable, and maintainable developer experience across every workspace.
