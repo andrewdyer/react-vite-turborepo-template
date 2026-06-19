@@ -43,7 +43,7 @@ The scope should reflect the affected workspace. Use the folder name under `apps
 - `feat(web): add dashboard route`
 - `fix(shared): correct Button focus styles`
 - `chore(eslint-config): update rule set`
-- `docs(ui): update component usage examples`
+- `docs(shared): update component usage examples`
 
 Omit the scope only when the change genuinely spans the entire repository, such as root-level config or tooling updates.
 

@@ -157,7 +157,7 @@ Common types and how they affect versioning:
 - `chore`, `docs`, `refactor`, `test`, `ci`: no version bump
 - `feat!` or any type with `BREAKING CHANGE:` in the footer — triggers a major version bump
 
-The scope should reflect the affected workspace, for example `feat(ui): add Button component` or `fix(web): correct routing fallback`. Omit the scope for changes that span the whole repo.
+The scope should reflect the affected workspace, for example `feat(shared): add Button component` or `fix(web): correct routing fallback`. Omit the scope for changes that span the whole repo.
 
 Once you've made your changes, follow these steps to submit them for review:
 
