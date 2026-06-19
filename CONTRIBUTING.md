@@ -35,7 +35,7 @@ You can also target a specific workspace when needed using the `--filter <worksp
 To get started with contributing, set up the project by following these steps:
 
 1. Begin by cloning the repository and navigating to its directory.
-2. Ensure you have the correct Node.js version installed (check package.json for the required version).
+2. Install and use the Node.js version from `.nvmrc` with `nvm install && nvm use`.
 3. Install all project dependencies with `pnpm install`.
 4. Build all packages to ensure shared dependencies are available with `pnpm build`.
 5. Start the development server using `pnpm dev` to begin working on the project.
