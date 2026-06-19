@@ -16,6 +16,7 @@ Thank you for your interest in contributing! We welcome improvements and suggest
 - [Coding Standards](#coding-standards)
 - [Issue Reporting](#issue-reporting)
 - [Commit Guidelines](#commit-guidelines)
+- [Releasing](#releasing)
 
 ## Code of Conduct
 
@@ -140,11 +141,58 @@ Before creating an issue, please complete these steps, including:
 
 ## Commit Guidelines
 
-When contributing changes, it's important to follow clear commit practices that help maintain project history and make collaboration easier. Use descriptive commit messages following the [Conventional Commits](https://www.conventionalcommits.org/) format, and feel free to add emojis to quickly convey the type of change using [Git Commit Emoji](https://dev.andrewdyer.rocks/git-commit-emoji) conventions.
+When contributing changes, use descriptive commit messages following the [Conventional Commits](https://www.conventionalcommits.org/) format. This is not just a style convention — commit messages directly drive the automated release process described in [Releasing](#releasing), so getting them right matters.
+
+The format is:
+
+```
+<type>(<scope>): <description>
+```
+
+Common types and how they affect versioning:
+
+- `feat`: a new feature — triggers a minor version bump
+- `fix`: a bug fix — triggers a patch version bump
+- `deps`: dependency updates — can trigger a patch release when treated as releasable by Release Please
+- `chore`, `docs`, `refactor`, `test`, `ci`: no version bump
+- `feat!` or any type with `BREAKING CHANGE:` in the footer — triggers a major version bump
+
+The scope should reflect the affected workspace, for example `feat(shared): add Button component` or `fix(web): correct routing fallback`. Omit the scope for changes that span the whole repo.
 
 Once you've made your changes, follow these steps to submit them for review:
 
 1. Create a feature branch with `git checkout -b feature/your-feature-name`.
-2. Commit your changes following the commit guidelines.
+2. Commit your changes following the commit guidelines above.
 3. Push your branch with `git push origin feature/your-feature-name`.
 4. Open a pull request with a title and description that clearly explain your changes.
+
+> 💡 **Tip:** Pull request titles follow the same Conventional Commits format, as they become the squash merge commit message that Release Please reads when determining what to release and at what version.
+
+## Releasing
+
+This repository uses [Release Please](https://github.com/googleapis/release-please) to automate versioning and changelog generation through release pull requests. Contributors do not need to create release pull requests manually, but should understand how the process works when preparing changes.
+
+Release behaviour is driven entirely by [Conventional Commits](https://www.conventionalcommits.org/), as described in [Commit Guidelines](#commit-guidelines).
+
+The release process works as follows:
+
+1. A pull request is merged into main using a Conventional Commits-compatible title.
+2. Release Please analyses unreleased changes and determines the appropriate version bump for configured release packages.
+3. Release Please opens (or updates) a release pull request containing:
+   - Updated package versions
+   - Generated changelog entries
+   - Release metadata
+4. Review and merge the release pull request when you are ready to cut the next release.
+5. After merge, GitHub release metadata and tags are managed by Release Please.
+
+Version bumps are determined from commit types:
+
+| Commit Type                               | Version Bump          |
+| ----------------------------------------- | --------------------- |
+| `fix`                                     | Patch (1.0.0 → 1.0.1) |
+| `feat`                                    | Minor (1.0.0 → 1.1.0) |
+| `deps`                                    | Patch (1.0.0 → 1.0.1) |
+| `feat!` or `BREAKING CHANGE:`             | Major (1.0.0 → 2.0.0) |
+| `docs`, `test`, `chore`, `ci`, `refactor` | No release            |
+
+> 💡 **Tip:** Release pull requests are intentionally reviewed and merged separately from feature work. This provides an opportunity to verify the generated changelog and version numbers before finalizing a release.
