@@ -40,10 +40,10 @@ For breaking changes, append `!` to the type (e.g. `feat!`) and include a `BREAK
 
 The scope should reflect the affected workspace. Use the folder name under `apps/` or `packages/`:
 
-- `feat(web): add dashboard route`
-- `fix(shared): correct Button focus styles`
-- `chore(eslint-config): update rule set`
-- `docs(shared): update component usage examples`
+- `feat(<workspace>): add new feature`
+- `fix(<workspace>): correct bug or issue`
+- `chore(<workspace>): update configuration or tooling`
+- `docs(<workspace>): update documentation`
 
 Omit the scope only when the change genuinely spans the entire repository, such as root-level config or tooling updates.
 
