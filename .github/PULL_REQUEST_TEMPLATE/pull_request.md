@@ -5,9 +5,9 @@
 ## Type of Change
 
 <!-- Select the commit type that applies. For specialized templates with more guidance, use the query parameter on PR creation:
-- Feature: ?template=feature
-- Bug fix: ?template=bugfix
-- Dependencies: ?template=deps
+- Feature: ?template=feature.md
+- Bug fix: ?template=bugfix.md
+- Dependencies: ?template=deps.md
 -->
 
 - [ ] `feat` — new feature (minor version bump)
