@@ -16,9 +16,18 @@ This template provides a scalable, modular foundation for **medium to large fron
 
 Before you begin, ensure you have met the following requirements:
 
-- **[Node.js](https://nodejs.org/)**: Version 22.20 or higher is required (as specified in [.nvmrc](.nvmrc)).
+### Required
+
+- **[Node.js](https://nodejs.org/)**: JavaScript runtime environment.
 - **[pnpm](https://pnpm.io/)**: Dependency management tool for Node.js.
-- **[Docker](https://www.docker.com/)** (optional): For containerizing the application.
+
+### Recommended
+
+- **[nvm](https://github.com/nvm-sh/nvm)**: Node.js version manager used to install the version defined in `.nvmrc`.
+
+### Optional
+
+- **[Docker](https://www.docker.com/)**: Used for containerized builds and testing.
 
 ## 🧩 Workspace
 
@@ -82,3 +91,13 @@ Together, these tools create a fast, reliable, and maintainable developer experi
 ## 🚀 Getting Started
 
 If you like what you've seen so far and think this setup fits your needs, you can quickly get started by clicking the **Use this template** button at the top of the repository on GitHub.
+
+After creating your project from this template, run:
+
+```bash
+nvm install
+nvm use
+pnpm install
+pnpm build
+pnpm dev
+```
