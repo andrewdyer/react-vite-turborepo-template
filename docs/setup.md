@@ -15,7 +15,7 @@ The release workflow requires GitHub Actions to have write access to the reposit
 3. Tick **Allow GitHub Actions to create and approve pull requests**
 4. Click **Save**
 
-> **Note:** For repositories within a GitHub Organisation, the same settings must also be enabled at the organisation level under **Organisation Settings → Actions → General**. Organisation-level settings take precedence over repository-level settings.
+> **Note:** For repositories within a GitHub Organization, the same settings must also be enabled at the organization level under **Organization Settings → Actions → General**. Organization-level settings take precedence over repository-level settings.
 
 ### Personal Access Token
 
@@ -48,4 +48,4 @@ Push a commit to `main` and check the **Actions** tab. The Release workflow shou
 If the workflow fails with a permissions error, the most likely causes are:
 
 - The repository secret name does not exactly match `RELEASE_PLEASE_TOKEN`
-- An organisation-level permissions setting is overriding the repository-level configuration
+- An organization-level permissions setting is overriding the repository-level configuration
