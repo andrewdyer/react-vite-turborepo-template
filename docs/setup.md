@@ -39,8 +39,6 @@ The release workflow uses a Personal Access Token (PAT) to authenticate as the a
 4. Paste the token value
 5. Click **Add secret**
 
-The release workflow is configured to use this secret and requires no further changes.
-
 ### Confirming the Release Workflow
 
 Push a commit to `main` and check the **Actions** tab. The Release workflow should complete successfully and, if the commit contains a version-bumping type (`feat`, `fix`, `perf`, or a breaking change), create a version bump pull request within a few seconds.
@@ -48,4 +46,4 @@ Push a commit to `main` and check the **Actions** tab. The Release workflow shou
 If the workflow fails with a permissions error, the most likely causes are:
 
 - The repository secret name does not exactly match `RELEASE_PLEASE_TOKEN`
-- An organization-level permissions setting is overriding the repository-level configuration
+- A token scope or token owner permission does not permit pull request creation
