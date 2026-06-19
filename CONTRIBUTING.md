@@ -20,7 +20,7 @@ Thank you for your interest in contributing! We welcome improvements and suggest
 
 ## Code of Conduct
 
-Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) in all interactions. Respectful and inclusive behavior is expected from all contributors.
+Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) in all interactions. Respectful and inclusive behaviour is expected from all contributors.
 
 ## Repository Overview
 
@@ -88,7 +88,7 @@ Please write tests for any new features or modifications to the project. Follow 
 - Run all tests across the monorepo with `pnpm test`.
 - Execute end-to-end tests with `pnpm e2e`.
 
-For consistency and modularity, organize test code into structured sections:
+For consistency and modularity, organise test code into structured sections:
 
 - Start by mocking dependencies or libraries.
 - Create helper functions to streamline repetitive logic.
@@ -127,7 +127,7 @@ To maintain code quality and consistency, please follow these guidelines:
 
 We welcome bug reports, feature requests, and questions about the project. To ensure we can help you effectively, please use the appropriate issue template when creating a new issue, including:
 
-- **🐛 Bug Report**: Report issues or unexpected behavior
+- **🐛 Bug Report**: Report issues or unexpected behaviour
 - **✨ Feature Request**: Suggest new features or improvements
 - **❓ Question**: Ask for help or clarification
 
@@ -195,4 +195,4 @@ Version bumps are determined from commit types:
 | `feat!` or `BREAKING CHANGE:`             | Major (1.0.0 → 2.0.0) |
 | `docs`, `test`, `chore`, `ci`, `refactor` | No release            |
 
-> 💡 **Tip:** Release pull requests are intentionally reviewed and merged separately from feature work. This provides an opportunity to verify the generated changelog and version numbers before finalizing a release.
+> 💡 **Tip:** Release pull requests are intentionally reviewed and merged separately from feature work. This provides an opportunity to verify the generated changelog and version numbers before finalising a release.
