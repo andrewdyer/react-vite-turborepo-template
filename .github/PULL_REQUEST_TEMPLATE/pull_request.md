@@ -18,8 +18,7 @@
 
 ## Checklist
 
-- [ ] PR title follows Conventional Commits format: `<type>(<scope>): <description>`
-  - Scope should be a workspace name from `apps/` or `packages/` (or omit for repo-wide changes)
+- [ ] PR title follows Conventional Commits format: `<type>(<scope>): <description>` where scope is a workspace name from `apps/` or `packages/` (or omit for repo-wide changes)
 - [ ] Description is a single paragraph suitable for squash-merge commit body
 - [ ] Code has been formatted with `pnpm format`
 - [ ] Code has been linted with `pnpm lint`

@@ -11,7 +11,7 @@
 
 ## Checklist
 
-- [ ] PR title follows `deps: <description>` format (no scope for dependency updates)
+- [ ] PR title follows `deps(<workspace>): <description>` format for workspace-specific updates, or `deps: <description>` for repo-wide dependency updates
 - [ ] Description explains the reason for updates and any compatibility concerns in a single paragraph
 - [ ] `pnpm install` has been run to update lockfile
 - [ ] Code has been formatted with `pnpm format`

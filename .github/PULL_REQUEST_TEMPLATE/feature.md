@@ -8,7 +8,7 @@
 
 ## Checklist
 
-- [ ] PR title follows `feat(<scope>): <description>` format where scope is a workspace name from `apps/` or `packages/`
+- [ ] PR title follows `feat(<scope>): <description>` format where scope is a workspace name from `apps/` or `packages/` (omit scope for repo-wide changes)
 - [ ] Description explains the motivation and value of the feature in a single paragraph
 - [ ] Code has been formatted with `pnpm format`
 - [ ] Code has been linted with `pnpm lint`
