@@ -91,13 +91,3 @@ Together, these tools create a fast, reliable, and maintainable developer experi
 ## 🚀 Getting Started
 
 If you like what you've seen so far and think this setup fits your needs, you can quickly get started by clicking the **Use this template** button at the top of the repository on GitHub.
-
-After creating your project from this template, run:
-
-```bash
-nvm install
-nvm use
-pnpm install
-pnpm build
-pnpm dev
-```
