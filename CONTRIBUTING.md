@@ -153,6 +153,7 @@ Common types and how they affect versioning:
 
 - `feat`: a new feature — triggers a minor version bump
 - `fix`: a bug fix — triggers a patch version bump
+- `deps`: dependency updates — can trigger a patch release when treated as releasable by Release Please
 - `chore`, `docs`, `refactor`, `test`, `ci`: no version bump
 - `feat!` or any type with `BREAKING CHANGE:` in the footer — triggers a major version bump
 
