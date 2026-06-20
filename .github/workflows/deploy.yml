@@ -12,6 +12,11 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+
+    # To require manual approval before a deploy is executed, uncomment
+    # the line below. The environment must first be configured under
+    # Settings → Environments with a protection rule and required reviewers.
+    # environment: production  ← uncomment this line
     steps:
       - name: Checkout
         uses: actions/checkout@v4
