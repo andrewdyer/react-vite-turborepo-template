@@ -29,7 +29,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Rollback
+      - name: Rollback app
         run: |
-          echo "Rolling back ${{ github.event.inputs.app }} to v${{ github.event.inputs.version }}"
-          # Add rollback steps here
+          APP_NAME="${{ github.event.inputs.app }}"
+          VERSION="${{ github.event.inputs.version }}"
+          IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/${APP_NAME}"
+
+          echo "Rolling back $APP_NAME to $VERSION (image: $IMAGE)..."
+
+          # TODO: add your rollback logic here.
+          # At this point the following variables are available:
+          #   APP_NAME — the name of the app (e.g. "web")
+          #   VERSION  — the version to roll back to (e.g. "1.2.3")
+          #   IMAGE    — the Docker Hub image name (e.g. "web")
