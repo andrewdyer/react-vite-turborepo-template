@@ -1,0 +1,33 @@
+name: Deploy
+
+on:
+  repository_dispatch:
+    types:
+      - deploy
+
+run-name: '${{ github.event.client_payload.app }}@${{ github.event.client_payload.version }}'
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy app
+        run: |
+          APP_NAME="${{ github.event.client_payload.app }}"
+          VERSION="${{ github.event.client_payload.version }}"
+          IMAGE="ghcr.io/${{ github.repository_owner }}/${APP_NAME}"
+
+          echo "Deploying $APP_NAME@$VERSION (image: $IMAGE)..."
+
+          # TODO: add your deployment logic here.
+          # At this point the following variables are available:
+          #   APP_NAME — the name of the app (e.g. "web")
+          #   VERSION  — the released version (e.g. "1.2.3")
+          #   IMAGE    — the GHCR image name (e.g. "ghcr.io/andrewdyer/web")

@@ -1,0 +1,109 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - '*-v*'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://npm.pkg.github.com
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Resolve component, path and version from tag
+        id: tag
+        run: |
+          # Tags are formatted as <component>-v<version> by Release Please,
+          # e.g. "web-v1.2.3". Extract the component by stripping the trailing
+          # -v<version> segment, and the version by stripping the component prefix.
+          TAG="${GITHUB_REF_NAME}"
+          COMPONENT="${TAG%-v*}"
+          VERSION="${TAG##*-v}"
+
+          # Resolve the workspace path for this component by finding the
+          # manifest key whose path ends with the component name
+          PATH_PREFIX=$(jq -r --arg c "$COMPONENT" \
+            'to_entries[] | select(.key | endswith($c)) | .key' \
+            .github/.release-please-manifest.json)
+
+          echo "component=$COMPONENT" >> $GITHUB_OUTPUT
+          echo "path=$PATH_PREFIX" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Publish package to GitHub Packages
+        if: startsWith(steps.tag.outputs.path, 'packages/')
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: |
+          PATH_PREFIX="${{ steps.tag.outputs.path }}"
+
+          # Read the private field from the package's package.json —
+          # private packages are versioned by Release Please but not published
+          PRIVATE=$(node -e "console.log(require('./$PATH_PREFIX/package.json').private ?? false)")
+          if [[ "$PRIVATE" == "true" ]]; then
+            echo "Skipping $PATH_PREFIX (private)"
+          else
+            echo "Publishing $PATH_PREFIX..."
+            # --no-git-checks bypasses pnpm's clean working tree check,
+            # which fails here because Release Please has already committed
+            # the version bump ahead of this step
+            pnpm --filter "./$PATH_PREFIX" publish --no-git-checks --access public
+          fi
+
+      - name: Login to GitHub Container Registry
+        if: startsWith(steps.tag.outputs.path, 'apps/')
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Build and push Docker image
+        if: startsWith(steps.tag.outputs.path, 'apps/')
+        run: |
+          APP_NAME=$(basename "${{ steps.tag.outputs.path }}")
+          VERSION="${{ steps.tag.outputs.version }}"
+          IMAGE="ghcr.io/${{ github.repository_owner }}/${APP_NAME}"
+
+          # Build the Docker image using the shared Dockerfile, passing
+          # the app name as a build argument so it knows which app to
+          # build and serve. Tag with both the version and latest.
+          echo "Building and pushing $IMAGE:$VERSION..."
+          docker build \
+            --build-arg APP_NAME="$APP_NAME" \
+            -t "$IMAGE:$VERSION" \
+            -t "$IMAGE:latest" \
+            .
+
+          # Push both tags to Docker Hub
+          docker push "$IMAGE:$VERSION"
+          docker push "$IMAGE:latest"
+
+          # Fire a repository_dispatch event to trigger the Deploy workflow,
+          # passing the app name and version as payload
+          echo "Dispatching deploy event for $APP_NAME@$VERSION..."
+          curl -s -X POST \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${{ github.repository }}/dispatches \
+            -d "{\"event_type\":\"deploy\",\"client_payload\":{\"app\":\"$APP_NAME\",\"version\":\"$VERSION\"}}"
