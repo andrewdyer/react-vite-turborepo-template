@@ -12,6 +12,8 @@ on:
         required: true
         type: string
 
+run-name: '${{ github.event.inputs.app }}@${{ github.event.inputs.version }}'
+
 permissions:
   contents: read
 
@@ -19,12 +21,6 @@ jobs:
   rollback:
     name: Rollback
     runs-on: ubuntu-latest
-
-    # To require manual approval before a rollback is executed, uncomment
-    # the line below. The environment must first be configured under
-    # Settings → Environments with a protection rule and required reviewers.
-    # environment: production  ← uncomment this line
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,7 +29,7 @@ jobs:
         run: |
           APP_NAME="${{ github.event.inputs.app }}"
           VERSION="${{ github.event.inputs.version }}"
-          IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/${APP_NAME}"
+          IMAGE="ghcr.io/${{ github.repository_owner }}/${APP_NAME}"
 
           echo "Rolling back $APP_NAME to $VERSION (image: $IMAGE)..."
 
@@ -41,4 +37,4 @@ jobs:
           # At this point the following variables are available:
           #   APP_NAME — the name of the app (e.g. "web")
           #   VERSION  — the version to roll back to (e.g. "1.2.3")
-          #   IMAGE    — the Docker Hub image name (e.g. "web")
+          #   IMAGE    — the GHCR image name (e.g. "ghcr.io/andrewdyer/web")
