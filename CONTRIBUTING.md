@@ -79,8 +79,6 @@ When the base template is updated (dependency changes, linting updates, or confi
 5. Run `pnpm install` to apply the updated files, then `pnpm build` and `pnpm test` to confirm the project still builds and passes.
 6. Submit the sync branch using the standard pull request workflow in [Commit Guidelines](#commit-guidelines).
 
-> 💡 **Tip:** Record the synced version in `CHANGELOG.md` (e.g. `### Synced from react-vite-turborepo-template@vX.Y.Z`) so there's a dated history of which template version the project was aligned with at each sync.
-
 ## Testing
 
 Please write tests for any new features or modifications to the project. Follow these steps to ensure your tests are effective and consistent:
