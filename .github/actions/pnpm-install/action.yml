@@ -1,0 +1,25 @@
+name: 'pnpm install (with GitHub Packages auth)'
+description: 'Installs dependencies using pnpm with GitHub Packages authentication'
+
+inputs:
+  node-version:
+    required: false
+    default: '22.20'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: pnpm
+
+    - name: Install dependencies
+      shell: bash
+      env:
+        NODE_AUTH_TOKEN: ${{ github.token }}
+      run: pnpm install --frozen-lockfile
