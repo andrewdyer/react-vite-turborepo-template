@@ -43,8 +43,18 @@ COPY --from=prune /app/out/json/ ./
 COPY --from=prune /app/out/pnpm-lock.yaml ./
 
 # Install dependencies before copying full source, so this layer stays
-# cached on rebuilds where only app code changes, not package.json/lockfile
-RUN pnpm install --frozen-lockfile
+# cached on rebuilds where only app code changes, not package.json/lockfile.
+# If the npm_token build secret is provided, the auth token is appended to
+# .npmrc to authenticate against GitHub Packages during install. The .npmrc
+# is removed immediately after in the same RUN instruction so no credentials
+# are stored in the image. If no secret is provided, install proceeds without
+# authentication and only public packages are resolved.
+RUN --mount=type=secret,id=npm_token \
+    if [ -s /run/secrets/npm_token ]; then \
+    echo "//npm.pkg.github.com/:_authToken=$(cat /run/secrets/npm_token)" >> .npmrc; \
+    fi && \
+    pnpm install --frozen-lockfile && \
+    if [ -f .npmrc ]; then rm .npmrc; fi
 
 # Copy pruned full source code
 COPY --from=prune /app/out/full/ ./
