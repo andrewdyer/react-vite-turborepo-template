@@ -2,8 +2,7 @@ name: Deploy
 
 on:
   repository_dispatch:
-    types:
-      - deploy
+    types: [deploy]
 
 run-name: '${{ github.event.client_payload.app }}@${{ github.event.client_payload.version }}'
 
