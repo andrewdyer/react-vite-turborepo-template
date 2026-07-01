@@ -2,6 +2,8 @@ name: 'pnpm install'
 description: 'Installs dependencies using pnpm with optional GitHub Packages auth'
 
 inputs:
+  token:
+    required: true
   node-version:
     required: false
     default: '22.20.0'
@@ -10,9 +12,6 @@ inputs:
     default: ''
   scope:
     required: false
-    default: ''
-  token:
-    required: true
     default: ''
 
 runs:
