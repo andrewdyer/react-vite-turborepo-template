@@ -18,7 +18,7 @@ Before you begin, ensure you have met the following requirements:
 
 - **[Node.js](https://nodejs.org/)**: Version 22.20 or higher is required (as specified in [.nvmrc](.nvmrc)).
 - **[pnpm](https://pnpm.io/)**: Dependency management tool for Node.js.
-- **[Docker](https://www.docker.com/)** (optional): For containerizing the application.
+- **[Docker](https://www.docker.com/)** (optional): For containerising the application.
 
 ## Workspace
 
@@ -40,11 +40,11 @@ repo/
 └── pnpm-workspace.yaml        # PNPM workspace definition
 ```
 
-All applications and packages utilize shared [ESLint](./packages/eslint-config/README.md) and [TypeScript](./packages/typescript-config/README.md) configurations to ensure consistency across the monorepo, with each workspace designed for specific functionality and seamless integration:
+All applications and packages utilise shared [ESLint](./packages/eslint-config/README.md) and [TypeScript](./packages/typescript-config/README.md) configurations to ensure consistency across the monorepo, with each workspace designed for specific functionality and seamless integration:
 
 ### [apps/web](./apps/web/README.md)
 
-A modern React application built with Vite and TypeScript, providing a fast development experience and optimized production builds. Key features include:
+A modern React application built with Vite and TypeScript, providing a fast development experience and optimised production builds. Key features include:
 
 - [SWC (Speedy Web Compiler)](https://swc.rs/) for faster builds and development.
 - [Vitest](https://vitest.dev/) for unit and component testing, along with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for testing React components, [Vitest UI](https://vitest.dev/guide/ui.html), and [V8 coverage reports](https://vitest.dev/guide/coverage.html).
