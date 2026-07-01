@@ -26,45 +26,65 @@ jobs:
       - name: Resolve component, path and version from tag
         id: tag
         run: |
-          # Tags are formatted as <component>-v<version> by Release Please,
-          # for example "web-v1.2.3". Extract the component by stripping the
-          # trailing -v<version> segment, then extract the version.
+          # Tags are formatted as <component>-v<version>
+          # Example: web-v1.2.3
           TAG="${GITHUB_REF_NAME}"
+
+          # Extract component and version parts from the tag
           COMPONENT="${TAG%-v*}"
           VERSION="${TAG##*-v}"
 
-          # Resolve the workspace path by finding the manifest entry whose
-          # path ends with the component name.
-          PATH_PREFIX=$(jq -r --arg c "$COMPONENT" \
-            'to_entries[] | select(.key | endswith($c)) | .key' \
-            .github/.release-please-manifest.json)
+          # Find matching workspace path from Release Please manifest.
+          # We expect exactly ONE match; otherwise we fail fast.
+          MATCHES=$(jq -r --arg c "$COMPONENT" '
+            to_entries[]
+            | select(.key | endswith($c))
+            | .key
+          ' .github/.release-please-manifest.json)
+
+          # Count non-empty matches
+          COUNT=$(echo "$MATCHES" | sed '/^$/d' | wc -l | tr -d ' ')
+
+          if [[ "$COUNT" -eq 0 ]]; then
+            echo "❌ No manifest entry found for component: $COMPONENT"
+            exit 1
+          fi
+
+          if [[ "$COUNT" -gt 1 ]]; then
+            echo "❌ Multiple manifest entries found for component: $COMPONENT"
+            echo "$MATCHES"
+            exit 1
+          fi
+
+          PATH_PREFIX="$MATCHES"
 
           echo "component=$COMPONENT" >> "$GITHUB_OUTPUT"
           echo "path=$PATH_PREFIX" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Publish package to GitHub Packages
+        # Only run for workspace paths under packages/
         if: startsWith(steps.tag.outputs.path, 'packages/')
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
         run: |
           PATH_PREFIX="${{ steps.tag.outputs.path }}"
 
-          # Private packages are versioned by Release Please but are not
-          # published to GitHub Packages.
+          # Check whether package is marked private in its manifest.
           PRIVATE=$(node -p "require('./$PATH_PREFIX/package.json').private ?? false")
 
           if [[ "$PRIVATE" == "true" ]]; then
-            echo "Skipping $PATH_PREFIX (private)"
-          else
-            echo "Publishing $PATH_PREFIX..."
-
-            # --no-git-checks bypasses pnpm's clean working tree check, which
-            # fails because Release Please has already committed the version bump.
-            pnpm --filter "./$PATH_PREFIX" publish \
-              --no-git-checks \
-              --access public
+            echo "Skipping $PATH_PREFIX (private package)"
+            exit 0
           fi
+
+          echo "Publishing $PATH_PREFIX to GitHub Packages..."
+
+          # --no-git-checks is required because Release Please already committed
+          # version bumps, which would otherwise cause pnpm publish to fail.
+          pnpm --filter "./$PATH_PREFIX" publish \
+            --no-git-checks \
+            --access public
 
       - name: Login to GitHub Container Registry
         if: startsWith(steps.tag.outputs.path, 'apps/')
@@ -83,12 +103,10 @@ jobs:
           VERSION="${{ steps.tag.outputs.version }}"
           IMAGE="ghcr.io/${{ github.repository_owner }}/${APP_NAME}"
 
-          # Build the application image using the shared Dockerfile, passing
-          # the app name as a build argument. The NODE_AUTH_TOKEN environment
-          # variable is forwarded to BuildKit as the optional npm_token secret
-          # so private GitHub Packages can be installed during the build.
           echo "Building and pushing $IMAGE:$VERSION..."
 
+          # Build Docker image with build-time access to GitHub Packages.
+          # NODE_AUTH_TOKEN is forwarded as a BuildKit secret for private deps.
           docker build \
             --secret id=npm_token,env=NODE_AUTH_TOKEN \
             --build-arg APP_NAME="$APP_NAME" \
@@ -96,14 +114,13 @@ jobs:
             -t "$IMAGE:latest" \
             .
 
-          # Push both the versioned and latest image tags.
+          # Push both versioned and latest tags
           docker push "$IMAGE:$VERSION"
           docker push "$IMAGE:latest"
 
-          # Trigger the Deploy workflow, passing the application name and
-          # version as the event payload.
           echo "Dispatching deploy event for $APP_NAME@$VERSION..."
 
+          # Trigger downstream deploy workflow via repository dispatch
           curl -s -X POST \
             -H "Authorization: Bearer ${{ github.token }}" \
             -H "Accept: application/vnd.github+json" \
