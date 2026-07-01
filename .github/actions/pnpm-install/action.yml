@@ -17,6 +17,14 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Validate auth token
+      shell: bash
+      run: |
+        if [[ -z "${{ inputs.token }}" ]]; then
+          echo "::error::Missing required token input for authenticated pnpm install"
+          exit 1
+        fi
+
     - name: Setup pnpm
       uses: pnpm/action-setup@v4
 
