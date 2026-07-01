@@ -98,7 +98,7 @@ jobs:
       - name: Build and push Docker image
         if: startsWith(steps.tag.outputs.path, 'apps/')
         env:
-          NODE_AUTH_TOKEN: ${{ github.token }}
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_READ_TOKEN }}
         run: |
           APP_NAME=$(basename "${{ steps.tag.outputs.path }}")
           VERSION="${{ steps.tag.outputs.version }}"
