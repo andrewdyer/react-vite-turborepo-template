@@ -4,7 +4,7 @@ description: 'Installs dependencies using pnpm with optional GitHub Packages aut
 inputs:
   node-version:
     required: false
-    default: '22.20'
+    default: '22.20.0'
   registry-url:
     required: false
     default: ''
