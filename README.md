@@ -2,7 +2,7 @@
 
 # React + Vite + Turborepo Template
 
-A template for building modern browser-based applications using the [React](https://react.dev/) framework, the build tool [Vite](https://vitejs.dev/), managed in a [Turborepo](https://turborepo.com/) monorepo, and written in [TypeScript](https://www.typescriptlang.org/).
+A template for building modern browser-based applications with the [React](https://react.dev/) framework, the [Vite](https://vitejs.dev/) build tool, and [TypeScript](https://www.typescriptlang.org/), managed as a [Turborepo](https://turborepo.com/) monorepo.
 
 ## License
 
