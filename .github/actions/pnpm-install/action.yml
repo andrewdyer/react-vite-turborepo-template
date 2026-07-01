@@ -13,7 +13,7 @@ inputs:
     default: ''
   token:
     required: false
-    default: ${{ github.token }}
+    default: ''
 
 runs:
   using: 'composite'
