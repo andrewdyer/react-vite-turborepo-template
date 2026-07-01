@@ -19,6 +19,9 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/actions/pnpm-install
+        with:
+          registry-url: https://npm.pkg.github.com
+          scope: '@${{ github.repository_owner }}'
 
       - name: Resolve component, path and version from tag
         id: tag

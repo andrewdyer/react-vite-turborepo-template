@@ -18,6 +18,9 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/actions/pnpm-install
+        with:
+          registry-url: https://npm.pkg.github.com
+          scope: '@${{ github.repository_owner }}'
 
       - name: Build all packages
         run: pnpm turbo run build
