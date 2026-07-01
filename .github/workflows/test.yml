@@ -20,6 +20,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate packages token
+        uses: ./.github/actions/require-secret
+        with:
+          name: PACKAGES_READ_TOKEN
+          value: ${{ secrets.PACKAGES_READ_TOKEN }}
+
       - name: Install dependencies
         uses: ./.github/actions/pnpm-install
         with:
