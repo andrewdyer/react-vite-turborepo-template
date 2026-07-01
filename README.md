@@ -4,10 +4,6 @@
 
 A template for building modern browser-based applications with the [React](https://react.dev/) framework, the [Vite](https://vitejs.dev/) build tool, and [TypeScript](https://www.typescriptlang.org/), managed as a [Turborepo](https://turborepo.com/) monorepo.
 
-## License
-
-Licensed under the [MIT license](https://opensource.org/licenses/MIT) and is free for private or commercial projects.
-
 ## Introduction
 
 This template provides a scalable, modular foundation for frontend web platforms built as a monorepo of browser applications and shared packages. It is designed to support consistent tooling, efficient builds, and smooth collaboration across teams. It can also evolve toward micro frontend-style architectures, with independently deployable frontend applications that share libraries and development workflows, while maintaining consistency across the repository.
@@ -82,3 +78,7 @@ Together, these tools create a fast, reliable, and maintainable developer experi
 ## Getting Started
 
 If you like what you've seen so far and think this setup fits your needs, you can quickly get started by clicking the **Use this template** button at the top of the repository on GitHub.
+
+## License
+
+This template is licensed under the [MIT license](https://opensource.org/licenses/MIT) and is free for private or commercial projects.
