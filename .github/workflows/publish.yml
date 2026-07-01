@@ -27,21 +27,21 @@ jobs:
         id: tag
         run: |
           # Tags are formatted as <component>-v<version> by Release Please,
-          # e.g. "web-v1.2.3". Extract the component by stripping the trailing
-          # -v<version> segment, and the version by stripping the component prefix.
+          # for example "web-v1.2.3". Extract the component by stripping the
+          # trailing -v<version> segment, then extract the version.
           TAG="${GITHUB_REF_NAME}"
           COMPONENT="${TAG%-v*}"
           VERSION="${TAG##*-v}"
 
-          # Resolve the workspace path for this component by finding the
-          # manifest key whose path ends with the component name
+          # Resolve the workspace path by finding the manifest entry whose
+          # path ends with the component name.
           PATH_PREFIX=$(jq -r --arg c "$COMPONENT" \
             'to_entries[] | select(.key | endswith($c)) | .key' \
             .github/.release-please-manifest.json)
 
-          echo "component=$COMPONENT" >> $GITHUB_OUTPUT
-          echo "path=$PATH_PREFIX" >> $GITHUB_OUTPUT
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "component=$COMPONENT" >> "$GITHUB_OUTPUT"
+          echo "path=$PATH_PREFIX" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Publish package to GitHub Packages
         if: startsWith(steps.tag.outputs.path, 'packages/')
@@ -50,17 +50,20 @@ jobs:
         run: |
           PATH_PREFIX="${{ steps.tag.outputs.path }}"
 
-          # Read the private field from the package's package.json —
-          # private packages are versioned by Release Please but not published
-          PRIVATE=$(node -e "console.log(require('./$PATH_PREFIX/package.json').private ?? false)")
+          # Private packages are versioned by Release Please but are not
+          # published to GitHub Packages.
+          PRIVATE=$(node -p "require('./$PATH_PREFIX/package.json').private ?? false")
+
           if [[ "$PRIVATE" == "true" ]]; then
             echo "Skipping $PATH_PREFIX (private)"
           else
             echo "Publishing $PATH_PREFIX..."
-            # --no-git-checks bypasses pnpm's clean working tree check,
-            # which fails here because Release Please has already committed
-            # the version bump ahead of this step
-            pnpm --filter "./$PATH_PREFIX" publish --no-git-checks --access public
+
+            # --no-git-checks bypasses pnpm's clean working tree check, which
+            # fails because Release Please has already committed the version bump.
+            pnpm --filter "./$PATH_PREFIX" publish \
+              --no-git-checks \
+              --access public
           fi
 
       - name: Login to GitHub Container Registry
@@ -80,10 +83,12 @@ jobs:
           VERSION="${{ steps.tag.outputs.version }}"
           IMAGE="ghcr.io/${{ github.repository_owner }}/${APP_NAME}"
 
-          # Build the Docker image using the shared Dockerfile, passing
-          # the app name as a build argument so it knows which app to
-          # build and serve. Tag with both the version and latest.
+          # Build the application image using the shared Dockerfile, passing
+          # the app name as a build argument. The NODE_AUTH_TOKEN environment
+          # variable is forwarded to BuildKit as the optional npm_token secret
+          # so private GitHub Packages can be installed during the build.
           echo "Building and pushing $IMAGE:$VERSION..."
+
           docker build \
             --secret id=npm_token,env=NODE_AUTH_TOKEN \
             --build-arg APP_NAME="$APP_NAME" \
@@ -91,13 +96,14 @@ jobs:
             -t "$IMAGE:latest" \
             .
 
-          # Push both tags to GHCR
+          # Push both the versioned and latest image tags.
           docker push "$IMAGE:$VERSION"
           docker push "$IMAGE:latest"
 
-          # Fire a repository_dispatch event to trigger the Deploy workflow,
-          # passing the app name and version as payload
+          # Trigger the Deploy workflow, passing the application name and
+          # version as the event payload.
           echo "Dispatching deploy event for $APP_NAME@$VERSION..."
+
           curl -s -X POST \
             -H "Authorization: Bearer ${{ github.token }}" \
             -H "Accept: application/vnd.github+json" \
