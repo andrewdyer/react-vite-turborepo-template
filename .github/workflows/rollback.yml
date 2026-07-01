@@ -1,0 +1,65 @@
+name: Rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        description: App to roll back (e.g. "web")
+        required: true
+        type: string
+      version:
+        description: Version to roll back to (e.g. "1.2.3")
+        required: true
+        type: string
+
+run-name: '${{ github.event.inputs.app }}@${{ github.event.inputs.version }}'
+
+permissions:
+  contents: read
+
+jobs:
+  rollback:
+    name: Rollback
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate rollback inputs
+        run: |
+          APP_NAME="${{ github.event.inputs.app }}"
+          VERSION="${{ github.event.inputs.version }}"
+
+          if [[ -z "$APP_NAME" || -z "$VERSION" ]]; then
+            echo "❌ Missing rollback inputs"
+            exit 1
+          fi
+
+          echo "App: $APP_NAME"
+          echo "Rollback version: $VERSION"
+
+      - name: Rollback app (template)
+        run: |
+          APP_NAME="${{ github.event.inputs.app }}"
+          VERSION="${{ github.event.inputs.version }}"
+          IMAGE="ghcr.io/${{ github.repository_owner }}/${APP_NAME}"
+
+          echo "=================================================="
+          echo "⚠️  ROLLBACK NOT CONFIGURED"
+          echo "=================================================="
+          echo "App:     $APP_NAME"
+          echo "Version: $VERSION"
+          echo "Image:   $IMAGE:$VERSION"
+          echo ""
+          echo "This workflow is a rollback template."
+          echo "No infrastructure changes have been made."
+          echo ""
+          echo "To enable rollbacks, implement:"
+          echo "- Redeploy previous image tag"
+          echo "- Roll Kubernetes deployment revision"
+          echo "- Update ECS task definition"
+          echo "- Restore previous release in your platform"
+          echo "=================================================="
+
+          exit 1

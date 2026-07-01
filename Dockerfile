@@ -42,9 +42,17 @@ COPY --from=prune /app/out/json/ ./
 # Copy pruned pnpm lockfile
 COPY --from=prune /app/out/pnpm-lock.yaml ./
 
-# Install dependencies before copying full source, so this layer stays
-# cached on rebuilds where only app code changes, not package.json/lockfile
-RUN pnpm install --frozen-lockfile
+# Install dependencies before copying the full source so this layer remains
+# cached when only application code changes.
+#
+# If the optional npm_token build secret is provided, it is exposed as the
+# NODE_AUTH_TOKEN environment variable so the committed .npmrc can
+# authenticate with GitHub Packages during installation. The .npmrc is then
+# removed as it is only required during the build stage. The authentication
+# token is never written to the image.
+RUN --mount=type=secret,id=npm_token,env=NODE_AUTH_TOKEN,required=false \
+    pnpm install --frozen-lockfile && \
+    rm -f .npmrc
 
 # Copy pruned full source code
 COPY --from=prune /app/out/full/ ./

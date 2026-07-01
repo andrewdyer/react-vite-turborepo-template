@@ -4,6 +4,15 @@
   "separate-pull-requests": true,
   "plugins": ["node-workspace"],
   "packages": {
-    "apps/web": {}
+    "apps/web": {
+      "include-component-in-tag": true,
+      "tag-separator": "-",
+      "component": "web"
+    },
+    "packages/shared": {
+      "include-component-in-tag": true,
+      "tag-separator": "-",
+      "component": "shared"
+    }
   }
 }
