@@ -10,7 +10,7 @@ Licensed under the [MIT license](https://opensource.org/licenses/MIT) and is fre
 
 ## Introduction
 
-This template provides a scalable, modular foundation for **medium to large frontend projects**. It’s built to support multiple applications and shared packages within a unified monorepo, promoting consistent tooling, efficient builds, and smooth collaboration across teams. Its modular architecture also makes it well-suited for micro frontend development, where multiple independently deployable apps can coexist in a single codebase. It provides a solid starting point to help you hit the ground running and save valuable time when starting a new project.
+This template provides a scalable, modular foundation for web platforms built as a monorepo of applications and shared packages. It is designed to support consistent tooling, efficient builds, and smooth collaboration across teams. It can also evolve toward micro frontend-style architectures, with independently deployable applications that share libraries and development workflows, while maintaining consistency across the repository.
 
 ## Prerequisites
 
