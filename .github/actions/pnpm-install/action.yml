@@ -7,7 +7,7 @@ inputs:
     default: '22.20'
   registry-url:
     required: false
-    default: 'https://npm.pkg.github.com'
+    default: ''
   scope:
     required: false
     default: ''
