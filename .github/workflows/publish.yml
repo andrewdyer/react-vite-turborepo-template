@@ -70,6 +70,8 @@ jobs:
 
       - name: Build and push Docker image
         if: startsWith(steps.tag.outputs.path, 'apps/')
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
         run: |
           APP_NAME=$(basename "${{ steps.tag.outputs.path }}")
           VERSION="${{ steps.tag.outputs.version }}"
@@ -80,12 +82,13 @@ jobs:
           # build and serve. Tag with both the version and latest.
           echo "Building and pushing $IMAGE:$VERSION..."
           docker build \
+            --secret id=npm_token,env=NODE_AUTH_TOKEN \
             --build-arg APP_NAME="$APP_NAME" \
             -t "$IMAGE:$VERSION" \
             -t "$IMAGE:latest" \
             .
 
-          # Push both tags to Docker Hub
+          # Push both tags to GHCR
           docker push "$IMAGE:$VERSION"
           docker push "$IMAGE:latest"
 
