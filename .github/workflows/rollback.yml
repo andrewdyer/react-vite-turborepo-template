@@ -21,20 +21,45 @@ jobs:
   rollback:
     name: Rollback
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Rollback app
+      - name: Validate rollback inputs
+        run: |
+          APP_NAME="${{ github.event.inputs.app }}"
+          VERSION="${{ github.event.inputs.version }}"
+
+          if [[ -z "$APP_NAME" || -z "$VERSION" ]]; then
+            echo "❌ Missing rollback inputs"
+            exit 1
+          fi
+
+          echo "App: $APP_NAME"
+          echo "Rollback version: $VERSION"
+
+      - name: Rollback app (template)
         run: |
           APP_NAME="${{ github.event.inputs.app }}"
           VERSION="${{ github.event.inputs.version }}"
           IMAGE="ghcr.io/${{ github.repository_owner }}/${APP_NAME}"
 
-          echo "Rolling back $APP_NAME to $VERSION (image: $IMAGE)..."
+          echo "=================================================="
+          echo "⚠️  ROLLBACK NOT CONFIGURED"
+          echo "=================================================="
+          echo "App:     $APP_NAME"
+          echo "Version: $VERSION"
+          echo "Image:   $IMAGE:$VERSION"
+          echo ""
+          echo "This workflow is a rollback template."
+          echo "No infrastructure changes have been made."
+          echo ""
+          echo "To enable rollbacks, implement:"
+          echo "- Redeploy previous image tag"
+          echo "- Roll Kubernetes deployment revision"
+          echo "- Update ECS task definition"
+          echo "- Restore previous release in your platform"
+          echo "=================================================="
 
-          # TODO: add your rollback logic here.
-          # At this point the following variables are available:
-          #   APP_NAME — the name of the app (e.g. "web")
-          #   VERSION  — the version to roll back to (e.g. "1.2.3")
-          #   IMAGE    — the GHCR image name (e.g. "ghcr.io/your-github-org/web")
+          exit 1
