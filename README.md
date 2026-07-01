@@ -2,7 +2,7 @@
 
 # React + Vite + Turborepo Template
 
-A template for building modern web platforms using the [React](https://react.dev/) framework, [Vite](https://vitejs.dev/) build tool, managed in a [Turborepo](https://turborepo.com/) monorepo, and written in [TypeScript](https://www.typescriptlang.org/).
+A template for building modern browser-based applications using the [React](https://react.dev/) framework, the build tool [Vite](https://vitejs.dev/), managed in a [Turborepo](https://turborepo.com/) monorepo, and written in [TypeScript](https://www.typescriptlang.org/).
 
 ## License
 
@@ -10,7 +10,7 @@ Licensed under the [MIT license](https://opensource.org/licenses/MIT) and is fre
 
 ## Introduction
 
-This template provides a scalable, modular foundation for web platforms built as a monorepo of applications and shared packages. It is designed to support consistent tooling, efficient builds, and smooth collaboration across teams. It can also evolve toward micro frontend-style architectures, with independently deployable applications that share libraries and development workflows, while maintaining consistency across the repository.
+This template provides a scalable, modular foundation for frontend web platforms built as a monorepo of browser applications and shared packages. It is designed to support consistent tooling, efficient builds, and smooth collaboration across teams. It can also evolve toward micro frontend-style architectures, with independently deployable frontend applications that share libraries and development workflows, while maintaining consistency across the repository.
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ Before you begin, ensure you have met the following requirements:
 
 ## Workspace
 
-The monorepo follows a clear structure with dedicated apps for frontend applications and packages for shared libraries and configurations.
+The monorepo follows a clear structure with dedicated apps and packages for shared libraries and tooling configurations.
 
 ```plaintext
 repo/
@@ -75,7 +75,7 @@ Essential development tools configured at the root for consistency and automatio
 - [Husky](https://typicode.github.io/husky) for Git hooks to enforce pre-commit checks and automate quality controls.
 - [Prettier](https://prettier.io/) for maintaining consistent code formatting across the entire codebase.
 - [Docker](https://www.docker.com/) for containerising apps via a shared root Dockerfile and Nginx config.
-- [GitHub Actions](https://github.com/features/actions) for CI/CD, covering testing on pull requests, automated releasing, publishing packages and images, and deploy/rollback workflow templates that require project-specific configuration.
+- [GitHub Actions](https://github.com/features/actions) for CI/CD, covering testing on pull requests, automated releasing, publishing packages and images, and deployment workflow templates that require project-specific configuration.
 
 Together, these tools create a fast, reliable, and maintainable developer experience across every workspace.
 
