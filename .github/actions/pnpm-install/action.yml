@@ -1,5 +1,5 @@
 name: 'pnpm install'
-description: 'Installs dependencies using pnpm with optional GitHub Packages auth'
+description: 'Installs dependencies using pnpm with GitHub Packages auth'
 
 inputs:
   token:
