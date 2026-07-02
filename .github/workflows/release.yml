@@ -17,12 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate release token
-        uses: ./.github/actions/require-secret
-        with:
-          name: RELEASE_PLEASE_TOKEN
-          value: ${{ secrets.RELEASE_PLEASE_TOKEN }}
-
       - name: Run Release Please
         uses: googleapis/release-please-action@v4
         with:
