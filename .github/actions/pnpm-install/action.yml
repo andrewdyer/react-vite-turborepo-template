@@ -11,6 +11,9 @@ inputs:
   scope:
     required: false
     default: ''
+  token:
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
@@ -29,5 +32,9 @@ runs:
     - name: Install dependencies
       shell: bash
       env:
-        NODE_AUTH_TOKEN: ${{ github.token }}
-      run: pnpm install --frozen-lockfile
+        INPUT_TOKEN: ${{ inputs.token }}
+        FALLBACK_TOKEN: ${{ github.token }}
+      run: |
+        NODE_AUTH_TOKEN="${INPUT_TOKEN:-$FALLBACK_TOKEN}"
+        export NODE_AUTH_TOKEN
+        pnpm install --frozen-lockfile

@@ -22,6 +22,7 @@ jobs:
         with:
           registry-url: https://npm.pkg.github.com
           scope: '@${{ github.repository_owner }}'
+          token: ${{ secrets.PACKAGES_READ_TOKEN }}
 
       - name: Resolve component, path and version from tag
         id: tag
@@ -97,7 +98,7 @@ jobs:
       - name: Build and push Docker image
         if: startsWith(steps.tag.outputs.path, 'apps/')
         env:
-          NODE_AUTH_TOKEN: ${{ github.token }}
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_READ_TOKEN }}
         run: |
           APP_NAME=$(basename "${{ steps.tag.outputs.path }}")
           VERSION="${{ steps.tag.outputs.version }}"
