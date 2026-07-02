@@ -2,27 +2,23 @@
 
 # React + Vite + Turborepo Template
 
-A template for building modern frontend applications using the [React](https://react.dev/) framework and the [Vite](https://vitejs.dev/) build tool, managed in a [Turborepo](https://turborepo.com/) monorepo, and written in [TypeScript](https://www.typescriptlang.org/).
+A template for building modern browser-based applications with the [React](https://react.dev/) framework, the [Vite](https://vitejs.dev/) build tool, and [TypeScript](https://www.typescriptlang.org/), managed as a [Turborepo](https://turborepo.com/) monorepo.
 
-## ⚖️ License
+## Introduction
 
-Licensed under the [MIT license](https://opensource.org/licenses/MIT) and is free for private or commercial projects.
+This template provides a scalable, modular foundation for frontend web platforms built as a monorepo of browser applications and shared packages. It is designed to support consistent tooling, efficient builds, and smooth collaboration across teams. It can also evolve toward micro frontend-style architectures, with independently deployable frontend applications that share libraries and development workflows, while maintaining consistency across the repository.
 
-## ✨ Introduction
-
-This template provides a scalable, modular foundation for **medium to large frontend projects**. It’s built to support multiple applications and shared packages within a unified monorepo, promoting consistent tooling, efficient builds, and smooth collaboration across teams. Its modular architecture also makes it well-suited for micro frontend development, where multiple independently deployable apps can coexist in a single codebase. It provides a solid starting point to help you hit the ground running and save valuable time when starting a new project.
-
-## 📋 Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
 - **[Node.js](https://nodejs.org/)**: Version 22.20 or higher is required (as specified in [.nvmrc](.nvmrc)).
 - **[pnpm](https://pnpm.io/)**: Dependency management tool for Node.js.
-- **[Docker](https://www.docker.com/)** (optional): For containerizing the application.
+- **[Docker](https://www.docker.com/)** (optional): For containerising the application.
 
-## 🧩 Workspace
+## Workspace
 
-The monorepo follows a clear structure with dedicated apps for frontend applications and packages for shared libraries and configurations.
+The monorepo follows a clear structure with dedicated apps and packages for shared libraries and tooling configurations.
 
 ```plaintext
 repo/
@@ -40,17 +36,17 @@ repo/
 └── pnpm-workspace.yaml        # PNPM workspace definition
 ```
 
-All applications and packages utilize shared [ESLint](./packages/eslint-config/README.md) and [TypeScript](./packages/typescript-config/README.md) configurations to ensure consistency across the monorepo, with each workspace designed for specific functionality and seamless integration:
+All applications and packages utilise shared [ESLint](./packages/eslint-config/README.md) and [TypeScript](./packages/typescript-config/README.md) configurations to ensure consistency across the monorepo, with each workspace designed for specific functionality and seamless integration:
 
-### ⚛️ [apps/web](./apps/web/README.md)
+### [apps/web](./apps/web/README.md)
 
-A modern React application built with Vite and TypeScript, providing a fast development experience and optimized production builds. Key features include:
+A modern React application built with Vite and TypeScript, providing a fast development experience and optimised production builds. Key features include:
 
 - [SWC (Speedy Web Compiler)](https://swc.rs/) for faster builds and development.
 - [Vitest](https://vitest.dev/) for unit and component testing, along with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for testing React components, [Vitest UI](https://vitest.dev/guide/ui.html), and [V8 coverage reports](https://vitest.dev/guide/coverage.html).
 - Pre-commit checks with [lint-staged](https://github.com/lint-staged/lint-staged) to maintain code quality.
 
-### 🎭 [apps/web-e2e](./apps/web-e2e/README.md)
+### [apps/web-e2e](./apps/web-e2e/README.md)
 
 A comprehensive end-to-end testing suite built with Playwright and TypeScript, ensuring reliable cross-browser testing for the web application. Key features include:
 
@@ -58,7 +54,7 @@ A comprehensive end-to-end testing suite built with Playwright and TypeScript, e
 - Pre-commit checks with [lint-staged](https://github.com/lint-staged/lint-staged) to maintain code quality.
 - Direct integration with the main web app for seamless testing workflows.
 
-### 📦 [packages/shared](./packages/shared/README.md)
+### [packages/shared](./packages/shared/README.md)
 
 A shared React component library built with Vite and TypeScript, providing reusable components and utilities across the monorepo. Key features include:
 
@@ -67,7 +63,7 @@ A shared React component library built with Vite and TypeScript, providing reusa
 - [Vitest](https://vitest.dev/) for unit testing, along with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for testing React components, [Vitest UI](https://vitest.dev/guide/ui.html), [jsdom](https://github.com/jsdom/jsdom) environment, and [coverage reports](https://vitest.dev/guide/coverage.html).
 - Pre-commit checks with [lint-staged](https://github.com/lint-staged/lint-staged) to maintain code quality.
 
-## 🧰 Tooling
+## Tooling
 
 Essential development tools configured at the root for consistency and automation across all workspaces, including:
 
@@ -75,10 +71,14 @@ Essential development tools configured at the root for consistency and automatio
 - [Husky](https://typicode.github.io/husky) for Git hooks to enforce pre-commit checks and automate quality controls.
 - [Prettier](https://prettier.io/) for maintaining consistent code formatting across the entire codebase.
 - [Docker](https://www.docker.com/) for containerising apps via a shared root Dockerfile and Nginx config.
-- [GitHub Actions](https://github.com/features/actions) for CI/CD, covering testing on pull requests, automated releasing, publishing packages and images, and deploy/rollback workflow templates that require project-specific configuration.
+- [GitHub Actions](https://github.com/features/actions) for CI/CD, covering testing on pull requests, automated releasing, publishing packages and images, and deployment workflow templates that require project-specific configuration.
 
 Together, these tools create a fast, reliable, and maintainable developer experience across every workspace.
 
-## 🚀 Getting Started
+## Getting Started
 
 If you like what you've seen so far and think this setup fits your needs, you can quickly get started by clicking the **Use this template** button at the top of the repository on GitHub.
+
+## License
+
+This template is licensed under the [MIT license](https://opensource.org/licenses/MIT) and is free for private or commercial projects.
