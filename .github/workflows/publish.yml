@@ -102,7 +102,7 @@ jobs:
         run: |
           APP_NAME=$(basename "${{ steps.tag.outputs.path }}")
           VERSION="${{ steps.tag.outputs.version }}"
-          IMAGE="ghcr.io/${{ github.repository_owner }}/${APP_NAME}"
+          IMAGE="ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}-${APP_NAME}"
 
           echo "Building and pushing $IMAGE:$VERSION..."
 
