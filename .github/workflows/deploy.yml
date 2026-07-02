@@ -35,7 +35,7 @@ jobs:
         run: |
           APP_NAME="${{ github.event.client_payload.app }}"
           VERSION="${{ github.event.client_payload.version }}"
-          IMAGE="ghcr.io/${{ github.repository_owner }}/${APP_NAME}"
+          IMAGE="ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}-${APP_NAME}"
 
           echo "=================================================="
           echo "⚠️  DEPLOYMENT NOT CONFIGURED"

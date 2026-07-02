@@ -43,7 +43,7 @@ jobs:
         run: |
           APP_NAME="${{ github.event.inputs.app }}"
           VERSION="${{ github.event.inputs.version }}"
-          IMAGE="ghcr.io/${{ github.repository_owner }}/${APP_NAME}"
+          IMAGE="ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}-${APP_NAME}"
 
           echo "=================================================="
           echo "⚠️  ROLLBACK NOT CONFIGURED"
