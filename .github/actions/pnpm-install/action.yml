@@ -1,9 +1,7 @@
 name: 'pnpm install'
-description: 'Installs dependencies using pnpm with GitHub Packages auth'
+description: 'Installs dependencies using pnpm with optional GitHub Packages auth'
 
 inputs:
-  token:
-    required: true
   node-version:
     required: false
     default: '22.20.0'
@@ -13,18 +11,13 @@ inputs:
   scope:
     required: false
     default: ''
+  token:
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
   steps:
-    - name: Validate auth token
-      shell: bash
-      run: |
-        if [[ -z "${{ inputs.token }}" ]]; then
-          echo "::error::Missing required token input for authenticated pnpm install"
-          exit 1
-        fi
-
     - name: Setup pnpm
       uses: pnpm/action-setup@v4
 
@@ -39,5 +32,9 @@ runs:
     - name: Install dependencies
       shell: bash
       env:
-        NODE_AUTH_TOKEN: ${{ inputs.token }}
-      run: pnpm install --frozen-lockfile
+        INPUT_TOKEN: ${{ inputs.token }}
+        FALLBACK_TOKEN: ${{ github.token }}
+      run: |
+        NODE_AUTH_TOKEN="${INPUT_TOKEN:-$FALLBACK_TOKEN}"
+        export NODE_AUTH_TOKEN
+        pnpm install --frozen-lockfile
