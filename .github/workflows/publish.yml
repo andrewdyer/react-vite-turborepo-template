@@ -22,7 +22,7 @@ jobs:
         with:
           registry-url: https://npm.pkg.github.com
           scope: '@${{ github.repository_owner }}'
-          token: ${{ secrets.PACKAGES_READ_TOKEN }}
+          token: ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Resolve component, path and version from tag
         id: tag
@@ -67,7 +67,7 @@ jobs:
         # Only run for workspace paths under packages/
         if: startsWith(steps.tag.outputs.path, 'packages/')
         env:
-          NODE_AUTH_TOKEN: ${{ github.token }}
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
         run: |
           PATH_PREFIX="${{ steps.tag.outputs.path }}"
 
@@ -85,7 +85,7 @@ jobs:
           # version bumps, which would otherwise cause pnpm publish to fail.
           pnpm --filter "./$PATH_PREFIX" publish \
             --no-git-checks \
-            --access public
+            --access restricted
 
       - name: Login to GitHub Container Registry
         if: startsWith(steps.tag.outputs.path, 'apps/')
@@ -98,7 +98,7 @@ jobs:
       - name: Build and push Docker image
         if: startsWith(steps.tag.outputs.path, 'apps/')
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_READ_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
         run: |
           APP_NAME=$(basename "${{ steps.tag.outputs.path }}")
           VERSION="${{ steps.tag.outputs.version }}"

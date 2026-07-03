@@ -33,7 +33,8 @@ To publish this package to GitHub Packages, make the following changes to `packa
 ```json
 {
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
   }
 }
 ```
