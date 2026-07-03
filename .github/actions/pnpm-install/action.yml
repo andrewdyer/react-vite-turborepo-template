@@ -33,8 +33,10 @@ runs:
       shell: bash
       env:
         INPUT_TOKEN: ${{ inputs.token }}
-        FALLBACK_TOKEN: ${{ github.token }}
       run: |
-        NODE_AUTH_TOKEN="${INPUT_TOKEN:-$FALLBACK_TOKEN}"
-        export NODE_AUTH_TOKEN
+        if [[ -n "$INPUT_TOKEN" ]]; then
+          export NODE_AUTH_TOKEN="$INPUT_TOKEN"
+        else
+          unset NODE_AUTH_TOKEN
+        fi
         pnpm install --frozen-lockfile
