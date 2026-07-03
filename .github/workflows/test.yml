@@ -29,7 +29,7 @@ jobs:
         with:
           registry-url: https://npm.pkg.github.com
           scope: '@${{ github.repository_owner }}'
-          token: ${{ secrets.PACKAGES_READ_TOKEN }}
+          token: ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Build all packages
         run: pnpm turbo run build
