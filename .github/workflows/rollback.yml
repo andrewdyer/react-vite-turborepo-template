@@ -18,48 +18,27 @@ permissions:
   contents: read
 
 jobs:
+  setup:
+    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/rollback.yml@main
+    with:
+      app: ${{ github.event.inputs.app }}
+      version: ${{ github.event.inputs.version }}
+
   rollback:
     name: Rollback
+    needs: setup
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate rollback inputs
+      - name: Rollback app
         run: |
-          APP_NAME="${{ github.event.inputs.app }}"
-          VERSION="${{ github.event.inputs.version }}"
+          IMAGE="${{ needs.setup.outputs.image }}"
+          VERSION="${{ needs.setup.outputs.version }}"
 
-          if [[ -z "$APP_NAME" || -z "$VERSION" ]]; then
-            echo "❌ Missing rollback inputs"
-            exit 1
-          fi
+          echo "Rolling back to $IMAGE:$VERSION..."
 
-          echo "App: $APP_NAME"
-          echo "Rollback version: $VERSION"
-
-      - name: Rollback app (template)
-        run: |
-          APP_NAME="${{ github.event.inputs.app }}"
-          VERSION="${{ github.event.inputs.version }}"
-          IMAGE="ghcr.io/${{ github.repository_owner }}/${APP_NAME}"
-
-          echo "=================================================="
-          echo "⚠️  ROLLBACK NOT CONFIGURED"
-          echo "=================================================="
-          echo "App:     $APP_NAME"
-          echo "Version: $VERSION"
-          echo "Image:   $IMAGE:$VERSION"
-          echo ""
-          echo "This workflow is a rollback template."
-          echo "No infrastructure changes have been made."
-          echo ""
-          echo "To enable rollbacks, implement:"
-          echo "- Redeploy previous image tag"
-          echo "- Roll Kubernetes deployment revision"
-          echo "- Update ECS task definition"
-          echo "- Restore previous release in your platform"
-          echo "=================================================="
-
-          exit 1
+          # TODO: add your rollback logic here.
+          #   IMAGE   — the GHCR image name (e.g. "ghcr.io/dyerlabs/frontend-web")
+          #   VERSION — the version to roll back to (e.g. "1.2.3")
