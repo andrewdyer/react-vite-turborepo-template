@@ -45,12 +45,16 @@ COPY --from=prune /app/out/pnpm-lock.yaml ./
 # Install dependencies before copying the full source so this layer remains
 # cached when only application code changes.
 #
-# If the optional npm_token build secret is provided, it is exposed as the
-# NODE_AUTH_TOKEN environment variable so the committed .npmrc can
-# authenticate with GitHub Packages during installation. The .npmrc is then
-# removed as it is only required during the build stage. The authentication
-# token is never written to the image.
-RUN --mount=type=secret,id=npm_token,env=NODE_AUTH_TOKEN,required=false \
+# If the optional npm_token build secret is provided, the auth token is
+# appended to .npmrc to authenticate against GitHub Packages during
+# installation. A leading newline is prepended via printf to ensure the
+# token appears on its own line regardless of the file's trailing whitespace.
+# The .npmrc is removed immediately after install so no credentials are
+# stored in the image.
+RUN --mount=type=secret,id=npm_token,required=false \
+    if [ -f /run/secrets/npm_token ] && [ -s /run/secrets/npm_token ]; then \
+    printf "\n//npm.pkg.github.com/:_authToken=%s\n" "$(cat /run/secrets/npm_token)" >> .npmrc; \
+    fi && \
     pnpm install --frozen-lockfile && \
     rm -f .npmrc
 
