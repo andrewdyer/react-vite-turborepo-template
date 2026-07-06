@@ -29,9 +29,16 @@ jobs:
           IMAGE="${{ needs.setup.outputs.image }}"
           VERSION="${{ needs.setup.outputs.version }}"
 
+          if [[ -z "$IMAGE" || -z "$VERSION" ]]; then
+            echo "❌ Missing outputs from setup job (image or version)"
+            exit 1
+          fi
+
           echo "Deploying $IMAGE:$VERSION..."
 
           # TODO: add your deployment logic here.
           # At this point the following variables are available:
           #   IMAGE   — the GHCR image name (e.g. "ghcr.io/dyerlabs/frontend-web")
           #   VERSION — the released version (e.g. "1.2.3")
+          echo "❌ Deployment logic not yet implemented"
+          exit 1

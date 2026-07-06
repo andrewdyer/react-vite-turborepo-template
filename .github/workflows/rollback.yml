@@ -37,8 +37,15 @@ jobs:
           IMAGE="${{ needs.setup.outputs.image }}"
           VERSION="${{ needs.setup.outputs.version }}"
 
+          if [[ -z "$IMAGE" || -z "$VERSION" ]]; then
+            echo "❌ Missing outputs from setup job (image or version)"
+            exit 1
+          fi
+
           echo "Rolling back to $IMAGE:$VERSION..."
 
           # TODO: add your rollback logic here.
           #   IMAGE   — the GHCR image name (e.g. "ghcr.io/dyerlabs/frontend-web")
           #   VERSION — the version to roll back to (e.g. "1.2.3")
+          echo "❌ Rollback logic not yet implemented"
+          exit 1
