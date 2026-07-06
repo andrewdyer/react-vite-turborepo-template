@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   setup:
-    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/rollback.yml@main
+    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/rollback.yml@v1
     with:
       app: ${{ github.event.inputs.app }}
       version: ${{ github.event.inputs.version }}

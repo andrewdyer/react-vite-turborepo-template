@@ -10,6 +10,6 @@ permissions:
 
 jobs:
   release:
-    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/release.yml@main
+    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/release.yml@v1
     secrets:
       release-please-token: ${{ secrets.RELEASE_PLEASE_TOKEN }}

@@ -16,7 +16,7 @@ permissions:
 jobs:
   test:
     if: ${{ !startsWith(github.head_ref, 'release-please--') }}
-    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/test.yml@main
+    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/test.yml@v1
     with:
       scope: '@${{ github.repository_owner }}'
     secrets:

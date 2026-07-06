@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   publish:
-    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/publish.yml@main
+    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/publish.yml@v1
     with:
       tag: ${{ github.ref_name }}
       scope: '@${{ github.repository_owner }}'
