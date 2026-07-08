@@ -34,10 +34,9 @@ Target a specific workspace with the `--filter <workspace>` flag, for example `p
 A consistent development environment helps ensure contributors can build, test, and run the project reliably.
 
 1. Clone the repository and navigate to its directory.
-2. Install the correct [Node.js](https://nodejs.org/) version, as specified in `package.json`.
-3. Install dependencies with `pnpm install`.
-4. Build all packages to make shared dependencies available with `pnpm build`.
-5. Start the development server with `pnpm dev`.
+2. Install the project's dependencies — see [Dependencies](#dependencies).
+3. Build the project so shared packages are available — see [Building](#building).
+4. Start the development server with `pnpm dev`.
 
 > 💡 **Note:** Turborepo runs tasks in dependency order using smart caching and parallel execution.
 
@@ -55,24 +54,36 @@ Keeping work isolated in focused branches makes reviews easier and reduces the r
 
 Dependencies should be managed carefully to keep the project secure, compatible, and easy to maintain over time.
 
-- Check for outdated dependencies
-  - See what's outdated in the current workspace with `pnpm outdated`.
-  - Check every workspace at once with `pnpm -r outdated`.
-- Add a dependency
-  - Add a package to the current workspace with `pnpm add <package-name>`.
-  - Target a specific workspace with `pnpm --filter <workspace> add <package-name>`.
-  - Add it across every workspace with `pnpm -r add <package-name>`.
-- Remove a dependency
-  - Remove a package from the current workspace with `pnpm remove <package-name>`.
-  - Target a specific workspace with `pnpm --filter <workspace> remove <package-name>`.
-  - Remove it across every workspace with `pnpm -r remove <package-name>`.
-- Update dependencies
-  - Update the current workspace with `pnpm update`.
-  - Target a specific workspace with `pnpm --filter <workspace> update`.
-  - Update every workspace at once with `pnpm -r update`.
-  - Bump a single package to its latest version with `pnpm add <package-name>@latest`.
+Before working with the project, prepare your local environment:
 
-After any dependency change, confirm compatibility by [building](#building) and [testing](#testing) the project, then update the lockfile with `pnpm install` if needed.
+- Use the Node.js version specified in `.nvmrc`, or run `nvm install` and `nvm use` if you use [nvm](https://github.com/nvm-sh/nvm).
+- Install every dependency across the monorepo with `pnpm install`.
+
+Add dependencies as needed:
+
+- Add a package to the current workspace with `pnpm add <package-name>`.
+- Target a specific workspace with `pnpm --filter <workspace> add <package-name>`.
+- Add a package across every workspace with `pnpm -r add <package-name>`.
+
+Remove dependencies when they are no longer required:
+
+- Remove a package from the current workspace with `pnpm remove <package-name>`.
+- Target a specific workspace with `pnpm --filter <workspace> remove <package-name>`.
+- Remove a package across every workspace with `pnpm -r remove <package-name>`.
+
+Check for outdated dependencies before updating:
+
+- See what's outdated in the current workspace with `pnpm outdated`.
+- Check every workspace at once with `pnpm -r outdated`.
+
+Keep dependencies up to date:
+
+- Update the current workspace with `pnpm update`.
+- Target a specific workspace with `pnpm --filter <workspace> update`.
+- Update every workspace at once with `pnpm -r update`.
+- Bump a single package to its latest version with `pnpm add <package-name>@latest`.
+
+After any dependency change, confirm compatibility by [building](#building) and [testing](#testing) the project, then commit the updated lockfile.
 
 ## Testing
 
@@ -93,6 +104,8 @@ Building the project validates that production assets can be generated successfu
 
 - Build all projects in the monorepo with `pnpm build`.
 - Preview a production build locally with `pnpm preview`.
+
+> 💡 **Note:** Building is required before local development, since apps depend on the built output of shared packages.
 
 ## Coding Standards
 
@@ -119,12 +132,14 @@ Search existing issues to avoid duplicates, and check the README and documentati
 
 Consistent commit messages, written in the [Conventional Commits](https://www.conventionalcommits.org/) format, make project history clear and easy to search. The same format applies to pull request titles, since they become the squash merge commit message.
 
-Use the format `<type>(<scope>): <description>`:
+Choose the commit type that best describes your change:
 
-- `feat` — a new feature
-- `fix` — a bug fix
-- `deps` — a dependency change
-- `chore`, `docs`, `refactor`, `test`, `ci` — maintenance, documentation, refactors, tests, and CI changes
-- `feat!` or a `BREAKING CHANGE:` footer — a change that breaks backwards compatibility
+- `feat` — Add a new feature.
+- `fix` — Fix a bug.
+- `deps` — Update dependencies.
+- `chore`, `docs`, `refactor`, `test`, `ci` — Maintain the project, improve documentation, refactor code, add tests, or update CI.
+- `feat!` or a `BREAKING CHANGE:` footer — Introduce a backwards-incompatible change.
+
+Format commit messages as `<type>(<scope>): <description>`.
 
 Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes.
