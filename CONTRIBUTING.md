@@ -78,8 +78,8 @@ After any dependency change, confirm compatibility by [building](#building) and 
 
 Writing tests for new features and modifications helps verify changes behave as expected and reduces the chance of regressions reaching other contributors.
 
-- Run all tests across the monorepo with `pnpm test`.
-- Run end-to-end tests with `pnpm e2e`.
+- Execute all tests across the monorepo with `pnpm test`.
+- Check end-to-end behaviour with `pnpm e2e`.
 
 Structure test files consistently:
 
@@ -98,12 +98,14 @@ Building the project validates that production assets can be generated successfu
 
 Following shared coding conventions keeps the codebase consistent, readable, and easier for everyone to work with.
 
-- Format code with [Prettier](https://prettier.io/) using `pnpm format`.
-- Lint code with [ESLint](https://eslint.org/) using `pnpm lint`.
+- Format code using [Prettier](https://prettier.io/) with `pnpm format`.
+- Lint code using [ESLint](https://eslint.org/) with `pnpm lint`.
 
 ## Issue Reporting
 
-Clear issue reports make it easier to reproduce problems, discuss improvements, and track future work, so start with the template that matches your issue:
+Clear issue reports make it easier to reproduce problems, discuss improvements, and track future work.
+
+Start with the template that matches your issue:
 
 - **Bug Report** — issues or unexpected behaviour
 - **Feature Request** — new features or improvements
