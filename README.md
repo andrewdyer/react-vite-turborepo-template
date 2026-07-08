@@ -77,7 +77,7 @@ Together, these tools create a fast, reliable, and maintainable developer experi
 
 ## Documentation
 
-Learn more about setup, workspaces, workflows, and other template guidance in the [official React + Vite + Turborepo Template docs](https://docs.dyerlabs.co.uk/templates/react-vite-turborepo-template/introduction).
+Learn about setup, workspaces, workflows, and more in the [official React + Vite + Turborepo Template docs](https://docs.dyerlabs.co.uk/templates/react-vite-turborepo-template/introduction).
 
 ## Getting Started
 

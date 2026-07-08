@@ -30,6 +30,6 @@ Start the development server:
 pnpm dev
 ```
 
-## Learn More
+## Documentation
 
-For additional guidance on the template, including its architecture, tooling, and workflows, see the **[template documentation](https://docs.dyerlabs.co.uk/templates/react-vite-turborepo-template/introduction)**.
+Learn about setup, workspaces, workflows, and more in the [template docs](https://docs.dyerlabs.co.uk/templates/react-vite-turborepo-template/introduction).
