@@ -47,29 +47,32 @@ Keeping work isolated in focused branches makes reviews easier and reduces the r
 
 - Create a feature branch for each change with `git checkout -b feature/your-feature-name`.
 - Push the branch once your changes are ready with `git push origin feature/your-feature-name`.
+- Open a pull request with a title and description that clearly explain the change — see [Commit Messages](#commit-messages) for the title format.
+
+> 💡 **Tip:** GitHub pre-fills the description from this repository's single pull request template — fill it in as you go.
 
 ## Dependencies
 
 Dependencies should be managed carefully to keep the project secure, compatible, and easy to maintain over time.
 
 - Check for outdated dependencies
-  - Run `pnpm outdated` to see outdated dependencies in the current workspace.
-  - Run `pnpm -r outdated` to check outdated dependencies across all workspaces.
+  - See what's outdated in the current workspace with `pnpm outdated`.
+  - Check every workspace at once with `pnpm -r outdated`.
 - Add a dependency
-  - Run `pnpm add <package-name>` to add it to the current workspace.
-  - Run `pnpm --filter <workspace> add <package-name>` to add it to a specific workspace.
-  - Run `pnpm -r add <package-name>` to add it across all workspaces.
+  - Add a package to the current workspace with `pnpm add <package-name>`.
+  - Target a specific workspace with `pnpm --filter <workspace> add <package-name>`.
+  - Add it across every workspace with `pnpm -r add <package-name>`.
 - Remove a dependency
-  - Run `pnpm remove <package-name>` to remove it from the current workspace.
-  - Run `pnpm --filter <workspace> remove <package-name>` to remove it from a specific workspace.
-  - Run `pnpm -r remove <package-name>` to remove it across all workspaces.
+  - Remove a package from the current workspace with `pnpm remove <package-name>`.
+  - Target a specific workspace with `pnpm --filter <workspace> remove <package-name>`.
+  - Remove it across every workspace with `pnpm -r remove <package-name>`.
 - Update dependencies
-  - Run `pnpm update` to update dependencies in the current workspace.
-  - Run `pnpm --filter <workspace> update` to update dependencies in a specific workspace.
-  - Run `pnpm -r update` to update dependencies across all workspaces.
-  - Run `pnpm add <package-name>@latest` to update a specific package to its latest version.
+  - Update the current workspace with `pnpm update`.
+  - Target a specific workspace with `pnpm --filter <workspace> update`.
+  - Update every workspace at once with `pnpm -r update`.
+  - Bump a single package to its latest version with `pnpm add <package-name>@latest`.
 
-Rebuild with `pnpm build` and test with `pnpm test` to confirm compatibility after any dependency change, then update the lockfile with `pnpm install` if needed.
+After any dependency change, confirm compatibility by [building](#building) and [testing](#testing) the project, then update the lockfile with `pnpm install` if needed.
 
 ## Testing
 
@@ -112,11 +115,9 @@ Search existing issues to avoid duplicates, and check the README and documentati
 
 ## Commit Messages
 
-Consistent commit messages, written in the [Conventional Commits](https://www.conventionalcommits.org/) format, make project history clear and easy to search.
+Consistent commit messages, written in the [Conventional Commits](https://www.conventionalcommits.org/) format, make project history clear and easy to search. The same format applies to pull request titles, since they become the squash merge commit message.
 
-```
-<type>(<scope>): <description>
-```
+Use the format `<type>(<scope>): <description>`:
 
 - `feat` — a new feature
 - `fix` — a bug fix
@@ -125,7 +126,3 @@ Consistent commit messages, written in the [Conventional Commits](https://www.co
 - `feat!` or a `BREAKING CHANGE:` footer — a change that breaks backwards compatibility
 
 Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes.
-
-Open a pull request with a title and description that clearly explain the change.
-
-> 💡 **Tip:** Pull request titles follow the same Conventional Commits format, since they become the squash merge commit message.
