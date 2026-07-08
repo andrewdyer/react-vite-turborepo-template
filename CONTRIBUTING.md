@@ -1,19 +1,19 @@
 # Contributing
 
-Thank you for your interest in contributing! We welcome improvements and suggestions to make this project even better. Please follow the guidelines below for a smooth experience.
+Thank you for your interest in contributing! Contributions and suggestions that improve the project are always welcome. The guidelines below help ensure a smooth and productive experience for everyone involved.
 
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
 - [Working with Workspaces](#working-with-workspaces)
 - [Development Setup](#development-setup)
-- [Branching](#branching)
-- [Dependencies](#dependencies)
-- [Testing](#testing)
+- [Dependency Management](#dependency-management)
 - [Building](#building)
+- [Testing](#testing)
 - [Coding Standards](#coding-standards)
-- [Issue Reporting](#issue-reporting)
+- [Branching](#branching)
 - [Commit Messages](#commit-messages)
+- [Issue Reporting](#issue-reporting)
 
 ## Code of Conduct
 
@@ -33,100 +33,125 @@ Target a specific workspace with the `--filter <workspace>` flag, for example `p
 
 A consistent development environment helps ensure contributors can build, test, and run the project reliably.
 
+Prepare the project for local development after cloning the repository:
+
 1. Clone the repository and navigate to its directory.
-2. Install the correct Node.js version and project dependencies — see [Dependencies](#dependencies).
+2. Install the correct Node.js version and project dependencies — see [Dependency Management](#dependency-management).
 3. Build the project so shared packages are available — see [Building](#building).
 4. Start the development server with `pnpm dev`.
 
-> 💡 **Note:** Turborepo runs tasks in dependency order using smart caching and parallel execution.
+Turborepo runs these tasks in dependency order, using caching and parallel execution to keep setup fast.
 
-## Branching
-
-Keeping work isolated in focused branches makes reviews easier and reduces the risk of unrelated changes being introduced.
-
-- Create a feature branch for each change with `git checkout -b feature/your-feature-name`.
-- Push the branch once your changes are ready with `git push origin feature/your-feature-name`.
-- Open a pull request with a title and description that clearly explain the change — see [Commit Messages](#commit-messages) for the title format.
-
-> 💡 **Tip:** GitHub pre-fills the description from this repository's single pull request template — fill it in as you go.
-
-## Dependencies
+## Dependency Management
 
 Dependencies should be managed carefully to keep the project secure, compatible, and easy to maintain over time.
 
-- Install dependencies
-  - Install the Node.js version specified in `.nvmrc`, or run `nvm install` and `nvm use` if you use [nvm](https://github.com/nvm-sh/nvm).
-  - Install every dependency across the monorepo with `pnpm install` — required before running the project locally.
-- Add a dependency
-  - Add a package to the current workspace with `pnpm add <package-name>`.
-  - Target a specific workspace with `pnpm --filter <workspace> add <package-name>`.
-  - Add it across every workspace with `pnpm -r add <package-name>`.
-- Remove a dependency
-  - Remove a package from the current workspace with `pnpm remove <package-name>`.
-  - Target a specific workspace with `pnpm --filter <workspace> remove <package-name>`.
-  - Remove it across every workspace with `pnpm -r remove <package-name>`.
-- Check for outdated dependencies
-  - See what's outdated in the current workspace with `pnpm outdated`.
-  - Check every workspace at once with `pnpm -r outdated`.
-- Update dependencies
-  - Update the current workspace with `pnpm update`.
-  - Target a specific workspace with `pnpm --filter <workspace> update`.
-  - Update every workspace at once with `pnpm -r update`.
-  - Bump a single package to its latest version with `pnpm add <package-name>@latest`.
+Install dependencies before running the project locally:
+
+- Install the Node.js version specified in `.nvmrc`, or run `nvm install` and `nvm use` when using [nvm](https://github.com/nvm-sh/nvm).
+- Install every dependency across the monorepo with `pnpm install`.
+
+Add a new dependency:
+
+- Add a package to the current workspace with `pnpm add <package-name>`.
+- Target a specific workspace with `pnpm --filter <workspace> add <package-name>`.
+- Add it across every workspace with `pnpm -r add <package-name>`.
+
+Remove a dependency that's no longer needed:
+
+- Remove a package from the current workspace with `pnpm remove <package-name>`.
+- Target a specific workspace with `pnpm --filter <workspace> remove <package-name>`.
+- Remove it across every workspace with `pnpm -r remove <package-name>`.
+
+Check for outdated dependencies before planning an update:
+
+- See what's outdated in the current workspace with `pnpm outdated`.
+- Check every workspace at once with `pnpm -r outdated`.
+
+Update dependencies to bring in fixes and improvements:
+
+- Update the current workspace with `pnpm update`.
+- Target a specific workspace with `pnpm --filter <workspace> update`.
+- Update every workspace at once with `pnpm -r update`.
+- Bump a single package to its latest version with `pnpm add <package-name>@latest`.
 
 After any dependency change, confirm compatibility by [building](#building) and [testing](#testing) the project, then commit the updated lockfile.
-
-## Testing
-
-Writing tests for new features and modifications helps verify changes behave as expected and reduces the chance of regressions reaching other contributors.
-
-- Execute all tests across the monorepo with `pnpm test`.
-- Check end-to-end behaviour with `pnpm e2e`.
-
-Structure test files consistently:
-
-- Mock dependencies and libraries first.
-- Define helper functions and constants for mock data.
-- Group focused test cases in `describe` blocks.
 
 ## Building
 
 Building the project validates that production assets can be generated successfully before changes are submitted.
 
+Generate and review build output with the following commands:
+
 - Build all projects in the monorepo with `pnpm build`.
 - Preview a production build locally with `pnpm preview`.
 
-> 💡 **Note:** Building is required before local development, since apps depend on the built output of shared packages.
+> 💡 **Note:** A successful build is required before local development, since apps depend on the built output of shared packages.
+
+## Testing
+
+Writing tests for new features and modifications helps verify changes behave as expected and reduces the chance of regressions reaching other contributors.
+
+Run the test suite before submitting changes:
+
+- Execute all tests across the monorepo with `pnpm test`.
+- Check end-to-end behaviour with `pnpm e2e`.
+
+Structure test files consistently for readability and easier maintenance:
+
+- Mock dependencies and libraries first.
+- Define helper functions and constants for mock data.
+- Group focused test cases in `describe` blocks.
+
+Passing tests confirm changes behave as intended and are ready for review.
 
 ## Coding Standards
 
-Following shared coding conventions keeps the codebase consistent, readable, and easier for everyone to work with.
+Following shared coding conventions keeps the codebase consistent, readable, and easier to maintain across every workspace.
+
+Apply consistent formatting and linting before submitting changes:
 
 - Format code using [Prettier](https://prettier.io/) with `pnpm format`.
 - Lint code using [ESLint](https://eslint.org/) with `pnpm lint`.
+
+Formatted and linted code passes CI checks without additional review comments on style.
+
+## Branching
+
+Keeping work isolated in focused branches makes reviews easier and reduces the risk of unrelated changes being introduced.
+
+Create and submit a branch for each change in order:
+
+1. Create a feature branch for each change with `git checkout -b feature/your-feature-name`.
+2. Push the branch once changes are ready with `git push origin feature/your-feature-name`.
+3. Open a pull request with a title and description that clearly explain the change — see [Commit Messages](#commit-messages) for the title format.
+
+> 💡 **Tip:** GitHub pre-fills the description from the repository's single pull request template, ready to complete before submitting.
+
+## Commit Messages
+
+Consistent commit messages, written in a shared format, improve project history and clarify the intent behind each change.
+
+Follow the format `<type>(<scope>): <description>` for every commit, matching `<type>` to the kind of change:
+
+- A new feature uses `feat`.
+- A bug fix uses `fix`.
+- A dependency change uses `deps`.
+- Maintenance, documentation, refactors, tests, and CI changes use `chore`, `docs`, `refactor`, `test`, or `ci`.
+- A breaking change uses `feat!` or a `BREAKING CHANGE:` footer.
+- Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes.
+
+> 💡 **Note:** Pull request titles follow the same format, since they become the squash merge commit message.
 
 ## Issue Reporting
 
 Clear issue reports make it easier to reproduce problems, discuss improvements, and track future work.
 
-Start with the template that matches your issue:
+Select the template that matches the issue before submitting a report:
 
-- **Bug Report** — issues or unexpected behaviour
-- **Feature Request** — new features or improvements
-- **Question** — help or clarification
+- Unexpected behaviour or defects use the Bug Report template.
+- New features or improvements use the Feature Request template.
+- Requests for help or clarification use the Question template.
+- Duplicate reports are avoided by searching existing issues and checking the README and documentation first.
 
-Search existing issues to avoid duplicates, and check the README and documentation for answers to common questions before opening a new issue.
-
-> 💡 **Tip:** GitHub shows the available templates automatically when you open a new issue — choose the one that fits.
-
-## Commit Messages
-
-Consistent commit messages, written in the [Conventional Commits](https://www.conventionalcommits.org/) format, make project history clear and easy to search. The same format applies to pull request titles, since they become the squash merge commit message.
-
-- Use the format `<type>(<scope>): <description>`, matching `<type>` to the kind of change:
-  - A new feature uses `feat`.
-  - A bug fix uses `fix`.
-  - A dependency change uses `deps`.
-  - Maintenance, documentation, refactors, tests, and CI changes use `chore`, `docs`, `refactor`, `test`, or `ci`.
-  - A breaking change uses `feat!` or a `BREAKING CHANGE:` footer.
-- Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes.
+> 💡 **Tip:** GitHub shows the matching template automatically once an issue category is selected.
