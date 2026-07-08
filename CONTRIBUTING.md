@@ -23,11 +23,11 @@ We strive to maintain a welcoming, respectful, and inclusive community where eve
 
 Understanding how workspaces are organised helps you run commands efficiently and make changes without affecting unrelated projects.
 
-This repository is a monorepo managed with [Turborepo](https://turbo.build/repo) and [PNPM Workspaces](https://pnpm.io/workspaces). Commands run from the repository root apply across all **apps** and **packages** by default.
+This repository is a monorepo managed with [Turborepo](https://turbo.build/repo) and [PNPM Workspaces](https://pnpm.io/workspaces). Commands run from the repository root apply across all **apps** and **packages** by default, but you can target a specific workspace with the `--filter <workspace>` flag.
 
-From the repository root, target a specific workspace with the `--filter <workspace>` flag, for example `pnpm --filter <workspace> <command>`, to scope a command to that workspace while preserving dependency awareness.
+> 📝 **Note:** Unless a section says otherwise, run the commands in this guide from the repository root.
 
-> 💡 **Tip:** From the repository root, common tasks like `pnpm build`, `pnpm dev`, `pnpm lint`, and `pnpm test` can be run across the monorepo or scoped to a single workspace with filters.
+This approach keeps command usage predictable while still allowing contributors to focus work on a single workspace when needed.
 
 ## Development Setup
 
@@ -38,7 +38,7 @@ Prepare the project for local development after cloning the repository:
 1. Clone the repository and navigate to its directory.
 2. Install the correct Node.js version and project dependencies — see [Dependency Management](#dependency-management).
 3. Build the project so shared packages are available — see [Building](#building).
-4. From the repository root, start the development server with `pnpm dev`.
+4. Start the development server with `pnpm dev`.
 
 Turborepo runs these tasks in dependency order, using caching and parallel execution to keep setup fast.
 
@@ -46,32 +46,24 @@ Turborepo runs these tasks in dependency order, using caching and parallel execu
 
 Dependencies should be managed carefully to keep the project secure, compatible, and easy to maintain over time.
 
-From the repository root, install dependencies before running the project locally:
+Install dependencies before running the project locally:
 
-- In your shell, install the Node.js version specified in `.nvmrc`, or run `nvm install` and `nvm use` when using [nvm](https://github.com/nvm-sh/nvm).
+- Install the Node.js version specified in `.nvmrc`, or run `nvm install` and `nvm use` when using [nvm](https://github.com/nvm-sh/nvm).
 - Install every dependency across the monorepo with `pnpm install`.
 
-Add a new dependency in one of these ways:
+Manage dependencies for a specific workspace with these commands:
 
-- From a workspace directory: `pnpm add <package-name>`.
-- From the repository root for a specific workspace: `pnpm --filter <workspace> add <package-name>`.
+- Add a dependency with `pnpm --filter <workspace> add <package-name>`.
+- Remove a dependency with `pnpm --filter <workspace> remove <package-name>`.
 
-Remove a dependency in one of these ways:
+Check for outdated dependencies before planning an update:
 
-- From a workspace directory: `pnpm remove <package-name>`.
-- From the repository root for a specific workspace: `pnpm --filter <workspace> remove <package-name>`.
+- Check every workspace with `pnpm -r outdated`.
 
-Before planning an update, check for outdated dependencies in one of these ways:
+Update dependencies to bring in fixes and improvements:
 
-- From a workspace directory: `pnpm outdated`.
-- From the repository root for every workspace: `pnpm -r outdated`.
-
-To bring in fixes and improvements, update dependencies in one of these ways:
-
-- From a workspace directory: `pnpm update`.
-- From the repository root for a specific workspace: `pnpm --filter <workspace> update`.
-- From the repository root for every workspace: `pnpm -r update`.
-- From a workspace directory to bump a single package to its latest version: `pnpm add <package-name>@latest`.
+- Update a specific workspace with `pnpm --filter <workspace> update`.
+- Update every workspace with `pnpm -r update`.
 
 After any dependency change, confirm compatibility by [building](#building) and [testing](#testing) the project, then commit the updated lockfile.
 
@@ -79,18 +71,20 @@ After any dependency change, confirm compatibility by [building](#building) and 
 
 Building the project validates that production assets can be generated successfully before changes are submitted.
 
-From the repository root, generate and review build output with the following commands:
+Generate and review build output with the following commands:
 
 - Build all projects in the monorepo with `pnpm build`.
 - Preview a production build locally with `pnpm preview`.
 
 > 💡 **Note:** A successful build is required before local development, since apps depend on the built output of shared packages.
 
+Successful build output shows the project is ready for local development and production-oriented validation.
+
 ## Testing
 
 Writing tests for new features and modifications helps verify changes behave as expected and reduces the chance of regressions reaching other contributors.
 
-From the repository root, run the test suite before submitting changes:
+Run the test suite before submitting changes:
 
 - Execute all tests across the monorepo with `pnpm test`.
 - Check end-to-end behaviour with `pnpm e2e`.
@@ -107,7 +101,7 @@ Passing tests confirm changes behave as intended and are ready for review.
 
 Following shared coding conventions keeps the codebase consistent, readable, and easier to maintain across every workspace.
 
-From the repository root, apply consistent formatting and linting before submitting changes:
+Apply consistent formatting and linting before submitting changes:
 
 - Format code using [Prettier](https://prettier.io/) with `pnpm format`.
 - Lint code using [ESLint](https://eslint.org/) with `pnpm lint`.
@@ -118,13 +112,15 @@ Formatted and linted code passes CI checks without additional review comments on
 
 Keeping work isolated in focused branches makes reviews easier and reduces the risk of unrelated changes being introduced.
 
-From the repository root, create and submit a branch for each change in order:
+Create and submit a branch for each change in order:
 
 1. Create a feature branch for each change with `git checkout -b feature/your-feature-name`.
 2. Push the branch once changes are ready with `git push origin feature/your-feature-name`.
 3. Open a pull request with a title and description that clearly explain the change — see [Commit Messages](#commit-messages) for the title format.
 
 > 💡 **Tip:** GitHub pre-fills the description from the repository's single pull request template, ready to complete before submitting.
+
+Focused branches and clear pull requests make changes easier to review, test, and merge safely.
 
 ## Commit Messages
 
@@ -141,6 +137,8 @@ Follow the format `<type>(<scope>): <description>` for every commit, matching `<
 
 > 💡 **Note:** Pull request titles follow the same format, since they become the squash merge commit message.
 
+Following this format keeps release automation predictable and makes project history easier to scan.
+
 ## Issue Reporting
 
 Clear issue reports make it easier to reproduce problems, discuss improvements, and track future work.
@@ -153,3 +151,5 @@ Select the template that matches the issue before submitting a report:
 - Duplicate reports are avoided by searching existing issues and checking the README and documentation first.
 
 > 💡 **Tip:** GitHub shows the matching template automatically once an issue category is selected.
+
+Using the right template and enough detail helps maintainers triage, reproduce, and respond more efficiently.
