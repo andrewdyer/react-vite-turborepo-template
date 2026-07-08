@@ -5,192 +5,132 @@ Thank you for your interest in contributing! We welcome improvements and suggest
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
-- [Repository Overview](#repository-overview)
+- [Working with Workspaces](#working-with-workspaces)
 - [Development Setup](#development-setup)
-- [Turborepo Tasks](#turborepo-tasks)
+- [Branching](#branching)
 - [Upgrading Dependencies](#upgrading-dependencies)
-- [Template Syncing](#template-syncing)
 - [Testing](#testing)
 - [Building](#building)
-- [Docker](#docker)
 - [Coding Standards](#coding-standards)
 - [Issue Reporting](#issue-reporting)
-- [Commit Guidelines](#commit-guidelines)
-- [Releasing](#releasing)
+- [Commit Messages](#commit-messages)
+- [Further Reading](#further-reading)
 
 ## Code of Conduct
 
-Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) in all interactions. Respectful and inclusive behavior is expected from all contributors.
+Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) in all interactions. Respectful and inclusive behaviour is expected from all contributors.
 
-## Repository Overview
+## Working with Workspaces
 
-This repository is structured as a monorepo powered by [Turborepo](https://turbo.build/repo) and [PNPM Workspaces](https://pnpm.io/workspaces). Most commands are executed from the **repository root** and are automatically applied across all apps and packages. Turborepo manages task orchestration, caching, and dependency ordering to ensure efficient builds and testing.
+This repository is a monorepo managed with [Turborepo](https://turbo.build/repo) and [PNPM Workspaces](https://pnpm.io/workspaces). Commands run from the repository root apply across all **apps** and **packages** by default.
 
-You can also target a specific workspace when needed using the `--filter <workspace>` flag, for example `pnpm --filter <workspace> <command>`. This approach runs a command only for that workspace while preserving dependency awareness.
+Target a specific workspace with the `--filter <workspace>` flag, for example `pnpm --filter <workspace> <command>`, to scope a command to that workspace while preserving dependency awareness.
 
-> 💡 **Tip:** Common tasks like `pnpm build`, `pnpm dev`, `pnpm lint`, and `pnpm test` can be run globally or scoped to a single workspace using filters — no configuration changes required.
+> 💡 **Tip:** Common tasks like `pnpm build`, `pnpm dev`, `pnpm lint`, and `pnpm test` can be run globally or scoped to a single workspace using filters.
+
+For the full workspace layout and shared tooling, see [Repository Architecture](./docs/architecture.md). For how tasks and caching are configured, see [Turborepo Tasks](./docs/turborepo.md).
 
 ## Development Setup
 
-To get started with contributing, set up the project by following these steps:
+To get started, set up the project by following these steps:
 
-1. Begin by cloning the repository and navigating to its directory.
-2. Ensure you have the correct Node.js version installed (check package.json for the required version).
-3. Install all project dependencies with `pnpm install`.
-4. Build all packages to ensure shared dependencies are available with `pnpm build`.
-5. Start the development server using `pnpm dev` to begin working on the project.
+1. Clone the repository and navigate to its directory.
+2. Install the correct [Node.js](https://nodejs.org/) version, as specified in `package.json`.
+3. Install dependencies with `pnpm install`.
+4. Build all packages to make shared dependencies available with `pnpm build`.
+5. Start the development server with `pnpm dev`.
 
-> 💡 **Note:** Turborepo automatically runs tasks in the correct order based on workspace dependencies, using smart caching and parallel execution for optimal performance.
+> 💡 **Note:** Turborepo runs tasks in dependency order using smart caching and parallel execution.
 
-## Turborepo Tasks
+## Branching
 
-Turborepo tasks are defined in `turbo.json` at the root of the repository. Each task (such as `build`, `test`, `lint`, or `dev`) can specify dependencies (`dependsOn`) and output paths to enable smart caching and efficient rebuilds.
+Every change should be made on its own feature branch:
 
-To add or extend shared tasks:
+```bash
+git checkout -b feature/your-feature-name
+```
 
-- Define the task configuration in `turbo.json`.
-- Add or update the corresponding script in each relevant workspace's `package.json`.
-
-> 💡 **Tip:** Turborepo's dependency graph ensures that changes in one workspace only trigger necessary rebuilds and tests in dependent workspaces, streamlining both local development and CI pipelines.
+Keep branches focused on a single change to keep diffs reviewable and commit messages simple.
 
 ## Upgrading Dependencies
 
-Keeping dependencies up-to-date is crucial for maintaining the security and performance of the project. Follow these steps to upgrade dependencies:
+Keeping dependencies up to date is important for security and performance. Follow these steps:
 
-1. Check for outdated dependencies:
-   - Run `pnpm outdated` to see outdated dependencies in the current workspace.
-   - Run `pnpm -r outdated` to check outdated dependencies across all workspaces.
-2. Update dependencies:
-   - Update all dependencies in every workspace with `pnpm -r update`.
-   - Update a specific package in all workspaces with `pnpm -r add <package-name>@latest`.
-   - Update dependencies in a single workspace using `pnpm --filter <workspace> update` or `pnpm --filter <workspace> add <package-name>@latest`.
-3. Rebuild all packages with `pnpm build` and run tests with `pnpm test` to ensure compatibility.
+1. Check for outdated dependencies with `pnpm outdated`, or across all workspaces with `pnpm -r outdated`.
+2. Update all dependencies in every workspace with `pnpm -r update`, or a specific package with `pnpm -r add <package-name>@latest`. Scope either command to a single workspace with `pnpm --filter <workspace> update` or `pnpm --filter <workspace> add <package-name>@latest`.
+3. Rebuild with `pnpm build` and test with `pnpm test` to confirm compatibility.
 4. Update the lockfile with `pnpm install` if needed.
-5. Commit your changes with a clear message and open a pull request for review.
-
-## Template Syncing
-
-When the base template is updated (dependency changes, linting updates, or config improvements), sync those changes into projects generated from it. Follow these steps:
-
-1. Create a sync branch: `git checkout -b chore/sync-template-vX.Y.Z`, replacing `vX.Y.Z` with the template tag you're syncing from.
-2. Copy the updated files from [react-vite-turborepo-template](https://github.com/andrewdyer/react-vite-turborepo-template) into your project, then resolve any project-specific differences manually.
-3. Review what changed with `git diff` to verify only intended template updates were introduced.
-4. Commit all template changes together as a single atomic commit, following the [Commit Guidelines](#commit-guidelines) below.
-5. Run `pnpm install` to apply the updated files, then `pnpm build` and `pnpm test` to confirm the project still builds and passes.
-6. Submit the sync branch using the standard pull request workflow in [Commit Guidelines](#commit-guidelines).
 
 ## Testing
 
-Please write tests for any new features or modifications to the project. Follow these steps to ensure your tests are effective and consistent:
+Write tests for new features and modifications to the project.
 
 - Run all tests across the monorepo with `pnpm test`.
-- Execute end-to-end tests with `pnpm e2e`.
+- Run end-to-end tests with `pnpm e2e`.
 
-For consistency and modularity, organize test code into structured sections:
+Structure test files consistently:
 
-- Start by mocking dependencies or libraries.
-- Create helper functions to streamline repetitive logic.
-- Define constants for mock data or configurations.
-- Structure the main test suite using `describe` blocks and focused test cases.
-
-Ensure tests are clear, reusable, and easy to maintain before submitting changes.
-
-> 💡 **Tip:** You can scope testing to a specific workspace using `pnpm --filter <workspace> test` or `pnpm --filter <workspace> e2e`.
+- Mock dependencies and libraries first.
+- Define helper functions and constants for mock data.
+- Group focused test cases in `describe` blocks.
 
 ## Building
 
-Use the following commands as needed to build and preview the project:
+Use the following commands to build and preview the project:
 
 - Build all projects in the monorepo with `pnpm build`.
-- Preview the production build locally with `pnpm preview`.
+- Preview a production build locally with `pnpm preview`.
 
-## Docker
-
-This repository includes a single, parameterised Dockerfile capable of building any web application located under `apps/*`. It is intended for HTTP-based applications that can be served from a container runtime.
-
-To build an app, run `docker build --build-arg APP_NAME=<workspace> -t <workspace>:local .` from the repository root, where `<workspace>` matches the name of a folder under `apps/`.
-
-Once built, start the container with `docker run --name <workspace>-app -p 8080:80 -d <workspace>:local`, which maps port 8080 on your machine to port 80 inside the container.
-
-> 💡 **Tip:** The Dockerfile uses `turbo prune` to minimise the build context before installing and building dependencies, resulting in faster builds and smaller images.
+See [Docker](./docs/docker.md) for containerising and running apps.
 
 ## Coding Standards
 
-To maintain code quality and consistency, please follow these guidelines:
+To maintain code quality and consistency, follow these guidelines:
 
-- Format code using Prettier with `pnpm format`.
-- Lint code using ESLint with `pnpm lint`.
+- Format code with [Prettier](https://prettier.io/) using `pnpm format`.
+- Lint code with [ESLint](https://eslint.org/) using `pnpm lint`.
 
 ## Issue Reporting
 
-We welcome bug reports, feature requests, and questions about the project. To ensure we can help you effectively, please use the appropriate issue template when creating a new issue, including:
+We welcome bug reports, feature requests, and questions about the project. Use the appropriate issue template when creating a new issue:
 
-- **🐛 Bug Report**: Report issues or unexpected behavior
-- **✨ Feature Request**: Suggest new features or improvements
-- **❓ Question**: Ask for help or clarification
+- **🐛 Bug Report** — issues or unexpected behaviour
+- **✨ Feature Request** — new features or improvements
+- **❓ Question** — help or clarification
 
-Before creating an issue, please complete these steps, including:
+Search existing issues to avoid duplicates, and check the README and documentation for answers to common questions before opening a new issue.
 
-- **Search existing issues** to avoid duplicates
-- **Check the documentation** and README for answers to common questions
-- **Use GitHub Discussions** for general questions and community support
+> 💡 **Tip:** GitHub shows the available templates automatically when you open a new issue — choose the one that fits.
 
-> 💡 **Tip:** When you create a new issue, GitHub will automatically show you the available templates. Choose the one that best fits your situation for a guided experience.
+## Commit Messages
 
-## Commit Guidelines
-
-When contributing changes, use descriptive commit messages following the [Conventional Commits](https://www.conventionalcommits.org/) format. This is not just a style convention — commit messages directly drive the automated release process described in [Releasing](#releasing), so getting them right matters.
-
-The format is:
+Commit messages follow the [Conventional Commits](https://www.conventionalcommits.org/) format and determine version bumps through [Release Please](./docs/releasing.md):
 
 ```
 <type>(<scope>): <description>
 ```
 
-Common types and how they affect versioning:
+- `feat` — new feature, minor version bump
+- `fix` — bug fix, patch version bump
+- `deps` — dependency update, patch version bump when releasable
+- `chore`, `docs`, `refactor`, `test`, `ci` — no version bump
+- `feat!` or a `BREAKING CHANGE:` footer — major version bump
 
-- `feat`: a new feature — triggers a minor version bump
-- `fix`: a bug fix — triggers a patch version bump
-- `deps`: dependency updates — can trigger a patch release when treated as releasable by Release Please
-- `chore`, `docs`, `refactor`, `test`, `ci`: no version bump
-- `feat!` or any type with `BREAKING CHANGE:` in the footer — triggers a major version bump
+Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes.
 
-The scope should reflect the affected workspace, for example a workspace from `apps/` or `packages/`. Omit the scope for changes that span the whole repo.
+Once your changes are ready:
 
-Once you've made your changes, follow these steps to submit them for review:
+1. Push the branch with `git push origin feature/your-feature-name`.
+2. Open a pull request with a title and description that clearly explain the change.
 
-1. Create a feature branch with `git checkout -b feature/your-feature-name`.
-2. Commit your changes following the commit guidelines above.
-3. Push your branch with `git push origin feature/your-feature-name`.
-4. Open a pull request with a title and description that clearly explain your changes.
+> 💡 **Tip:** Pull request titles follow the same Conventional Commits format, since they become the squash merge commit message that Release Please reads.
 
-> 💡 **Tip:** Pull request titles follow the same Conventional Commits format, as they become the squash merge commit message that Release Please reads when determining what to release and at what version.
+## Further Reading
 
-## Releasing
+Additional reference material for specific tasks:
 
-This repository uses [Release Please](https://github.com/googleapis/release-please) to automate versioning and changelog generation through release pull requests. Contributors do not need to create release pull requests manually, but should understand how the process works when preparing changes.
-
-Release behaviour is driven entirely by [Conventional Commits](https://www.conventionalcommits.org/), as described in [Commit Guidelines](#commit-guidelines).
-
-The release process works as follows:
-
-1. A pull request is merged into main using a Conventional Commits-compatible title.
-2. Release Please analyses unreleased changes and determines the appropriate version bump for configured release packages.
-3. Release Please opens (or updates) a release pull request containing:
-   - Updated package versions
-   - Generated changelog entries
-   - Release metadata
-4. Review and merge the release pull request when you are ready to cut the next release.
-5. After merge, GitHub release metadata and tags are managed by Release Please.
-
-Version bumps are determined from commit types:
-
-| Commit Type                               | Version Bump          |
-| ----------------------------------------- | --------------------- |
-| `fix`                                     | Patch (1.0.0 → 1.0.1) |
-| `feat`                                    | Minor (1.0.0 → 1.1.0) |
-| `deps`                                    | Patch (1.0.0 → 1.0.1) |
-| `feat!` or `BREAKING CHANGE:`             | Major (1.0.0 → 2.0.0) |
-| `docs`, `test`, `chore`, `ci`, `refactor` | No release            |
-
-> 💡 **Tip:** Release pull requests are intentionally reviewed and merged separately from feature work. This provides an opportunity to verify the generated changelog and version numbers before finalizing a release.
+- [Repository Architecture](./docs/architecture.md) — workspace structure and shared tooling
+- [Turborepo Tasks](./docs/turborepo.md) — tasks, caching, and the dependency graph
+- [Docker](./docs/docker.md) — building and running apps in containers
+- [Template Syncing](./docs/template-syncing.md) — pulling template updates into a generated project
+- [Releasing](./docs/releasing.md) — how Release Please automates versioning and changelogs
