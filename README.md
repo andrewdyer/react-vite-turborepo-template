@@ -75,6 +75,10 @@ Essential development tools configured at the root for consistency and automatio
 
 Together, these tools create a fast, reliable, and maintainable developer experience across every workspace.
 
+## Documentation
+
+Learn more about setup, workspaces, workflows, and other template guidance in the [official React + Vite + Turborepo Template docs](https://docs.dyerlabs.co.uk/templates/react-vite-turborepo-template/introduction).
+
 ## Getting Started
 
 If you like what you've seen so far and think this setup fits your needs, you can quickly get started by clicking the **Use this template** button at the top of the repository on GitHub.
