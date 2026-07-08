@@ -87,6 +87,7 @@ Writing tests for new features and modifications helps verify changes behave as 
 Run the test suite before submitting changes:
 
 - Execute all tests across the monorepo with `pnpm test`.
+- Check test coverage with `pnpm test:coverage`.
 - Check end-to-end behaviour with `pnpm e2e`.
 
 Structure test files consistently for readability and easier maintenance:
