@@ -23,7 +23,7 @@ We strive to maintain a welcoming, respectful, and inclusive community where eve
 
 Understanding how workspaces are organised helps you run commands efficiently and make changes without affecting unrelated projects.
 
-This repository is a monorepo managed with [Turborepo](https://turbo.build/repo) and [PNPM Workspaces](https://pnpm.io/workspaces). Commands run from the repository root apply across all **apps** and **packages** by default, but you can target a specific workspace with the `--filter <workspace>` flag.
+This repository is a monorepo managed with [Turborepo](https://turbo.build/repo) and [pnpm Workspaces](https://pnpm.io/workspaces). Commands run from the repository root apply across all **apps** and **packages** by default, but you can target a specific workspace with the `--filter <workspace>` flag.
 
 > 📝 **Note:** Unless a section says otherwise, run the commands in this guide from the repository root.
 

@@ -33,7 +33,7 @@ repo/
 │
 ├── package.json               # Root workspace configuration
 ├── turbo.json                 # Turborepo configuration
-└── pnpm-workspace.yaml        # PNPM workspace definition
+└── pnpm-workspace.yaml        # pnpm workspace definition
 ```
 
 All applications and packages utilise shared [ESLint](./packages/eslint-config/README.md) and [TypeScript](./packages/typescript-config/README.md) configurations to ensure consistency across the monorepo, with each workspace designed for specific functionality and seamless integration:
