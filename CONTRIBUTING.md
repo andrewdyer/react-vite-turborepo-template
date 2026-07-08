@@ -18,9 +18,11 @@ Thank you for your interest in contributing! We welcome improvements and suggest
 
 ## Code of Conduct
 
-Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) in all interactions. Respectful and inclusive behaviour is expected from all contributors.
+We strive to maintain a welcoming, respectful, and inclusive community where everyone can collaborate productively. Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) in all interactions.
 
 ## Working with Workspaces
+
+Understanding how workspaces are organised helps you run commands efficiently and make changes without affecting unrelated projects.
 
 This repository is a monorepo managed with [Turborepo](https://turbo.build/repo) and [PNPM Workspaces](https://pnpm.io/workspaces). Commands run from the repository root apply across all **apps** and **packages** by default.
 
@@ -32,7 +34,7 @@ For the full workspace layout and shared tooling, see [Repository Architecture](
 
 ## Development Setup
 
-To get started, set up the project by following these steps:
+A consistent development environment helps ensure contributors can build, test, and run the project reliably.
 
 1. Clone the repository and navigate to its directory.
 2. Install the correct [Node.js](https://nodejs.org/) version, as specified in `package.json`.
@@ -44,17 +46,17 @@ To get started, set up the project by following these steps:
 
 ## Branching
 
-Every change should be made on its own feature branch:
+Keeping work isolated in focused branches makes reviews easier and reduces the risk of unrelated changes being introduced.
+
+Create a feature branch for each change:
 
 ```bash
 git checkout -b feature/your-feature-name
 ```
 
-Keep branches focused on a single change to keep diffs reviewable and commit messages simple.
-
 ## Upgrading Dependencies
 
-Keeping dependencies up to date is important for security and performance. Follow these steps:
+Dependencies should be updated carefully to keep the project secure, compatible, and easy to maintain over time.
 
 1. Check for outdated dependencies with `pnpm outdated`, or across all workspaces with `pnpm -r outdated`.
 2. Update all dependencies in every workspace with `pnpm -r update`, or a specific package with `pnpm -r add <package-name>@latest`. Scope either command to a single workspace with `pnpm --filter <workspace> update` or `pnpm --filter <workspace> add <package-name>@latest`.
@@ -63,7 +65,7 @@ Keeping dependencies up to date is important for security and performance. Follo
 
 ## Testing
 
-Write tests for new features and modifications to the project.
+Tests help verify changes behave as expected and reduce the chance of regressions reaching other contributors.
 
 - Run all tests across the monorepo with `pnpm test`.
 - Run end-to-end tests with `pnpm e2e`.
@@ -76,7 +78,7 @@ Structure test files consistently:
 
 ## Building
 
-Use the following commands to build and preview the project:
+Building the project validates that production assets can be generated successfully before changes are submitted.
 
 - Build all projects in the monorepo with `pnpm build`.
 - Preview a production build locally with `pnpm preview`.
@@ -85,14 +87,14 @@ See [Docker](./docs/docker.md) for containerising and running apps.
 
 ## Coding Standards
 
-To maintain code quality and consistency, follow these guidelines:
+Following shared coding conventions keeps the codebase consistent, readable, and easier for everyone to work with.
 
 - Format code with [Prettier](https://prettier.io/) using `pnpm format`.
 - Lint code with [ESLint](https://eslint.org/) using `pnpm lint`.
 
 ## Issue Reporting
 
-We welcome bug reports, feature requests, and questions about the project. Use the appropriate issue template when creating a new issue:
+Clear issue reports make it easier to reproduce problems, discuss improvements, and track future work, so start with the template that matches your issue:
 
 - **🐛 Bug Report** — issues or unexpected behaviour
 - **✨ Feature Request** — new features or improvements
@@ -104,7 +106,7 @@ Search existing issues to avoid duplicates, and check the README and documentati
 
 ## Commit Messages
 
-Commit messages follow the [Conventional Commits](https://www.conventionalcommits.org/) format and determine version bumps through [Release Please](./docs/releasing.md):
+Consistent commit messages, written in the [Conventional Commits](https://www.conventionalcommits.org/) format, improve project history and let automated tooling determine version changes accurately.
 
 ```
 <type>(<scope>): <description>
@@ -116,9 +118,7 @@ Commit messages follow the [Conventional Commits](https://www.conventionalcommit
 - `chore`, `docs`, `refactor`, `test`, `ci` — no version bump
 - `feat!` or a `BREAKING CHANGE:` footer — major version bump
 
-Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes.
-
-Once your changes are ready:
+Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes. See [Releasing](./docs/releasing.md) for how these types drive automated version bumps.
 
 1. Push the branch with `git push origin feature/your-feature-name`.
 2. Open a pull request with a title and description that clearly explain the change.
@@ -127,7 +127,7 @@ Once your changes are ready:
 
 ## Further Reading
 
-Additional reference material for specific tasks:
+Additional documentation is available for contributors who want more detailed information about specific parts of the project.
 
 - [Repository Architecture](./docs/architecture.md) — workspace structure and shared tooling
 - [Turborepo Tasks](./docs/turborepo.md) — tasks, caching, and the dependency graph
