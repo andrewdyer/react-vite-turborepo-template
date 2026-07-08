@@ -5,29 +5,19 @@ Thank you for your interest in contributing! We welcome improvements and suggest
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
-- [Working with Workspaces](#working-with-workspaces)
 - [Development Setup](#development-setup)
-- [Branching](#branching)
+- [Working with Workspaces](#working-with-workspaces)
 - [Dependencies](#dependencies)
-- [Testing](#testing)
 - [Building](#building)
+- [Testing](#testing)
 - [Coding Standards](#coding-standards)
-- [Issue Reporting](#issue-reporting)
+- [Branching](#branching)
 - [Commit Messages](#commit-messages)
+- [Issue Reporting](#issue-reporting)
 
 ## Code of Conduct
 
 We strive to maintain a welcoming, respectful, and inclusive community where everyone can collaborate productively. Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) in all interactions.
-
-## Working with Workspaces
-
-Understanding how workspaces are organised helps you run commands efficiently and make changes without affecting unrelated projects.
-
-This repository is a monorepo managed with [Turborepo](https://turbo.build/repo) and [PNPM Workspaces](https://pnpm.io/workspaces). Commands run from the repository root apply across all **apps** and **packages** by default.
-
-Target a specific workspace with the `--filter <workspace>` flag, for example `pnpm --filter <workspace> <command>`, to scope a command to that workspace while preserving dependency awareness.
-
-> 💡 **Tip:** Common tasks like `pnpm build`, `pnpm dev`, `pnpm lint`, and `pnpm test` can be run globally or scoped to a single workspace using filters.
 
 ## Development Setup
 
@@ -37,18 +27,19 @@ A consistent development environment helps ensure contributors can build, test, 
 2. Install the project's dependencies — see [Dependencies](#dependencies).
 3. Build the project so shared packages are available — see [Building](#building).
 4. Start the development server with `pnpm dev`.
+5. Open the application in your browser and confirm it starts successfully.
 
-> 💡 **Note:** Turborepo runs tasks in dependency order using smart caching and parallel execution.
+## Working with Workspaces
 
-## Branching
+Understanding how workspaces are organised helps you target commands correctly and avoid affecting unrelated projects.
 
-Keeping work isolated in focused branches makes reviews easier and reduces the risk of unrelated changes being introduced.
+This repository is a monorepo managed with [Turborepo](https://turbo.build/repo) and [PNPM Workspaces](https://pnpm.io/workspaces). Commands run from the repository root apply across all **apps** and **packages** by default.
 
-- Create a feature branch for each change with `git checkout -b feature/your-feature-name`.
-- Push the branch once your changes are ready with `git push origin feature/your-feature-name`.
-- Open a pull request with a title and description that clearly explain the change — see [Commit Messages](#commit-messages) for the title format.
+Target a specific workspace with the `--filter <workspace>` flag, for example `pnpm --filter <workspace> <command>`, to scope a command to that workspace while preserving dependency awareness.
 
-> 💡 **Tip:** GitHub pre-fills the description from this repository's single pull request template — fill it in as you go.
+> 💡 **Tip:** Common tasks like `pnpm build`, `pnpm dev`, `pnpm lint`, and `pnpm test` can be run globally or scoped to a single workspace using filters.
+
+> 📝 **Note:** Turborepo runs tasks in dependency order using smart caching and parallel execution.
 
 ## Dependencies
 
@@ -85,9 +76,20 @@ Keep dependencies up to date:
 
 After any dependency change, confirm compatibility by [building](#building) and [testing](#testing) the project, then commit the updated lockfile.
 
+## Building
+
+Building the project validates that production assets can be generated successfully before changes are submitted.
+
+- Build all projects in the monorepo with `pnpm build`.
+- Preview a production build locally with `pnpm preview`.
+
+> 📝 **Note:** Building is required before local development, since apps depend on the built output of shared packages.
+
 ## Testing
 
 Writing tests for new features and modifications helps verify changes behave as expected and reduces the chance of regressions reaching other contributors.
+
+Run the appropriate test suite before submitting your changes:
 
 - Execute all tests across the monorepo with `pnpm test`.
 - Check end-to-end behaviour with `pnpm e2e`.
@@ -98,35 +100,26 @@ Structure test files consistently:
 - Define helper functions and constants for mock data.
 - Group focused test cases in `describe` blocks.
 
-## Building
-
-Building the project validates that production assets can be generated successfully before changes are submitted.
-
-- Build all projects in the monorepo with `pnpm build`.
-- Preview a production build locally with `pnpm preview`.
-
-> 💡 **Note:** Building is required before local development, since apps depend on the built output of shared packages.
-
 ## Coding Standards
 
 Following shared coding conventions keeps the codebase consistent, readable, and easier for everyone to work with.
 
+Keep code style consistent across every workspace:
+
 - Format code using [Prettier](https://prettier.io/) with `pnpm format`.
 - Lint code using [ESLint](https://eslint.org/) with `pnpm lint`.
 
-## Issue Reporting
+## Branching
 
-Clear issue reports make it easier to reproduce problems, discuss improvements, and track future work.
+Keeping work isolated in focused branches makes reviews easier and reduces the risk of unrelated changes being introduced.
 
-Start with the template that matches your issue:
+Follow the standard Git workflow for every contribution:
 
-- **Bug Report** — issues or unexpected behaviour
-- **Feature Request** — new features or improvements
-- **Question** — help or clarification
+- Create a feature branch for each change with `git checkout -b feature/your-feature-name`.
+- Push the branch once your changes are ready with `git push origin feature/your-feature-name`.
+- Open a pull request with a title and description that clearly explain the change. See [Commit Messages](#commit-messages) for the title format.
 
-Search existing issues to avoid duplicates, and check the README and documentation for answers to common questions before opening a new issue.
-
-> 💡 **Tip:** GitHub shows the available templates automatically when you open a new issue — choose the one that fits.
+> 💡 **Tip:** GitHub pre-fills the description from this repository's single pull request template—fill it in as you go.
 
 ## Commit Messages
 
@@ -142,4 +135,18 @@ Choose the commit type that best describes your change:
 
 Format commit messages as `<type>(<scope>): <description>`.
 
-Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes.
+Scope is the affected workspace under `apps/` or `packages/`, omitted for repository-wide changes.
+
+## Issue Reporting
+
+Clear issue reports make it easier to reproduce problems, discuss improvements, and track future work.
+
+Start with the template that matches your issue:
+
+- **Bug Report** — Issues or unexpected behaviour.
+- **Feature Request** — New features or improvements.
+- **Question** — Help or clarification.
+
+Search existing issues to avoid duplicates, and check the README and documentation for answers to common questions before opening a new issue.
+
+> 💡 **Tip:** GitHub shows the available templates automatically when you open a new issue—choose the one that fits.
