@@ -16,7 +16,7 @@ pnpm install
 
 ### Build
 
-Build the shared packages:
+Build the apps and packages:
 
 ```bash
 pnpm build
