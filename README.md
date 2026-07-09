@@ -50,7 +50,7 @@ A modern React application built with Vite and TypeScript, providing a fast deve
 
 A comprehensive end-to-end testing suite built with Playwright and TypeScript, ensuring reliable cross-browser testing for the web application. Key features include:
 
-- [Playwright](https://playwright.dev/) for cross-browser end-to-end testing with automated CI/CD support.
+- [Playwright](https://playwright.dev/) for cross-browser end-to-end and accessibility testing with automated CI/CD support.
 - Pre-commit checks with [lint-staged](https://github.com/lint-staged/lint-staged) to maintain code quality.
 - Direct integration with the main web app for seamless testing workflows.
 
