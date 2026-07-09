@@ -100,8 +100,6 @@ Generate production assets with the following commands:
 - Build all projects in the monorepo with `pnpm build`.
 - Preview a production build locally with `pnpm preview`.
 
-> **Note:** A successful build is required before local development, since apps depend on the built output of shared packages.
-
 A successful build confirms the project is ready for local development and further validation.
 
 ### Testing
