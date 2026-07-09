@@ -68,8 +68,9 @@ A shared React component library built with Vite and TypeScript, providing reusa
 Essential development tools configured at the root for consistency and automation across all workspaces, including:
 
 - [Turborepo](https://turbo.build/repo) for managing builds, caching, and running tasks in parallel across the monorepo.
-- [Husky](https://typicode.github.io/husky) for Git hooks to enforce pre-commit checks and automate quality controls.
-- [Prettier](https://prettier.io/) for maintaining consistent code formatting across the entire codebase.
+- [Husky](https://typicode.github.io/husky) for Git hooks that automate development workflows, including staged file checks and commit message validation.
+- [Commitlint](https://commitlint.js.org/) for enforcing a consistent commit message convention.
+- [Prettier](https://prettier.io/) for maintaining consistent code formatting.
 - [Docker](https://www.docker.com/) for containerising apps via a shared root Dockerfile and Nginx config.
 - [GitHub Actions](https://github.com/features/actions) for CI/CD, covering testing on pull requests, automated releasing, publishing packages and images, and deployment workflow templates that require project-specific configuration.
 
