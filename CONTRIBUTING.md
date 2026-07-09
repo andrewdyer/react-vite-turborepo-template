@@ -7,12 +7,14 @@ Thank you for your interest in contributing! Contributions and suggestions that 
 - [Code of Conduct](#code-of-conduct)
 - [Working with Workspaces](#working-with-workspaces)
 - [Development Setup](#development-setup)
+- [Development Workflow](#development-workflow)
+  - [Branching](#branching)
+  - [Coding](#coding)
+  - [Building](#building)
+  - [Testing](#testing)
+  - [Committing](#committing)
 - [Dependency Management](#dependency-management)
-- [Building](#building)
-- [Testing](#testing)
 - [Coding Standards](#coding-standards)
-- [Branching](#branching)
-- [Commit Messages](#commit-messages)
 - [Issue Reporting](#issue-reporting)
 
 ## Code of Conduct
@@ -26,8 +28,6 @@ Understanding how workspaces are organised helps you run commands efficiently an
 This repository is a monorepo managed with [Turborepo](https://turbo.build/repo) and [pnpm Workspaces](https://pnpm.io/workspaces). Commands run from the repository root apply across all **apps** and **packages** by default, but you can target a specific workspace with the `--filter <workspace>` flag.
 
 > 📝 **Note:** Unless a section says otherwise, run the commands in this guide from the repository root.
-
-Every command in this guide can be run with confidence about which workspace it affects.
 
 ## Development Setup
 
@@ -43,6 +43,101 @@ Prepare the project for local development after cloning the repository:
 > 📝 **Note:** Turborepo runs these tasks in dependency order, using caching and parallel execution to keep setup fast.
 
 A running development server confirms the environment is ready for local changes.
+
+## Development Workflow
+
+Moving from a new branch to a reviewable change follows the same sequence for every contribution.
+
+### Branching
+
+Keeping work isolated in focused branches makes reviews easier and reduces the risk of unrelated changes being introduced.
+
+Choose the appropriate target branch before creating a feature branch:
+
+- Bug fixes should be sent to the latest stable branch.
+- Minor features that are fully backwards compatible with the current release may be sent to the latest stable branch.
+- Major features should always be sent to the `main` branch, which contains the upcoming release.
+
+Create and submit a branch for each change in order:
+
+1. Create a feature branch for each change with `git checkout -b feature/your-feature-name`.
+2. Commit your changes with a message — see [Committing](#committing).
+3. Push the branch once changes are ready with `git push origin feature/your-feature-name`.
+4. Open a pull request with a title and description that clearly explain the change — see [Committing](#committing) for the title format.
+
+An open pull request signals the change is ready for review.
+
+> 💡 **Tip:** GitHub pre-fills the description from the repository's single pull request template, ready to complete before submitting.
+
+The review process continues until the change is ready to merge:
+
+- Review feedback carefully and suggest improvements or alternatives when needed.
+- Apply requested changes in follow-up commits instead of overwriting or squashing history; the merge will be squashed later.
+- Keep the branch up to date with the target branch if new commits land while review is in progress.
+- Re-request review after the requested changes are in place.
+- Resolve review conversations once the underlying concern has been addressed.
+
+The pull request is ready to merge once review conversations are resolved and required checks pass.
+
+### Coding
+
+Keeping changes focused makes reviews easier and reduces the likelihood of unrelated regressions.
+
+Write the change with the existing codebase in mind:
+
+- Keep changes limited to the branch's purpose, avoiding unrelated edits.
+- Match existing patterns and conventions already used nearby in the codebase.
+- Apply the formatting and linting expectations described in [Coding Standards](#coding-standards) while writing code.
+
+A focused, convention-following change is faster to review and less likely to introduce regressions.
+
+### Building
+
+Building the project validates that production assets can be generated successfully before changes are submitted.
+
+Generate production assets with the following commands:
+
+- Build all projects in the monorepo with `pnpm build`.
+- Preview a production build locally with `pnpm preview`.
+
+> 📝 **Note:** A successful build is required before local development, since apps depend on the built output of shared packages.
+
+A successful build confirms the project is ready for local development and further validation.
+
+### Testing
+
+Writing tests for new features and changes helps verify changes behave as expected and reduces the chance of regressions reaching other contributors.
+
+Run the test suite before submitting changes:
+
+- Execute all tests across the monorepo with `pnpm test`.
+- Check test coverage with `pnpm test:coverage`.
+- Check end-to-end behaviour with `pnpm e2e`.
+
+Structure test files consistently for readability and easier maintenance:
+
+- Mock dependencies and libraries first.
+- Define helper functions and constants for mock data.
+- Group focused test cases in `describe` blocks.
+
+Passing tests confirm changes behave as intended and are ready for review.
+
+### Committing
+
+Consistent commit messages, written in a shared format, improve project history and clarify the intent behind each change.
+
+Follow the format `<type>(<scope>): <description>` for every commit, matching `<type>` to the kind of change:
+
+- A new feature uses `feat`.
+- A bug fix uses `fix`.
+- A dependency change uses `deps`.
+- Maintenance, documentation, refactors, tests, and CI changes use `chore`, `docs`, `refactor`, `test`, or `ci`.
+- A breaking change uses `feat!` or a `BREAKING CHANGE:` footer.
+- Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes.
+
+> 📝 **Note:** Pull request titles follow the same format, since they become the squash merge commit message.
+
+A well-formatted commit message helps reviewers and future contributors understand why a change was made.
 
 ## Dependency Management
 
@@ -69,37 +164,6 @@ Update dependencies to bring in fixes and improvements:
 
 After any dependency change, confirm compatibility by [building](#building) and [testing](#testing) the project, then commit the updated lockfile.
 
-## Building
-
-Building the project validates that production assets can be generated successfully before changes are submitted.
-
-Generate and review build output with the following commands:
-
-- Build all projects in the monorepo with `pnpm build`.
-- Preview a production build locally with `pnpm preview`.
-
-> 📝 **Note:** A successful build is required before local development, since apps depend on the built output of shared packages.
-
-A successful build confirms the project is ready for local development and further validation.
-
-## Testing
-
-Writing tests for new features and modifications helps verify changes behave as expected and reduces the chance of regressions reaching other contributors.
-
-Run the test suite before submitting changes:
-
-- Execute all tests across the monorepo with `pnpm test`.
-- Check test coverage with `pnpm test:coverage`.
-- Check end-to-end behaviour with `pnpm e2e`.
-
-Structure test files consistently for readability and easier maintenance:
-
-- Mock dependencies and libraries first.
-- Define helper functions and constants for mock data.
-- Group focused test cases in `describe` blocks.
-
-Passing tests confirm changes behave as intended and are ready for review.
-
 ## Coding Standards
 
 Following shared coding conventions keeps the codebase consistent, readable, and easier to maintain across every workspace.
@@ -111,54 +175,6 @@ Apply consistent formatting and linting before submitting changes:
 
 Formatted and linted code passes CI checks without additional review comments on style.
 
-## Branching
-
-Keeping work isolated in focused branches makes reviews easier and reduces the risk of unrelated changes being introduced.
-
-Branch off the appropriate branch into a new feature branch:
-
-- Bug fixes should be sent to the latest stable branch.
-- Minor features that are fully backwards compatible with the current release may be sent to the latest stable branch.
-- Major features should always be sent to the `main` branch, which contains the upcoming release.
-
-Create and submit a branch for each change in order:
-
-1. Create a feature branch for each change with `git checkout -b feature/your-feature-name`.
-2. Commit your changes with a message — see [Commit Messages](#commit-messages).
-3. Push the branch once changes are ready with `git push origin feature/your-feature-name`.
-4. Open a pull request with a title and description that clearly explain the change — see [Commit Messages](#commit-messages) for the title format.
-
-An open pull request signals the change is ready for review.
-
-> 💡 **Tip:** GitHub pre-fills the description from the repository's single pull request template, ready to complete before submitting.
-
-The review process continues until the change is ready to merge:
-
-- Review feedback carefully and suggest improvements or alternatives when needed.
-- Apply requested changes in follow-up commits instead of overwriting or squashing history; the merge will be squashed later.
-- Keep the branch up to date with the target branch if new commits land while review is in progress.
-- Re-request review after the requested changes are in place.
-- Resolve review conversations once the underlying concern has been addressed.
-
-The pull request is ready to merge once review conversations are resolved and required checks pass.
-
-## Commit Messages
-
-Consistent commit messages, written in a shared format, improve project history and clarify the intent behind each change.
-
-Follow the format `<type>(<scope>): <description>` for every commit, matching `<type>` to the kind of change:
-
-- A new feature uses `feat`.
-- A bug fix uses `fix`.
-- A dependency change uses `deps`.
-- Maintenance, documentation, refactors, tests, and CI changes use `chore`, `docs`, `refactor`, `test`, or `ci`.
-- A breaking change uses `feat!` or a `BREAKING CHANGE:` footer.
-- Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes.
-
-> 📝 **Note:** Pull request titles follow the same format, since they become the squash merge commit message.
-
-A well-formatted commit message helps reviewers and future contributors understand why a change was made.
-
 ## Issue Reporting
 
 Clear issue reports make it easier to reproduce problems, discuss improvements, and track future work.
@@ -168,7 +184,7 @@ Select the template that matches the issue before submitting a report:
 - Unexpected behaviour or defects use the Bug Report template.
 - New features or improvements use the Feature Request template.
 - Requests for help or clarification use the Question template.
-- Duplicate reports are avoided by searching existing issues and checking the README and documentation first.
+- Avoid duplicate reports by searching existing issues and checking the README and documentation first.
 
 > 💡 **Tip:** GitHub shows the matching template automatically once an issue category is selected.
 
