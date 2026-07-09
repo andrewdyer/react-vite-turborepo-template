@@ -113,15 +113,32 @@ Formatted and linted code passes CI checks without additional review comments on
 
 Keeping work isolated in focused branches makes reviews easier and reduces the risk of unrelated changes being introduced.
 
+Branch off the appropriate branch into a new feature branch:
+
+- Bug fixes should be sent to the latest stable branch.
+- Minor features that are fully backwards compatible with the current release may be sent to the latest stable branch.
+- Major features should always be sent to the `main` branch, which contains the upcoming release.
+
 Create and submit a branch for each change in order:
 
 1. Create a feature branch for each change with `git checkout -b feature/your-feature-name`.
-2. Push the branch once changes are ready with `git push origin feature/your-feature-name`.
-3. Open a pull request with a title and description that clearly explain the change — see [Commit Messages](#commit-messages) for the title format.
+2. Commit your changes with a message — see [Commit Messages](#commit-messages).
+3. Push the branch once changes are ready with `git push origin feature/your-feature-name`.
+4. Open a pull request with a title and description that clearly explain the change — see [Commit Messages](#commit-messages) for the title format.
+
+Focused branches and clear pull requests make changes easier to review, test, and merge safely.
 
 > 💡 **Tip:** GitHub pre-fills the description from the repository's single pull request template, ready to complete before submitting.
 
-Focused branches and clear pull requests make changes easier to review, test, and merge safely.
+The review process continues until the change is ready to merge:
+
+- Review feedback carefully and suggest improvements or alternatives when needed.
+- Apply requested changes in follow-up commits instead of overwriting or squashing history; the merge will be squashed later.
+- Keep the branch up to date with the target branch if new commits land while review is in progress.
+- Re-request review after the requested changes are in place.
+- Resolve review conversations once the underlying concern has been addressed.
+
+A clear review process helps keep feedback traceable and makes approval easier.
 
 ## Commit Messages
 
