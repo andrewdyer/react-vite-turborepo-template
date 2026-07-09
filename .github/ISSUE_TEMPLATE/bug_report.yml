@@ -1,7 +1,7 @@
-name: "Bug report"
-description: "Report an issue or unexpected behavior."
-title: "[Bug]: "
-labels: ["bug"]
+name: 'Bug report'
+description: 'Report an issue or unexpected behaviour.'
+title: '[Bug]: '
+labels: ['bug']
 body:
   - type: markdown
     attributes:
@@ -12,17 +12,17 @@ body:
   - type: input
     id: summary
     attributes:
-      label: "Summary"
-      description: "Briefly describe the issue."
-      placeholder: "Unexpected behavior when..."
+      label: 'Summary'
+      description: 'Briefly describe the issue.'
+      placeholder: 'Unexpected behaviour when...'
     validations:
       required: true
 
   - type: textarea
     id: steps
     attributes:
-      label: "Steps to reproduce"
-      description: "Step-by-step instructions to reproduce the issue."
+      label: 'Steps to reproduce'
+      description: 'Step-by-step instructions to reproduce the issue.'
       placeholder: |
         1. Step one
         2. Step two
@@ -33,26 +33,26 @@ body:
   - type: textarea
     id: expected
     attributes:
-      label: "Expected result"
-      description: "Describe what you expected to happen."
-      placeholder: "The expected behavior is..."
+      label: 'Expected result'
+      description: 'Describe what you expected to happen.'
+      placeholder: 'The expected behaviour is...'
     validations:
       required: true
 
   - type: textarea
     id: actual
     attributes:
-      label: "Actual result"
-      description: "Describe what actually happened."
-      placeholder: "Instead, the observed behavior is..."
+      label: 'Actual result'
+      description: 'Describe what actually happened.'
+      placeholder: 'Instead, the observed behaviour is...'
     validations:
       required: true
 
   - type: textarea
     id: environment
     attributes:
-      label: "Environment details"
-      description: "Include relevant environment information."
+      label: 'Environment details'
+      description: 'Include relevant environment information.'
       placeholder: |
         OS: 
         Runtime version: 
@@ -64,12 +64,12 @@ body:
   - type: textarea
     id: logs
     attributes:
-      label: "Logs or console output"
-      description: "Paste any relevant logs or error messages."
-      render: "shell"
+      label: 'Logs or console output'
+      description: 'Paste any relevant logs or error messages.'
+      render: 'shell'
 
   - type: textarea
     id: additional
     attributes:
-      label: "Additional context"
-      description: "Add any other relevant information or screenshots."
+      label: 'Additional context'
+      description: 'Add any other relevant information or screenshots.'
