@@ -27,7 +27,7 @@ This repository is a monorepo managed with [Turborepo](https://turbo.build/repo)
 
 > 📝 **Note:** Unless a section says otherwise, run the commands in this guide from the repository root.
 
-This approach keeps command usage predictable while still allowing contributors to focus work on a single workspace when needed.
+Every command in this guide can be run with confidence about which workspace it affects.
 
 ## Development Setup
 
@@ -40,7 +40,9 @@ Prepare the project for local development after cloning the repository:
 3. Build the project so shared packages are available — see [Building](#building).
 4. Start the development server with `pnpm dev`.
 
-Turborepo runs these tasks in dependency order, using caching and parallel execution to keep setup fast.
+> 📝 **Note:** Turborepo runs these tasks in dependency order, using caching and parallel execution to keep setup fast.
+
+A running development server confirms the environment is ready for local changes.
 
 ## Dependency Management
 
@@ -76,9 +78,9 @@ Generate and review build output with the following commands:
 - Build all projects in the monorepo with `pnpm build`.
 - Preview a production build locally with `pnpm preview`.
 
-> 💡 **Note:** A successful build is required before local development, since apps depend on the built output of shared packages.
+> 📝 **Note:** A successful build is required before local development, since apps depend on the built output of shared packages.
 
-Successful build output shows the project is ready for local development and production-oriented validation.
+A successful build confirms the project is ready for local development and further validation.
 
 ## Testing
 
@@ -126,7 +128,7 @@ Create and submit a branch for each change in order:
 3. Push the branch once changes are ready with `git push origin feature/your-feature-name`.
 4. Open a pull request with a title and description that clearly explain the change — see [Commit Messages](#commit-messages) for the title format.
 
-Focused branches and clear pull requests make changes easier to review, test, and merge safely.
+An open pull request signals the change is ready for review.
 
 > 💡 **Tip:** GitHub pre-fills the description from the repository's single pull request template, ready to complete before submitting.
 
@@ -138,7 +140,7 @@ The review process continues until the change is ready to merge:
 - Re-request review after the requested changes are in place.
 - Resolve review conversations once the underlying concern has been addressed.
 
-A clear review process helps keep feedback traceable and makes approval easier.
+The pull request is ready to merge once review conversations are resolved and required checks pass.
 
 ## Commit Messages
 
@@ -153,9 +155,9 @@ Follow the format `<type>(<scope>): <description>` for every commit, matching `<
 - A breaking change uses `feat!` or a `BREAKING CHANGE:` footer.
 - Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes.
 
-> 💡 **Note:** Pull request titles follow the same format, since they become the squash merge commit message.
+> 📝 **Note:** Pull request titles follow the same format, since they become the squash merge commit message.
 
-Following this format keeps release automation predictable and makes project history easier to scan.
+A well-formatted commit message helps reviewers and future contributors understand why a change was made.
 
 ## Issue Reporting
 
@@ -170,4 +172,4 @@ Select the template that matches the issue before submitting a report:
 
 > 💡 **Tip:** GitHub shows the matching template automatically once an issue category is selected.
 
-Using the right template and enough detail helps maintainers triage, reproduce, and respond more efficiently.
+A complete, well-templated report helps maintainers triage and respond quickly.
