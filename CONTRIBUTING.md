@@ -27,7 +27,7 @@ Understanding how workspaces are organised helps you run commands efficiently an
 
 This repository is a monorepo managed with [Turborepo](https://turbo.build/repo) and [pnpm Workspaces](https://pnpm.io/workspaces). Commands run from the repository root apply across all **apps** and **packages** by default, but you can target a specific workspace with the `--filter <workspace>` flag.
 
-> 📝 **Note:** Unless a section says otherwise, run the commands in this guide from the repository root.
+> **Note:** Unless a section says otherwise, run the commands in this guide from the repository root.
 
 ## Development Setup
 
@@ -40,7 +40,7 @@ Prepare the project for local development after cloning the repository:
 3. Build the project so shared packages are available — see [Building](#building).
 4. Start the development server with `pnpm dev`.
 
-> 📝 **Note:** Turborepo runs these tasks in dependency order, using caching and parallel execution to keep setup fast.
+> **Note:** Turborepo runs these tasks in dependency order, using caching and parallel execution to keep setup fast.
 
 A running development server confirms the environment is ready for local changes.
 
@@ -67,7 +67,7 @@ Create and submit a branch for each change in order:
 
 An open pull request signals the change is ready for review.
 
-> 💡 **Tip:** GitHub pre-fills the description from the repository's single pull request template, ready to complete before submitting.
+> **Tip:** GitHub pre-fills the description from the repository's single pull request template, ready to complete before submitting.
 
 The review process continues until the change is ready to merge:
 
@@ -100,7 +100,7 @@ Generate production assets with the following commands:
 - Build all projects in the monorepo with `pnpm build`.
 - Preview a production build locally with `pnpm preview`.
 
-> 📝 **Note:** A successful build is required before local development, since apps depend on the built output of shared packages.
+> **Note:** A successful build is required before local development, since apps depend on the built output of shared packages.
 
 A successful build confirms the project is ready for local development and further validation.
 
@@ -138,7 +138,7 @@ Choose the commit type that best matches the change:
 
 Use the scope to identify the affected workspace under `apps/` or `packages/`. Omit the scope for repository-wide changes.
 
-> 📝 **Note:** Pull request titles follow the same format, since they become the squash merge commit message.
+> **Note:** Pull request titles follow the same format, since they become the squash merge commit message.
 
 A well-formatted commit message helps reviewers and future contributors understand why a change was made.
 
@@ -189,6 +189,6 @@ Select the template that matches the issue before submitting a report:
 - Requests for help or clarification use the Question template.
 - Avoid duplicate reports by searching existing issues and checking the README and documentation first.
 
-> 💡 **Tip:** GitHub shows the matching template automatically once an issue category is selected.
+> **Tip:** GitHub shows the matching template automatically once an issue category is selected.
 
 A complete, well-templated report helps maintainers triage and respond quickly.
