@@ -132,9 +132,15 @@ Choose the commit type that best matches the change:
 - A bug fix uses `fix`.
 - A dependency change uses `deps`.
 - Maintenance, documentation, refactors, tests, and CI changes use `chore`, `docs`, `refactor`, `test`, or `ci`.
-- A breaking change uses `feat!` or a `BREAKING CHANGE:` footer.
+- A breaking change should use `feat!` or include a `BREAKING CHANGE:` footer.
 
 Use the scope to identify the affected workspace under `apps/` or `packages/`. Omit the scope for repository-wide changes.
+
+Commit descriptions are required, and they must:
+
+- Use lowercase text.
+- Be concise and written in the imperative style.
+- Keep commit message body lines under 100 characters.
 
 > **Note:** Pull request titles follow the same format, since they become the squash merge commit message.
 
