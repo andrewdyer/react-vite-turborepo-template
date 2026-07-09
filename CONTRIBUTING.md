@@ -126,14 +126,17 @@ Passing tests confirm changes behave as intended and are ready for review.
 
 Consistent commit messages, written in a shared format, improve project history and clarify the intent behind each change.
 
-Follow the format `<type>(<scope>): <description>` for every commit, matching `<type>` to the kind of change:
+Follow the format `<type>(<scope>): <description>` for every commit.
+
+Choose the commit type that best matches the change:
 
 - A new feature uses `feat`.
 - A bug fix uses `fix`.
 - A dependency change uses `deps`.
 - Maintenance, documentation, refactors, tests, and CI changes use `chore`, `docs`, `refactor`, `test`, or `ci`.
 - A breaking change uses `feat!` or a `BREAKING CHANGE:` footer.
-- Scope is the affected workspace under `apps/` or `packages/`, omitted for repo-wide changes.
+
+Use the scope to identify the affected workspace under `apps/` or `packages/`. Omit the scope for repository-wide changes.
 
 > 📝 **Note:** Pull request titles follow the same format, since they become the squash merge commit message.
 
