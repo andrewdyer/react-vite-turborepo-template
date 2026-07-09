@@ -33,7 +33,7 @@ repo/
 │
 ├── package.json               # Root workspace configuration
 ├── turbo.json                 # Turborepo configuration
-└── pnpm-workspace.yaml        # PNPM workspace definition
+└── pnpm-workspace.yaml        # pnpm workspace definition
 ```
 
 All applications and packages utilise shared [ESLint](./packages/eslint-config/README.md) and [TypeScript](./packages/typescript-config/README.md) configurations to ensure consistency across the monorepo, with each workspace designed for specific functionality and seamless integration:
@@ -74,6 +74,10 @@ Essential development tools configured at the root for consistency and automatio
 - [GitHub Actions](https://github.com/features/actions) for CI/CD, covering testing on pull requests, automated releasing, publishing packages and images, and deployment workflow templates that require project-specific configuration.
 
 Together, these tools create a fast, reliable, and maintainable developer experience across every workspace.
+
+## Documentation
+
+Learn about setup, workspaces, workflows, and more in the [official React + Vite + Turborepo Template docs](https://docs.dyerlabs.co.uk/templates/react-vite-turborepo-template/introduction).
 
 ## Getting Started
 
