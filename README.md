@@ -86,4 +86,3 @@ If you like what you've seen so far and think this setup fits your needs, you ca
 ## License
 
 This template is licensed under the [MIT license](https://opensource.org/licenses/MIT) and is free for private or commercial projects.
-# test
