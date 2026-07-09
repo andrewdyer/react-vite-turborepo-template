@@ -61,7 +61,7 @@ Choose the appropriate target branch before creating a feature branch:
 Create and submit a branch for each change in order:
 
 1. Create a feature branch for each change with `git checkout -b feature/your-feature-name`.
-2. Commit your changes with a message — see [Committing](#committing).
+2. Complete the change, then build, test, and commit it — see [Coding](#coding), [Building](#building), [Testing](#testing), and [Committing](#committing).
 3. Push the branch once changes are ready with `git push origin feature/your-feature-name`.
 4. Open a pull request with a title and description that clearly explain the change — see [Committing](#committing) for the title format.
 
