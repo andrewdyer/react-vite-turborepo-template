@@ -124,23 +124,47 @@ Passing tests confirm changes behave as intended and are ready for review.
 
 Consistent commit messages, written in a shared format, improve project history and clarify the intent behind each change.
 
-Follow the format `<type>(<scope>): <description>` for every commit.
+Follow the format below for every commit:
 
-Choose the commit type that best matches the change:
+```text
+<type>(<scope>): <description>
+
+<body>
+
+[optional footer]
+```
+
+The subject line summarises the change and must:
+
+**Use a valid commit type.**
 
 - A new feature uses `feat`.
 - A bug fix uses `fix`.
 - A dependency change uses `deps`.
 - Maintenance, documentation, refactors, tests, and CI changes use `chore`, `docs`, `refactor`, `test`, or `ci`.
-- A breaking change should use `feat!` or include a `BREAKING CHANGE:` footer.
 
-Use the scope to identify the affected workspace under `apps/` or `packages/`. Omit the scope for repository-wide changes.
+**Use the scope to identify the affected workspace under `apps/` or `packages/`.**
 
-Commit descriptions are required, and they must:
+> Tip: Omit the scope for repository-wide changes.
+
+**Have a clear description.**
 
 - Use lowercase text.
-- Be concise and written in the imperative style.
-- Keep commit message body lines under 100 characters.
+- Be written in the imperative style (for example, `add feature` instead of `added feature`).
+- Be concise and specific enough to understand the change at a glance.
+- Do not end with a full stop.
+- Keep the subject line under 72 characters.
+
+The body provides additional context about the change and should:
+
+- Explain what changed and why.
+- Include relevant context that helps reviewers understand the decision without reading the diff.
+- Keep lines under 100 characters.
+- Use paragraphs rather than lists or headers.
+
+The footer is optional and is used for additional metadata, such as breaking changes.
+
+- A breaking change should use `!` after the type (for example, `feat!`) or include a `BREAKING CHANGE:` footer.
 
 > **Note:** Pull request titles follow the same format, since they become the squash merge commit message.
 

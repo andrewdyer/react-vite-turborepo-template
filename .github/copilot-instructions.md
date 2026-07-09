@@ -8,7 +8,7 @@ This file provides repository-specific guidance for GitHub Copilot. Instructions
 
 Generate commit messages following the [Conventional Commits](https://www.conventionalcommits.org/) format used in this repository. Commit messages directly drive the automated release process — Release Please reads them to determine which workspaces to release and what version bump to apply — so accuracy matters.
 
-### Format
+Follow the format below for every commit:
 
 ```text
 <type>(<scope>): <description>
@@ -18,9 +18,9 @@ Generate commit messages following the [Conventional Commits](https://www.conven
 [optional footer]
 ```
 
-The subject line is a short, focused summary. A body is recommended for non-trivial changes to explain what changed, why it changed, and any relevant context that helps a reader understand the change without reading the diff.
+The subject line summarises the change and must:
 
-### Types
+**Use a valid commit type.**
 
 | Type       | Description                                 | Version Bump |
 | ---------- | ------------------------------------------- | ------------ |
@@ -33,17 +33,28 @@ The subject line is a short, focused summary. A body is recommended for non-triv
 | `test`     | Adding or updating tests                    | None         |
 | `ci`       | Changes to CI/CD workflows or configuration | None         |
 
-A breaking change should use `feat!` or include a `BREAKING CHANGE:` footer, resulting in a major version bump.
+**Use the scope to identify the affected workspace under `apps/` or `packages/`.**
 
-### Scope
+Omit the scope for repository-wide changes.
 
-Use the scope to identify the affected workspace under `apps/` or `packages/`. Omit the scope for repository-wide changes.
+**Have a clear description.**
 
-### Rules
+- Use lowercase text in the description.
+- Be written in the imperative style (for example, `add feature` instead of `added feature`).
+- Be concise and specific enough to understand the change at a glance.
+- Do not end with a full stop.
+- Keep the subject line under 72 characters.
 
-- Use lowercase text for the description.
-- Be concise and written in the imperative style.
-- Keep commit message body lines under 100 characters.
+The body provides additional context about the change and should:
+
+- Explain what changed and why.
+- Include relevant context that helps a reader understand the decision without reading the diff.
+- Keep lines under 100 characters.
+- Use paragraphs rather than lists or headers.
+
+The footer is optional and is used for additional metadata, such as breaking changes.
+
+- A breaking change should use `!` after the type (for example, `feat!`) or include a `BREAKING CHANGE:` footer, resulting in a major version bump.
 
 ### Breaking Changes
 
