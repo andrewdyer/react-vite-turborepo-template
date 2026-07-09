@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
 test.describe('App', () => {
@@ -39,5 +40,13 @@ test.describe('App', () => {
     );
 
     await expect(helperText).toBeVisible();
+  });
+
+  test('should have no detectable accessibility violations', async ({
+    page,
+  }) => {
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+
+    expect(accessibilityScanResults.violations).toEqual([]);
   });
 });
