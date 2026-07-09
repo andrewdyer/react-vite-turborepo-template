@@ -10,15 +10,15 @@ Generate commit messages following the [Conventional Commits](https://www.conven
 
 ### Format
 
-```
+```text
 <type>(<scope>): <description>
 
-<body paragraph>
+<body>
 
 [optional footer]
 ```
 
-The subject line is a short, focused summary. The body is a single prose paragraph — no bullet points, no lists — that explains what changed, why it changed, and any relevant context a reader would need to understand the commit without reading the diff. Always include a body unless the change is genuinely trivial (e.g. a one-line dependency version bump).
+The subject line is a short, focused summary. A body is recommended for non-trivial changes to explain what changed, why it changed, and any relevant context that helps a reader understand the change without reading the diff.
 
 ### Types
 
@@ -32,37 +32,24 @@ The subject line is a short, focused summary. The body is a single prose paragra
 | `refactor` | Code restructuring without behaviour change | None         |
 | `test`     | Adding or updating tests                    | None         |
 | `ci`       | Changes to CI/CD workflows or configuration | None         |
-| `build`    | Changes to the build system or dependencies | None         |
 
-For breaking changes, append `!` to the type (e.g. `feat!`) and include a `BREAKING CHANGE:` footer. This triggers a major version bump.
+A breaking change should use `feat!` or include a `BREAKING CHANGE:` footer, resulting in a major version bump.
 
 ### Scope
 
-The scope should reflect the affected workspace. Use the folder name under `apps/` or `packages/`:
-
-- `feat(<workspace>): add new feature`
-- `fix(<workspace>): correct bug or issue`
-- `chore(<workspace>): update configuration or tooling`
-- `docs(<workspace>): update documentation`
-
-Omit the scope only when the change genuinely spans the entire repository, such as root-level config or tooling updates.
+Use the scope to identify the affected workspace under `apps/` or `packages/`. Omit the scope for repository-wide changes.
 
 ### Rules
 
-- Use the imperative mood in the subject line: "add feature" not "added feature"
-- Keep the subject line (type, scope, and description combined) under 72 characters
-- Do not end the subject line with a full stop
-- Keep the subject line specific enough to understand the change at a glance
-- Always follow the subject line with a blank line and then a body paragraph
-- Write the body as a single prose paragraph — no bullet points, no lists, no headers
-- The body should explain what changed, why it changed, and any context that helps a reader understand the decision without reading the diff
-- Wrap body lines at 72 characters
+- Use lowercase text for the description.
+- Be concise and written in the imperative style.
+- Keep commit message body lines under 100 characters.
 
 ### Breaking Changes
 
-Append `!` to the type and include a `BREAKING CHANGE:` footer describing what broke and how consumers should migrate:
+Append `!` to the type or include a `BREAKING CHANGE:` footer describing what broke and how consumers should migrate.
 
-```
+```text
 feat(shared)!: remove legacy theme provider
 
 BREAKING CHANGE: ThemeProviderV1 has been removed. Replace all uses
@@ -72,7 +59,7 @@ instead of wrapping children in a Context.Provider directly.
 
 ### Examples
 
-```
+```text
 feat(web): add user profile page
 
 Introduce a new /profile route that displays the authenticated user's
@@ -81,7 +68,7 @@ is protected by the existing auth guard and falls back to the login
 page if no session is present.
 ```
 
-```
+```text
 fix(shared): prevent Button from submitting forms by default
 
 The Button component was missing an explicit type attribute, causing
@@ -90,14 +77,14 @@ submissions when the button was used inside a form element without a
 submit handler. Setting type="button" as the default resolves this.
 ```
 
-```
+```text
 chore: update pnpm to 10.0.0
 
 Bump the pnpm version across the repository to align with the latest
 stable release. No changes to application code or dependencies.
 ```
 
-```
+```text
 refactor(web): extract API calls into dedicated hooks
 
 Move all data-fetching logic out of page components and into custom
@@ -106,8 +93,8 @@ shared package. This keeps components focused on rendering and makes
 the fetching logic independently testable.
 ```
 
-```
-docs(shared): add usage examples to README
+```text
+docs(shared): add usage examples to readme
 
 Add code examples to the shared package README covering component
 imports, theming, and TypeScript prop types. The existing API reference
@@ -115,7 +102,7 @@ was accurate but lacked practical examples that show how pieces fit
 together in a real application.
 ```
 
-```
+```text
 ci: add pnpm caching to release workflow
 
 Configure the setup-node action in the release workflow to cache the
@@ -123,8 +110,8 @@ pnpm store, reducing install time on repeated runs where dependencies
 have not changed.
 ```
 
-```
-feat(shared)!: replace CSS modules with CSS-in-JS
+```text
+feat(shared)!: replace css modules with css-in-js
 
 Migrate all component styles from CSS modules to a CSS-in-JS approach
 using the sx prop pattern, allowing consumers to customise styles
