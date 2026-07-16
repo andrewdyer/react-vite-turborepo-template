@@ -11,7 +11,8 @@
     "test": "vitest --run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "react": "^18.3.1",

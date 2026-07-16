@@ -24,6 +24,9 @@
     "e2e": {
       "dependsOn": ["^preview"],
       "outputs": []
+    },
+    "typecheck": {
+      "outputs": []
     }
   }
 }
