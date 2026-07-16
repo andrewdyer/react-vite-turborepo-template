@@ -119,7 +119,7 @@ Structure test files consistently for readability and easier maintenance:
 - Define helper functions and constants for mock data.
 - Group focused test cases in `describe` blocks.
 
-Passing type checks and tests confirms changes behave as intended and are ready for review.
+Passing type checks and tests confirm changes behave as intended and are ready for review.
 
 ### Committing
 
