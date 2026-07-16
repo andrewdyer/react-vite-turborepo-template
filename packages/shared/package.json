@@ -23,7 +23,8 @@
     "test": "vitest --run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "typecheck": "tsc -b --noEmit"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

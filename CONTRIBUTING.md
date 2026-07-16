@@ -104,10 +104,11 @@ A successful build confirms the project is ready for local development and furth
 
 ### Testing
 
-Writing tests for new features and changes helps verify changes behave as expected and reduces the chance of regressions reaching other contributors.
+Writing tests and checking static types helps verify changes behave as expected and reduces the chance of regressions reaching other contributors.
 
-Run the test suite before submitting changes:
+Run the validation suite before submitting changes:
 
+- Check static types across the monorepo with `pnpm typecheck`.
 - Execute all tests across the monorepo with `pnpm test`.
 - Check test coverage with `pnpm test:coverage`.
 - Check end-to-end behaviour with `pnpm e2e`.
@@ -118,7 +119,7 @@ Structure test files consistently for readability and easier maintenance:
 - Define helper functions and constants for mock data.
 - Group focused test cases in `describe` blocks.
 
-Passing tests confirm changes behave as intended and are ready for review.
+Passing type checks and tests confirm changes behave as intended and are ready for review.
 
 ### Committing
 
@@ -137,17 +138,17 @@ Follow the format below for every commit:
 The subject line summarises the change and must:
 
 1. **Use a valid commit type.**
-    - A new feature uses `feat`.
-    - A bug fix uses `fix`.
-    - A dependency change uses `deps`.
-    - Maintenance, documentation, refactors, tests, and CI changes use `chore`, `docs`, `refactor`, `test`, or `ci`.
+   - A new feature uses `feat`.
+   - A bug fix uses `fix`.
+   - A dependency change uses `deps`.
+   - Maintenance, documentation, refactors, tests, and CI changes use `chore`, `docs`, `refactor`, `test`, or `ci`.
 2. **Use the scope to identify the affected workspace under `apps/` or `packages/`.**
 3. **Have a clear description.**
-    - Use lowercase text.
-    - Be written in the imperative style (for example, `add feature` instead of `added feature`).
-    - Be concise and specific enough to understand the change at a glance.
-    - Do not end with a full stop.
-    - Keep the subject line under 72 characters.
+   - Use lowercase text.
+   - Be written in the imperative style (for example, `add feature` instead of `added feature`).
+   - Be concise and specific enough to understand the change at a glance.
+   - Do not end with a full stop.
+   - Keep the subject line under 72 characters.
 
 > **Tip:** Omit the scope for repository-wide changes.
 
