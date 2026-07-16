@@ -104,10 +104,11 @@ A successful build confirms the project is ready for local development and furth
 
 ### Testing
 
-Writing tests for new features and changes helps verify changes behave as expected and reduces the chance of regressions reaching other contributors.
+Writing tests and checking static types helps verify changes behave as expected and reduces the chance of regressions reaching other contributors.
 
-Run the test suite before submitting changes:
+Run the validation suite before submitting changes:
 
+- Check static types across the monorepo with `pnpm typecheck`.
 - Execute all tests across the monorepo with `pnpm test`.
 - Check test coverage with `pnpm test:coverage`.
 - Check end-to-end behaviour with `pnpm e2e`.
@@ -118,7 +119,7 @@ Structure test files consistently for readability and easier maintenance:
 - Define helper functions and constants for mock data.
 - Group focused test cases in `describe` blocks.
 
-Passing tests confirm changes behave as intended and are ready for review.
+Passing type checks and tests confirms changes behave as intended and are ready for review.
 
 ### Committing
 
