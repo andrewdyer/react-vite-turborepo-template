@@ -138,17 +138,17 @@ Follow the format below for every commit:
 The subject line summarises the change and must:
 
 1. **Use a valid commit type.**
-    - A new feature uses `feat`.
-    - A bug fix uses `fix`.
-    - A dependency change uses `deps`.
-    - Maintenance, documentation, refactors, tests, and CI changes use `chore`, `docs`, `refactor`, `test`, or `ci`.
+   - A new feature uses `feat`.
+   - A bug fix uses `fix`.
+   - A dependency change uses `deps`.
+   - Maintenance, documentation, refactors, tests, and CI changes use `chore`, `docs`, `refactor`, `test`, or `ci`.
 2. **Use the scope to identify the affected workspace under `apps/` or `packages/`.**
 3. **Have a clear description.**
-    - Use lowercase text.
-    - Be written in the imperative style (for example, `add feature` instead of `added feature`).
-    - Be concise and specific enough to understand the change at a glance.
-    - Do not end with a full stop.
-    - Keep the subject line under 72 characters.
+   - Use lowercase text.
+   - Be written in the imperative style (for example, `add feature` instead of `added feature`).
+   - Be concise and specific enough to understand the change at a glance.
+   - Do not end with a full stop.
+   - Keep the subject line under 72 characters.
 
 > **Tip:** Omit the scope for repository-wide changes.
 
