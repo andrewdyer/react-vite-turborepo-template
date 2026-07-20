@@ -4,48 +4,53 @@ on:
   workflow_dispatch:
     inputs:
       app:
-        description: App to roll back (e.g. "web")
+        description: App to roll back
         required: true
-        type: string
+        type: choice
+        options:
+          - web
       version:
         description: Version to roll back to (e.g. "1.2.3")
         required: true
         type: string
 
-run-name: '${{ github.event.inputs.app }}@${{ github.event.inputs.version }}'
+run-name: '${{ inputs.app }}@${{ inputs.version }}'
 
 permissions:
   contents: read
 
 jobs:
-  setup:
-    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/rollback.yml@v1
-    with:
-      app: ${{ github.event.inputs.app }}
-      version: ${{ github.event.inputs.version }}
-
   rollback:
     name: Rollback
-    needs: setup
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Rollback app
+      - name: Validate rollback input
+        env:
+          VERSION: ${{ inputs.version }}
         run: |
-          IMAGE="${{ needs.setup.outputs.image }}"
-          VERSION="${{ needs.setup.outputs.version }}"
-
-          if [[ -z "$IMAGE" || -z "$VERSION" ]]; then
-            echo "❌ Missing outputs from setup job (image or version)"
+          if [[ -z "$VERSION" ]]; then
+            echo "❌ Missing rollback input (version)"
             exit 1
           fi
+
+      - name: Rollback app
+        env:
+          APP: ${{ inputs.app }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          REPOSITORY=$(echo "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')
+          IMAGE="ghcr.io/${REPOSITORY}-${APP}"
 
           echo "Rolling back to $IMAGE:$VERSION..."
 
           # TODO: add your rollback logic here.
-          #   IMAGE   — the GHCR image name (e.g. "ghcr.io/dyerlabs/frontend-web")
+          # At this point the following variables are available:
+          #   APP     — the application name (currently "web")
+          #   IMAGE   — the GHCR image name
           #   VERSION — the version to roll back to (e.g. "1.2.3")
           echo "❌ Rollback logic not yet implemented"
           exit 1
