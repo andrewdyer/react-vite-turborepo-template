@@ -10,35 +10,38 @@ permissions:
   contents: read
 
 jobs:
-  setup:
-    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/deploy.yml@v1
-    with:
-      app: ${{ github.event.client_payload.app }}
-      version: ${{ github.event.client_payload.version }}
-
   deploy:
     name: Deploy
-    needs: setup
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy app
+      - name: Validate deployment payload
+        env:
+          APP: ${{ github.event.client_payload.app }}
+          VERSION: ${{ github.event.client_payload.version }}
         run: |
-          IMAGE="${{ needs.setup.outputs.image }}"
-          VERSION="${{ needs.setup.outputs.version }}"
-
-          if [[ -z "$IMAGE" || -z "$VERSION" ]]; then
-            echo "❌ Missing outputs from setup job (image or version)"
+          if [[ -z "$APP" || -z "$VERSION" ]]; then
+            echo "❌ Missing deploy payload (app or version)"
             exit 1
           fi
+
+      - name: Deploy app
+        env:
+          APP: ${{ github.event.client_payload.app }}
+          VERSION: ${{ github.event.client_payload.version }}
+        run: |
+          REPOSITORY=$(echo "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')
+          IMAGE="ghcr.io/${REPOSITORY}-${APP}"
 
           echo "Deploying $IMAGE:$VERSION..."
 
           # TODO: add your deployment logic here.
           # At this point the following variables are available:
-          #   IMAGE   — the GHCR image name (e.g. "ghcr.io/dyerlabs/frontend-web")
+          #   APP     — the application name (e.g. "web")
+          #   IMAGE   — the GHCR image name
           #   VERSION — the released version (e.g. "1.2.3")
           echo "❌ Deployment logic not yet implemented"
           exit 1
