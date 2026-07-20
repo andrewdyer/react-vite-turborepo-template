@@ -10,10 +10,119 @@ permissions:
 
 jobs:
   publish:
-    uses: andrewdyer/react-vite-turborepo-workflows/.github/workflows/publish.yml@v1
-    with:
-      tag: ${{ github.ref_name }}
-      scope: '@${{ github.repository_owner }}'
-      dispatch-deploy: true
-    secrets:
-      packages-token: ${{ secrets.PACKAGES_TOKEN }}
+    name: Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.20.0'
+          registry-url: https://npm.pkg.github.com
+          scope: '@${{ github.repository_owner }}'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN || github.token }}
+
+      - name: Resolve release component
+        id: release
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          COMPONENT="${TAG%-v*}"
+          VERSION="${TAG##*-v}"
+
+          MATCHES=$(jq -r --arg component "$COMPONENT" '
+            to_entries[]
+            | select(.key | endswith($component))
+            | .key
+          ' .github/.release-please-manifest.json)
+
+          COUNT=$(echo "$MATCHES" | sed '/^$/d' | wc -l | tr -d ' ')
+
+          if [[ "$COUNT" -eq 0 ]]; then
+            echo "❌ No manifest entry found for component: $COMPONENT"
+            exit 1
+          fi
+
+          if [[ "$COUNT" -gt 1 ]]; then
+            echo "❌ Multiple manifest entries found for component: $COMPONENT"
+            echo "$MATCHES"
+            exit 1
+          fi
+
+          echo "component=$COMPONENT" >> "$GITHUB_OUTPUT"
+          echo "path=$MATCHES" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Publish package to GitHub Packages
+        if: startsWith(steps.release.outputs.path, 'packages/')
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN || github.token }}
+          PACKAGE_PATH: ${{ steps.release.outputs.path }}
+        run: |
+          PRIVATE=$(node -p "require('./$PACKAGE_PATH/package.json').private ?? false")
+
+          if [[ "$PRIVATE" == "true" ]]; then
+            echo "Skipping $PACKAGE_PATH (private package)"
+            exit 0
+          fi
+
+          echo "Publishing $PACKAGE_PATH to GitHub Packages..."
+          pnpm --filter "./$PACKAGE_PATH" publish \
+            --no-git-checks \
+            --access restricted
+
+      - name: Login to GitHub Container Registry
+        if: startsWith(steps.release.outputs.path, 'apps/')
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Build and push Docker image
+        if: startsWith(steps.release.outputs.path, 'apps/')
+        env:
+          APP_PATH: ${{ steps.release.outputs.path }}
+          VERSION: ${{ steps.release.outputs.version }}
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN || github.token }}
+        run: |
+          APP=$(basename "$APP_PATH")
+          REPOSITORY=$(echo "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')
+          IMAGE="ghcr.io/${REPOSITORY}-${APP}"
+
+          echo "Building and pushing $IMAGE:$VERSION..."
+
+          TOKEN_FILE=$(mktemp)
+          trap 'rm -f "$TOKEN_FILE"' EXIT
+          printf '%s' "$NODE_AUTH_TOKEN" > "$TOKEN_FILE"
+
+          docker build \
+            --secret id=npm_token,src="$TOKEN_FILE" \
+            --build-arg APP_NAME="$APP" \
+            -f Dockerfile \
+            -t "$IMAGE:$VERSION" \
+            -t "$IMAGE:latest" \
+            .
+
+          docker push "$IMAGE:$VERSION"
+          docker push "$IMAGE:latest"
+
+          echo "Dispatching deploy event for $APP@$VERSION..."
+
+          curl --fail --show-error \
+            -X POST \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/dispatches" \
+            -d "{\"event_type\":\"deploy\",\"client_payload\":{\"app\":\"$APP\",\"version\":\"$VERSION\"}}"
