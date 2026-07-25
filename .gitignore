@@ -12,12 +12,18 @@ lerna-debug.log*
 .env.*
 !.env.example
 !.env.*.example
+.envrc
+.direnv/
 
 ### Dependency directories
 node_modules
+.pnpm-store
 coverage
 dist
 dist-ssr
+build
+.cache
+.vite
 test-results/
 playwright-report/
 blob-report/
