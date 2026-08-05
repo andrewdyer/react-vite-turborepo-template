@@ -44,6 +44,8 @@ Prepare the project for local development after cloning the repository:
 
 A running development server confirms the environment is ready for local changes.
 
+> **Tip:** Run `pnpm start:storybook` to develop and preview components in isolation, where supported.
+
 ## Development Workflow
 
 Moving from a new branch to a reviewable change follows the same sequence for every contribution.
@@ -87,6 +89,7 @@ Write the change with the existing codebase in mind:
 
 - Keep changes limited to the branch's purpose, avoiding unrelated edits.
 - Match existing patterns and conventions already used nearby in the codebase.
+- Add or update Storybook stories alongside UI component changes, where supported.
 - Apply the formatting and linting expectations described in [Coding Standards](#coding-standards) while writing code.
 
 A focused, convention-following change is faster to review and less likely to introduce regressions.
