@@ -99,6 +99,7 @@ Generate production assets with the following commands:
 
 - Build all projects in the monorepo with `pnpm build`.
 - Preview a production build locally with `pnpm preview`.
+- Build the Storybook site with `pnpm build:storybook`.
 
 A successful build confirms the project is ready for local development and further validation.
 
