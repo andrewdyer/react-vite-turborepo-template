@@ -5,6 +5,7 @@ node_modules
 .turbo
 coverage
 dist
+storybook-static
 
 # Test artifacts
 test-results
