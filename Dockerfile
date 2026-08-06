@@ -75,8 +75,8 @@ ARG APP_NAME
 # Copy built static files from the build stage
 COPY --from=build /app/apps/${APP_NAME}/dist /usr/share/nginx/html
 
-# Copy the custom Nginx server configuration for SPA routing
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+# Copy the app's own Nginx server configuration for SPA routing
+COPY apps/${APP_NAME}/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80 for HTTP traffic
 EXPOSE 80
