@@ -28,8 +28,8 @@ repo/
 │
 ├── packages/
 │   ├── eslint-config/         # Shared ESLint configurations
-│   ├── shared/                # Shared React library (components + utilities)
-│   └── typescript-config/     # Shared TypeScript configurations
+│   ├── typescript-config/     # Shared TypeScript configurations
+│   └── ui/                    # Shared React component library
 │
 ├── package.json               # Root workspace configuration
 ├── turbo.json                 # Turborepo configuration
