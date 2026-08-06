@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button } from '@repo/shared/components';
+import { Button } from '@repo/ui/components';
 
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';

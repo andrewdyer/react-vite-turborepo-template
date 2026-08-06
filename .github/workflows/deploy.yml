@@ -41,7 +41,7 @@ jobs:
 
           # TODO: add your deployment logic here.
           # At this point the following variables are available:
-          #   APP     — the app or package-storybook name (e.g. "web" or "shared-storybook")
+          #   APP     — the app or package-storybook name (e.g. "web" or "ui-storybook")
           #   IMAGE   — the GHCR image name
           #   VERSION — the released version (e.g. "1.2.3")
           echo "❌ Deployment logic not yet implemented"

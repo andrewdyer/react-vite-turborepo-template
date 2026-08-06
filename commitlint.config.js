@@ -10,7 +10,7 @@ module.exports = {
     'scope-enum': [
       2,
       'always',
-      ['web', 'web-e2e', 'eslint-config', 'shared', 'typescript-config'],
+      ['web', 'web-e2e', 'eslint-config', 'typescript-config', 'ui'],
     ],
     'scope-empty': [0],
     'subject-empty': [2, 'never'],

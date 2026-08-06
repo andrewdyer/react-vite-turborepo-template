@@ -1,13 +1,13 @@
-# @repo/shared
+# @repo/ui
 
-A shared package for reusable code within the monorepo.
+A shared React component library for the monorepo.
 
 ## Installation
 
-To install `@repo/shared` in a specific app within the monorepo, run:
+To install `@repo/ui` in a specific app within the monorepo, run:
 
 ```bash
-pnpm add @repo/shared --filter <app-package>
+pnpm add @repo/ui --filter <app-package>
 ```
 
 Replace `<app-package>` with the name or path of the app that will use this package.
@@ -22,7 +22,7 @@ To publish this package to GitHub Packages, make the following changes to `packa
 
 ```json
 {
-  "name": "@your-org/shared"
+  "name": "@your-org/ui"
 }
 ```
 

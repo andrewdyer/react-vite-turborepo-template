@@ -21,7 +21,7 @@ export default defineConfig({
         index: 'src/index.ts',
         components: 'src/components/index.ts',
       },
-      name: 'shared',
+      name: 'ui',
       formats: ['es'],
       fileName: (_, entryName) => `${entryName}.js`,
     },
