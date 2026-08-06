@@ -4,11 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       app:
-        description: App to roll back
+        description: App or package Storybook to roll back
         required: true
         type: choice
         options:
           - web
+          - shared-storybook
       version:
         description: Version to roll back to (e.g. "1.2.3")
         required: true
@@ -38,7 +39,7 @@ jobs:
             exit 1
           fi
 
-      - name: Rollback app
+      - name: Rollback target
         env:
           APP: ${{ inputs.app }}
           VERSION: ${{ inputs.version }}
@@ -46,11 +47,11 @@ jobs:
           REPOSITORY=$(echo "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')
           IMAGE="ghcr.io/${REPOSITORY}-${APP}"
 
-          echo "Rolling back to $IMAGE:$VERSION..."
+          echo "⏪ Rolling back to $IMAGE:$VERSION..."
 
           # TODO: add your rollback logic here.
           # At this point the following variables are available:
-          #   APP     — the application name (currently "web")
+          #   APP     — the app or package-storybook name (e.g. "web" or "shared-storybook")
           #   IMAGE   — the GHCR image name
           #   VERSION — the version to roll back to (e.g. "1.2.3")
           echo "❌ Rollback logic not yet implemented"

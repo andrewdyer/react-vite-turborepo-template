@@ -65,8 +65,30 @@ jobs:
           echo "path=$MATCHES" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
+      - name: Check release kind
+        id: kind
+        env:
+          PACKAGE_PATH: ${{ steps.release.outputs.path }}
+        run: |
+          IS_APP=false
+          IS_PACKAGE=false
+          HAS_STORYBOOK=false
+
+          if [[ "$PACKAGE_PATH" == apps/* ]]; then
+            IS_APP=true
+          fi
+
+          if [[ "$PACKAGE_PATH" == packages/* ]]; then
+            IS_PACKAGE=true
+            HAS_STORYBOOK=$(node -p "!!require('./$PACKAGE_PATH/package.json').scripts?.['build:storybook']")
+          fi
+
+          echo "is_app=$IS_APP" >> "$GITHUB_OUTPUT"
+          echo "is_package=$IS_PACKAGE" >> "$GITHUB_OUTPUT"
+          echo "has_storybook=$HAS_STORYBOOK" >> "$GITHUB_OUTPUT"
+
       - name: Publish package to GitHub Packages
-        if: startsWith(steps.release.outputs.path, 'packages/')
+        if: steps.kind.outputs.is_package == 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN || github.token }}
           PACKAGE_PATH: ${{ steps.release.outputs.path }}
@@ -74,35 +96,76 @@ jobs:
           PRIVATE=$(node -p "require('./$PACKAGE_PATH/package.json').private ?? false")
 
           if [[ "$PRIVATE" == "true" ]]; then
-            echo "Skipping $PACKAGE_PATH (private package)"
+            echo "⏭️ Skipping $PACKAGE_PATH (private package)"
             exit 0
           fi
 
-          echo "Publishing $PACKAGE_PATH to GitHub Packages..."
+          echo "📦 Publishing $PACKAGE_PATH to GitHub Packages..."
           pnpm --filter "./$PACKAGE_PATH" publish \
             --no-git-checks \
             --access restricted
 
       - name: Login to GitHub Container Registry
-        if: startsWith(steps.release.outputs.path, 'apps/')
+        if: steps.kind.outputs.has_storybook == 'true' || steps.kind.outputs.is_app == 'true'
         uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
-      - name: Build and push Docker image
-        if: startsWith(steps.release.outputs.path, 'apps/')
+      - name: Build and push Storybook image
+        if: steps.kind.outputs.has_storybook == 'true'
         env:
-          APP_PATH: ${{ steps.release.outputs.path }}
+          PACKAGE_PATH: ${{ steps.release.outputs.path }}
           VERSION: ${{ steps.release.outputs.version }}
           NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN || github.token }}
         run: |
-          APP=$(basename "$APP_PATH")
+          PACKAGE_DIR=$(basename "$PACKAGE_PATH")
+          PACKAGE_NAME=$(node -p "require('./$PACKAGE_PATH/package.json').name")
+          REPOSITORY=$(echo "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')
+          IMAGE="ghcr.io/${REPOSITORY}-${PACKAGE_DIR}-storybook"
+
+          echo "🐳 Building and pushing $IMAGE:$VERSION..."
+
+          TOKEN_FILE=$(mktemp)
+          trap 'rm -f "$TOKEN_FILE"' EXIT
+          printf '%s' "$NODE_AUTH_TOKEN" > "$TOKEN_FILE"
+
+          docker build \
+            --secret id=npm_token,src="$TOKEN_FILE" \
+            --build-arg PACKAGE_NAME="$PACKAGE_NAME" \
+            --build-arg PACKAGE_PATH="$PACKAGE_PATH" \
+            -f Dockerfile.storybook \
+            -t "$IMAGE:$VERSION" \
+            -t "$IMAGE:latest" \
+            .
+
+          docker push "$IMAGE:$VERSION"
+          docker push "$IMAGE:latest"
+
+          STORYBOOK_TARGET="${PACKAGE_DIR}-storybook"
+
+          echo "🚀 Dispatching deploy event for $STORYBOOK_TARGET@$VERSION..."
+
+          curl --fail --show-error \
+            -X POST \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/dispatches" \
+            -d "{\"event_type\":\"deploy\",\"client_payload\":{\"app\":\"$STORYBOOK_TARGET\",\"version\":\"$VERSION\"}}"
+
+      - name: Build and push app image
+        if: steps.kind.outputs.is_app == 'true'
+        env:
+          PACKAGE_PATH: ${{ steps.release.outputs.path }}
+          VERSION: ${{ steps.release.outputs.version }}
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN || github.token }}
+        run: |
+          APP=$(basename "$PACKAGE_PATH")
           REPOSITORY=$(echo "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')
           IMAGE="ghcr.io/${REPOSITORY}-${APP}"
 
-          echo "Building and pushing $IMAGE:$VERSION..."
+          echo "🐳 Building and pushing $IMAGE:$VERSION..."
 
           TOKEN_FILE=$(mktemp)
           trap 'rm -f "$TOKEN_FILE"' EXIT
@@ -119,7 +182,7 @@ jobs:
           docker push "$IMAGE:$VERSION"
           docker push "$IMAGE:latest"
 
-          echo "Dispatching deploy event for $APP@$VERSION..."
+          echo "🚀 Dispatching deploy event for $APP@$VERSION..."
 
           curl --fail --show-error \
             -X POST \
