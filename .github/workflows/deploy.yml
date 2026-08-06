@@ -29,7 +29,7 @@ jobs:
             exit 1
           fi
 
-      - name: Deploy app
+      - name: Deploy target
         env:
           APP: ${{ github.event.client_payload.app }}
           VERSION: ${{ github.event.client_payload.version }}
@@ -37,11 +37,11 @@ jobs:
           REPOSITORY=$(echo "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')
           IMAGE="ghcr.io/${REPOSITORY}-${APP}"
 
-          echo "Deploying $IMAGE:$VERSION..."
+          echo "🚀 Deploying $IMAGE:$VERSION..."
 
           # TODO: add your deployment logic here.
           # At this point the following variables are available:
-          #   APP     — the application name (e.g. "web")
+          #   APP     — the app or package-storybook name (e.g. "web" or "shared-storybook")
           #   IMAGE   — the GHCR image name
           #   VERSION — the released version (e.g. "1.2.3")
           echo "❌ Deployment logic not yet implemented"

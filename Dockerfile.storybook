@@ -18,23 +18,24 @@ RUN npm install -g turbo@2.10.4
 
 # =============================
 # Stage 2 — Prune
-# Reduces the monorepo down to only the selected app and its dependencies
+# Reduces the monorepo down to only the selected package and its dependencies
 # =============================
 FROM base AS prune
 
-# Name of the app to prune
-ARG APP_NAME
+# npm name of the package to prune, e.g. "@repo/shared" - turbo prune
+# requires the package.json "name" field here, not a workspace path
+ARG PACKAGE_NAME
 
 # Copy the entire repo (required for Turbo prune)
 COPY . .
 
-# Prune the repo for the selected app
-RUN turbo prune ${APP_NAME} --docker
+# Prune the repo for the selected package
+RUN turbo prune ${PACKAGE_NAME} --docker
 
 
 # =============================
 # Stage 3 — Build
-# Installs deps and builds the selected app for production
+# Installs deps and builds the selected package's Storybook for production
 # =============================
 FROM base AS build
 
@@ -58,27 +59,29 @@ RUN --mount=type=secret,id=npm_token,required=false \
 # Copy pruned full source code
 COPY --from=prune /app/out/full/ ./
 
-# Name of the app to build
-ARG APP_NAME
+# npm name of the package to build, e.g. "@repo/shared"
+ARG PACKAGE_NAME
 
-# Build the selected app with Turbo
-RUN pnpm exec turbo run build --filter=${APP_NAME}...
+# Build the selected package's Storybook with Turbo
+RUN pnpm exec turbo run build:storybook --filter=${PACKAGE_NAME}
 
 
 # =============================
 # Stage 4 — Runtime
-# Serves the built app using Nginx
+# Serves the built Storybook using Nginx
 # =============================
 FROM nginx:1.31.3-alpine AS runtime
 
-# Name of the app to serve
-ARG APP_NAME
+# Workspace path of the package being served, e.g. "packages/shared" - used
+# to locate the build output and nginx config, since it can differ from
+# PACKAGE_NAME (a scoped npm name isn't a valid filesystem path)
+ARG PACKAGE_PATH
 
-# Copy built static files from the build stage
-COPY --from=build /app/apps/${APP_NAME}/dist /usr/share/nginx/html
+# Copy the built Storybook from the build stage
+COPY --from=build /app/${PACKAGE_PATH}/storybook-static /usr/share/nginx/html
 
-# Copy the app's own Nginx server configuration for SPA routing
-COPY apps/${APP_NAME}/nginx.conf /etc/nginx/conf.d/default.conf
+# Copy the package's own Nginx server configuration
+COPY ${PACKAGE_PATH}/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80 for HTTP traffic
 EXPOSE 80
