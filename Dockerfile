@@ -2,7 +2,7 @@
 # Stage 1 — Base image
 # Provides Node.js, pnpm, and Turbo for all later stages
 # =============================
-FROM node:22.20.0-alpine AS base
+FROM node:24.19.0-alpine AS base
 
 # Set the working directory inside the container
 WORKDIR /app
