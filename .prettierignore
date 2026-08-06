@@ -1,4 +1,12 @@
+# Dependencies
+node_modules
+
+# Build outputs
 .turbo
 coverage
 dist
-node_modules
+storybook-static
+
+# Test artifacts
+test-results
+playwright-report

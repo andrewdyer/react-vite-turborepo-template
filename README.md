@@ -1,4 +1,4 @@
-![React + Vite + Turborepo Template](https://public-assets.andrewdyer.rocks/images/covers/react-vite-turborepo-template.png)
+![React + Vite + Turborepo Template](https://public-assets.dyerlabs.co.uk/images/repos/react-vite-turborepo-template.png)
 
 # React + Vite + Turborepo Template
 
