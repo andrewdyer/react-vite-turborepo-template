@@ -72,7 +72,7 @@ RUN pnpm exec turbo run build:storybook --filter=${PACKAGE_NAME}
 # =============================
 FROM nginx:1.31.3-alpine AS runtime
 
-# Workspace path of the package being served, e.g. "packages/shared" - used
+# Workspace path of the package being served, e.g. "packages/ui" - used
 # to locate the build output and nginx config, since it can differ from
 # PACKAGE_NAME (a scoped npm name isn't a valid filesystem path)
 ARG PACKAGE_PATH
