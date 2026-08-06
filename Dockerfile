@@ -10,8 +10,10 @@ WORKDIR /app
 # Enable corepack so pnpm can be used
 RUN corepack enable
 
-# Install Turbo globally for monorepo tasks
-RUN npm install -g turbo
+# Install Turbo globally for monorepo tasks, pinned to match the version in
+# package.json so this build stays reproducible instead of picking up
+# whatever is newest on npm at build time
+RUN npm install -g turbo@2.10.4
 
 
 # =============================
@@ -67,7 +69,7 @@ RUN pnpm turbo run build --filter=${APP_NAME}...
 # Stage 4 — Runtime
 # Serves the built app using Nginx
 # =============================
-FROM nginx:alpine AS runtime
+FROM nginx:1.31.3-alpine AS runtime
 
 # Name of the app to serve
 ARG APP_NAME
