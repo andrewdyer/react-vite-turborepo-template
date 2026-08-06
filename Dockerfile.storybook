@@ -63,7 +63,7 @@ COPY --from=prune /app/out/full/ ./
 ARG PACKAGE_NAME
 
 # Build the selected package's Storybook with Turbo
-RUN pnpm turbo run build:storybook --filter=${PACKAGE_NAME}
+RUN pnpm exec turbo run build:storybook --filter=${PACKAGE_NAME}
 
 
 # =============================

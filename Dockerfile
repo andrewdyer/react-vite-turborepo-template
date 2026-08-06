@@ -62,7 +62,7 @@ COPY --from=prune /app/out/full/ ./
 ARG APP_NAME
 
 # Build the selected app with Turbo
-RUN pnpm turbo run build --filter=${APP_NAME}...
+RUN pnpm exec turbo run build --filter=${APP_NAME}...
 
 
 # =============================
