@@ -11,11 +11,11 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "^1.62.1",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^24.13.3",
-    "eslint": "^9.39.4",
+    "eslint": "^9.39.5",
     "lint-staged": "^16.4.0",
     "typescript": "~5.9.3"
   },
