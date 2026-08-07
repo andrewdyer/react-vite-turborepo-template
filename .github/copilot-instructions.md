@@ -61,7 +61,7 @@ The footer is optional and is used for additional metadata, such as breaking cha
 Append `!` to the type or include a `BREAKING CHANGE:` footer describing what broke and how consumers should migrate.
 
 ```text
-feat(shared)!: remove legacy theme provider
+feat(ui)!: remove legacy theme provider
 
 BREAKING CHANGE: ThemeProviderV1 has been removed. Replace all uses
 with ThemeProvider from the same package, passing a `theme` prop
@@ -80,7 +80,7 @@ page if no session is present.
 ```
 
 ```text
-fix(shared): prevent Button from submitting forms by default
+fix(ui): prevent Button from submitting forms by default
 
 The Button component was missing an explicit type attribute, causing
 browsers to default to type="submit" and unintentionally trigger form
@@ -100,14 +100,14 @@ refactor(web): extract API calls into dedicated hooks
 
 Move all data-fetching logic out of page components and into custom
 hooks under src/hooks, following the same pattern already used in the
-shared package. This keeps components focused on rendering and makes
+ui package. This keeps components focused on rendering and makes
 the fetching logic independently testable.
 ```
 
 ```text
-docs(shared): add usage examples to readme
+docs(ui): add usage examples to readme
 
-Add code examples to the shared package README covering component
+Add code examples to the ui package README covering component
 imports, theming, and TypeScript prop types. The existing API reference
 was accurate but lacked practical examples that show how pieces fit
 together in a real application.
@@ -122,7 +122,7 @@ have not changed.
 ```
 
 ```text
-feat(shared)!: replace css modules with css-in-js
+feat(ui)!: replace css modules with css-in-js
 
 Migrate all component styles from CSS modules to a CSS-in-JS approach
 using the sx prop pattern, allowing consumers to customise styles

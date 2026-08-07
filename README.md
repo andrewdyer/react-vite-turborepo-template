@@ -28,8 +28,8 @@ repo/
 │
 ├── packages/
 │   ├── eslint-config/         # Shared ESLint configurations
-│   ├── shared/                # Shared React library (components + utilities)
-│   └── typescript-config/     # Shared TypeScript configurations
+│   ├── typescript-config/     # Shared TypeScript configurations
+│   └── ui/                    # Shared React component library
 │
 ├── package.json               # Root workspace configuration
 ├── turbo.json                 # Turborepo configuration
@@ -54,7 +54,7 @@ A comprehensive end-to-end testing suite built with Playwright and TypeScript, e
 - Pre-commit checks with [lint-staged](https://github.com/lint-staged/lint-staged) to maintain code quality.
 - Direct integration with the main web app for seamless testing workflows.
 
-### [packages/shared](./packages/shared/README.md)
+### [packages/ui](./packages/ui/README.md)
 
 A shared React component library built with Vite and TypeScript, providing reusable components and utilities across the monorepo. Key features include:
 
