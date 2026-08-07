@@ -13,7 +13,7 @@ RUN corepack enable
 # Install Turbo globally for monorepo tasks, pinned to match the version in
 # package.json so this build stays reproducible instead of picking up
 # whatever is newest on npm at build time
-RUN npm install -g turbo@2.10.4
+RUN npm install -g turbo@2.10.8
 
 
 # =============================
