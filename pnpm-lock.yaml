@@ -26,6 +26,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@repo/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -39,9 +42,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
       '@testing-library/jest-dom':
         specifier: ^6.9.1
         version: 6.9.1
