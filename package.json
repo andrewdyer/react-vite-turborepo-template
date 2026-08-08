@@ -24,6 +24,6 @@
     "@commitlint/config-conventional": "^21.2.0",
     "husky": "^8.0.3",
     "prettier": "^3.9.6",
-    "turbo": "^2.10.8"
+    "turbo": "2.10.8"
   }
 }

@@ -117,6 +117,8 @@ Run the validation suite before submitting changes:
 - Check test coverage with `pnpm test:coverage`.
 - Check end-to-end behaviour with `pnpm e2e`.
 
+> **Note:** Running the end-to-end tests previews the built app. [Build the app](#building) first — otherwise the preview server has nothing to serve.
+
 Structure test files consistently for readability and easier maintenance:
 
 - Mock dependencies and libraries first.
