@@ -31,7 +31,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'pnpm --filter web preview',
+    command:
+      'pnpm exec turbo run build --filter=web && pnpm --filter web preview',
     url: 'http://localhost:4173',
     reuseExistingServer: !process.env.CI,
   },
