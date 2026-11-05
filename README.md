@@ -12,7 +12,7 @@ This template provides a scalable, modular foundation for frontend web platforms
 
 Before you begin, ensure you have met the following requirements:
 
-- **[Node.js](https://nodejs.org/)**: Version 22.20 or higher is required (as specified in [.nvmrc](.nvmrc)).
+- **[Node.js](https://nodejs.org/)**: Version 24.19.0 is required (as specified in [.nvmrc](.nvmrc)).
 - **[pnpm](https://pnpm.io/)**: Dependency management tool for Node.js.
 - **[Docker](https://www.docker.com/)** (optional): For containerising the application.
 
