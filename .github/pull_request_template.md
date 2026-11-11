@@ -11,7 +11,7 @@
 - [ ] `feat` — new feature (minor version bump)
 - [ ] `fix` — bug fix (patch version bump)
 - [ ] `deps` — dependency update (patch version bump when releasable)
-- [ ] `chore` / `docs` / `refactor` / `test` / `ci` / `build` — no version bump
+- [ ] `chore` / `docs` / `refactor` / `test` / `ci` — no version bump
 - [ ] `feat!` or `BREAKING CHANGE:` — breaking change (major version bump)
 
 ## Related Issue
