@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+/// <reference types="vitest/config" />
 import path from 'path';
 
 import react from '@vitejs/plugin-react-swc';
@@ -23,7 +23,6 @@ export default defineConfig({
     setupFiles: './src/setupTests.ts',
     include: ['src/**/*.{test,spec}.{js,ts,jsx,tsx}'],
     coverage: {
-      all: true,
       include: ['src/**/*.{ts,tsx}'],
       provider: 'v8',
       reporter: ['text', 'lcov', 'html'],
