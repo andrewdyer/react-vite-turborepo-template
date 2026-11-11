@@ -17,6 +17,7 @@ module.exports = [
       turbo,
     },
     rules: {
+      ...jsxA11y.flatConfigs.recommended.rules,
       'turbo/no-undeclared-env-vars': 'warn',
       'import/order': [
         'warn',
