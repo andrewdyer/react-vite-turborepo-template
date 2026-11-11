@@ -1,0 +1,51 @@
+name: PR Title
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, edited, synchronize, reopened]
+
+concurrency:
+  group: pr-title-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  commitlint:
+    name: Lint PR title
+    # Release Please titles its PRs "chore(main): release ...", and "main" is
+    # not a workspace scope.
+    if: ${{ !startsWith(github.head_ref, 'release-please--') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24.19.0'
+          registry-url: https://npm.pkg.github.com
+          scope: '@${{ github.repository_owner }}'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN || github.token }}
+
+      # Squash merges use the PR title as the commit message on main, which
+      # release-please reads to determine which workspaces to release and
+      # what version bump to apply.
+      - name: Lint PR title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: printf '%s\n' "$TITLE" | pnpm exec commitlint --config commitlint.pr-title.config.js

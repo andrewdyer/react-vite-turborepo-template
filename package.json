@@ -16,13 +16,13 @@
     "test": "turbo run test",
     "test:coverage": "turbo run test -- --coverage",
     "e2e": "turbo run e2e",
-    "prepare": "husky install",
+    "prepare": "husky",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
-    "husky": "^8.0.3",
+    "husky": "^9.1.7",
     "prettier": "^3.9.6",
     "turbo": "2.10.8"
   }
