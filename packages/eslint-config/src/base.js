@@ -59,6 +59,14 @@ module.exports = [
     },
   },
   {
-    ignores: ['dist/**', 'node_modules/**'],
+    ignores: [
+      '.turbo/**',
+      'coverage/**',
+      'dist/**',
+      'node_modules/**',
+      'playwright-report/**',
+      'storybook-static/**',
+      'test-results/**',
+    ],
   },
 ];
