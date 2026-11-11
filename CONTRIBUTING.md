@@ -216,7 +216,9 @@ Clear issue reports make it easier to reproduce problems, discuss improvements, 
 Select the template that matches the issue before submitting a report:
 
 - Unexpected behaviour or defects use the Bug Report template.
-- New features or improvements use the Feature Request template.
+- New features or enhancements use the Feature Request template.
+- Changes to existing functionality use the Improvement template.
+- Missing or unclear documentation uses the Documentation template.
 - Requests for help or clarification use the Question template.
 - Avoid duplicate reports by searching existing issues and checking the README and documentation first.
 
