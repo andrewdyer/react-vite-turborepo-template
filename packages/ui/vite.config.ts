@@ -39,6 +39,7 @@ export default defineConfig({
     },
     coverage: {
       all: true,
+      include: ['src/**/*.{ts,tsx}'],
       provider: 'v8',
       reporter: ['text', 'lcov', 'html'],
       reportsDirectory: 'coverage',
@@ -53,6 +54,7 @@ export default defineConfig({
         'src/**/*.d.ts',
         'src/**/index.{js,jsx,ts,tsx}',
         'src/**/*.{test,spec}.{js,jsx,ts,tsx}',
+        'src/**/*.stories.{ts,tsx}',
         'src/**/*.mock.{js,ts}',
         '**/{vite,eslint}.config.{js,ts}',
         'src/setupTests.ts',
