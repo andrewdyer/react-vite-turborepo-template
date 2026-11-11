@@ -48,4 +48,4 @@ jobs:
       - name: Lint PR title
         env:
           TITLE: ${{ github.event.pull_request.title }}
-        run: printf '%s\n' "$TITLE" | pnpm exec commitlint
+        run: printf '%s\n' "$TITLE" | pnpm exec commitlint --config commitlint.pr-title.config.js
