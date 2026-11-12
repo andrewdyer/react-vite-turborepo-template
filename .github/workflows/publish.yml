@@ -87,6 +87,12 @@ jobs:
           echo "is_package=$IS_PACKAGE" >> "$GITHUB_OUTPUT"
           echo "has_storybook=$HAS_STORYBOOK" >> "$GITHUB_OUTPUT"
 
+      - name: Build package
+        if: steps.kind.outputs.is_package == 'true'
+        env:
+          PACKAGE_PATH: ${{ steps.release.outputs.path }}
+        run: pnpm turbo run build --filter "./$PACKAGE_PATH"
+
       - name: Publish package to GitHub Packages
         if: steps.kind.outputs.is_package == 'true'
         env:
